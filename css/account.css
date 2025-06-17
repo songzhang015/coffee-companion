@@ -1,4 +1,7 @@
 /* CSS File for Coffee Companion App - Account Page */
+body {
+    background-color: #6F4E37;
+}
 
 div {
     color: purple;

@@ -1,5 +1,37 @@
 /* CSS File for Coffee Companion App - Index Page */
+body {
+    background-color: #6f4e37;
+    display: flex;
+    justify-content: center;
+}
 
-div {
-    color: purple;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    font-size: 128px;
+    color: #F5F1E9;
+    font-family: "Style Script", sans-serif;
+    display: flex;
+    margin-top: 75px;
+    margin-bottom: 125px;
+}
+
+.start {
+    font-size: 64px;
+}
+
+.tagline {
+    font-size: 64px;
+    color: #F5F1E9;
+    font-family: "Comfortaa", sans-serif;
+    display: flex;
+    margin-top: 100px;
+}
+
+.features {
+    font-size: 32px;
 }
