@@ -7,6 +7,43 @@
     <script src="js/account.js" defer></script>
 </head>
 <body>
-    <div>Hello from Account!</div>
+    <div class="container">
+        <div class="header">Coffee Companion</div>
+
+        <!-- One form to login, one to register -->
+        <form>
+            <div class="email">Email</div>
+            <input type="email" required>
+
+            <div class="password">Password</div>
+            <input type="password" required>
+            <div class="forgot">Forgot Password</div>
+
+            <button class="submit">Login</button>
+            <div class="no-account">Don't have an account?</div>
+            <button>Sign Up</button>
+
+            <div class="or">-- or --</div>
+
+            <button class="guest">Continue As Guest</button>
+        </form>
+
+        <form>
+            <div class="email">Email</div>
+            <input type="email" required>
+
+            <div class="password">Password</div>
+            <input type="password" required>
+
+            <button class="submit">Register</button>
+            <div class="have-account">Already have an account?</div>
+            <button>Login</button>
+
+            <div class="or">-- or --</div>
+
+            <button class="guest">Continue As Guest</button>
+        </form>
+
+    </div>
 </body>
 </html>
