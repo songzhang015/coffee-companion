@@ -1,8 +1,8 @@
 /* CSS File for Coffee Companion App - Home Page */
 body {
-    background-color: #6F4E37;
+    background-color: var(--bg-color);
 }
 
 div {
-    color: purple;
+    color: white;
 }

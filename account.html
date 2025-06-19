@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8" />
     <title>Coffee Companion</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Style+Script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa">
+    <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/account.css">
     <script src="js/account.js" defer></script>
 </head>
 <body>
+    <img src="assets/images/coffee-bean.jpg" class="bg-image"/>
     <div class="container">
         <div class="header">Coffee Companion</div>
 
-        <!-- One form to login, one to register -->
-        <form>
-            <div class="email">Email</div>
-            <input type="email" required>
+        <!-- 1st form to login, 2nd to register -->
+        <form action="test/path" method="post" class="login-form">
+            <label for="email-login">Email</label> <!-- TODO: Use label, not div -->
+            <input type="email" id="email-login" name="email" required> <!-- Make sure for == id -->
+            <!-- The name field is for the backend, so we know what each data represents -->
+            <!-- Like email = request.form['email'] in backend -->
 
-            <div class="password">Password</div>
-            <input type="password" required>
+            <label for="password-login">Password</label>
+            <input type="password" id="password-login" name="password" required>
             <div class="forgot">Forgot Password</div>
 
-            <button class="submit">Login</button>
+            <button type="submit" class="submit">Login</button>
             <div class="no-account">Don't have an account?</div>
-            <button>Sign Up</button>
+            <button class="switch-register-btn">Sign Up</button>
 
             <div class="or">-- or --</div>
 
             <button class="guest">Continue As Guest</button>
         </form>
 
-        <form>
-            <div class="email">Email</div>
-            <input type="email" required>
+        <form action="test/path" method="post" class="register-form" style="display: none">
+            <label for="email-register">Email</label>
+            <input type="email" id="email-register" name="email" required>
 
-            <div class="password">Password</div>
-            <input type="password" required>
+            <label for="password-register">Password</label>
+            <input type="password" id="password-register" name="password" required>
 
-            <button class="submit">Register</button>
+            <button type="submit" class="submit">Register</button>
             <div class="have-account">Already have an account?</div>
-            <button>Login</button>
+            <button class="switch-login-btn">Login</button>
 
             <div class="or">-- or --</div>
 
