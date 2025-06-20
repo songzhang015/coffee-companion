@@ -10,46 +10,54 @@
     <script src="js/account.js" defer></script>
 </head>
 <body>
-    <img src="assets/images/coffee-bean.jpg" class="bg-image"/>
-    <div class="container">
-        <div class="header">Coffee Companion</div>
+    <div class="main-container">
+        <div class="container">
+            <div class="header">Get Started</div>
+            <!-- Login -->
+            <form action="test/path" method="post" class="login-form">
+                <label for="email-login">Email</label> <!-- TODO: Use label, not div -->
+                <input type="email" id="email-login" name="email" required> <!-- Make sure for == id -->
+                <!-- The name field is for the backend, so we know what each data represents -->
+                <!-- Like email = request.form['email'] in backend -->
 
-        <!-- 1st form to login, 2nd to register -->
-        <form action="test/path" method="post" class="login-form">
-            <label for="email-login">Email</label> <!-- TODO: Use label, not div -->
-            <input type="email" id="email-login" name="email" required> <!-- Make sure for == id -->
-            <!-- The name field is for the backend, so we know what each data represents -->
-            <!-- Like email = request.form['email'] in backend -->
+                <label for="password-login">Password</label>
+                <input type="password" id="password-login" name="password" required>
 
-            <label for="password-login">Password</label>
-            <input type="password" id="password-login" name="password" required>
-            <div class="forgot">Forgot Password</div>
+                <button type="submit" class="submit">Login</button>
 
-            <button type="submit" class="submit">Login</button>
-            <div class="no-account">Don't have an account?</div>
-            <button class="switch-register-btn">Sign Up</button>
+                <div class="or">-- or --</div>
 
-            <div class="or">-- or --</div>
+                <button class="guest">Continue As Guest</button>
+            </form>
 
-            <button class="guest">Continue As Guest</button>
-        </form>
+            <!-- Register -->
+            <form action="test/path" method="post" class="register-form" style="display: none">
+                <label for="email-register">Email</label>
+                <input type="email" id="email-register" name="email" required>
 
-        <form action="test/path" method="post" class="register-form" style="display: none">
-            <label for="email-register">Email</label>
-            <input type="email" id="email-register" name="email" required>
+                <label for="password-register">Password</label>
+                <input type="password" id="password-register" name="password" required>
 
-            <label for="password-register">Password</label>
-            <input type="password" id="password-register" name="password" required>
+                <label for="password-register-confirm">Confirm Password</label>
+                <input type="password" id="password-register-confirm" name="password" required>
 
-            <button type="submit" class="submit">Register</button>
-            <div class="have-account">Already have an account?</div>
-            <button class="switch-login-btn">Login</button>
+                <button type="submit" class="submit">Sign Up</button>
+                
+                
 
-            <div class="or">-- or --</div>
+                <div class="or">-- or --</div>
 
-            <button class="guest">Continue As Guest</button>
-        </form>
+                <button class="guest">Continue As Guest</button>
+            </form>
 
+            <div class="footer">
+                <p class="no-account">Don't have an account? <a href="" class="switch-register-btn">Sign Up</a></p>
+                <p class="have-account">Have an account? <a href="" class="switch-login-btn">Login</a></p>
+            </div>
+
+        </div>
+        <img src="assets/images/coffee-bean-2.jpg" class="bg-image"/>
     </div>
+
 </body>
 </html>

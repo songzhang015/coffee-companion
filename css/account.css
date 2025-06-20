@@ -1,29 +1,35 @@
 /* CSS File for Coffee Companion App - Account Page */
 body {
-    background-color: var(--bg-color);
-    display: flex;
-    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
-.bg-image {
-    position: fixed;
-    width: 100vw;
+.main-container {
+    display: flex;
     height: 100vh;
-    filter: blur(6px);
-    opacity: 0.3;
-    z-index: -1;
 }
 
 .container {
-    border-radius: 16px;
-    background-color: rgb(114, 60, 20);
-    margin-top: 256px;
-    width: 20vw;
-    height: 65vh;
+    width: 40%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 128px;
+    background-color: var(--bg-color);
+}
+
+.bg-image {
+    width: 60%;
+    height: 100%;
+}
+
+.header {
+    font-size: 8rem;
+    color: var(--text-white);
+    font-family: "Style Script", sans-serif;
+    display: flex;
+    margin-bottom: 4vh;
+    margin-top: 12vh;
 }
 
 form {
@@ -31,25 +37,32 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    font-size: 24px;
-}
-
-.header {
-    font-size: 64px;
-    color: var(--text-white);
-    font-family: "Style Script", sans-serif;
-    display: flex;
-    margin-top: 32px;
-    margin-bottom: 96px;
 }
 
 button, input {
-    font-size: 24px;
+    font-size: 1.25em;
 }
 
 label[for="email-login"], label[for="password-login"],
-label[for="email-register"], label[for="password-register"] {
+label[for="email-register"], label[for="password-register"], label[for="password-register-confirm"] {
     align-self: flex-start;
+}
+
+.footer {
+    position: fixed;
+    bottom: 16px;
+    left: 32px;
+    font-size: 1rem;
+    color: #a6a6a6;
+}
+
+.switch-login-btn, .switch-register-btn {
+    color: #fff;
+    text-decoration: none;
+}
+
+.switch-login-btn:hover, .switch-register-btn:hover {
+    color: #007bff;
 }
 
 div {

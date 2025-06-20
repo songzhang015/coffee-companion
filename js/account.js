@@ -10,11 +10,11 @@ function showLogin() {
     document.querySelector(".login-form").style.display = "flex";
 }
 
-document.querySelector(".switch-register-btn").addEventListener("click", function(event) {
+document.querySelector(".switch-register-btn").addEventListener("click", (event) => {
     event.preventDefault();
     showRegister();
 });
-document.querySelector(".switch-login-btn").addEventListener("click", function(event) {
+document.querySelector(".switch-login-btn").addEventListener("click", (event) => {
     event.preventDefault();
     showLogin();
 });
