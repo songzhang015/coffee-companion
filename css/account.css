@@ -1,46 +1,60 @@
 /* CSS File for Coffee Companion App - Account Page */
-body {
+* {
     margin: 0;
     padding: 0;
 }
 
 .main-container {
+    background-color: var(--bg-color);
     display: flex;
     height: 100vh;
+    align-items: center;
 }
 
 .container {
     width: 40%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--bg-color);
+    margin-top: -20vh;
 }
 
 .bg-image {
     width: 60%;
     height: 100%;
+    object-fit: cover;
 }
 
 .header {
     font-size: 8rem;
     color: var(--text-white);
     font-family: "Style Script", sans-serif;
-    display: flex;
     margin-bottom: 4vh;
     margin-top: 12vh;
+    text-align: center;
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 1.5rem;
 }
 
-button, input {
-    font-size: 1.25em;
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+input {
+    font-size: 1.25rem;
+}
+
+button {
+    padding: 0.75rem 2rem;
+    font-size: 1.25rem;
+    border-radius: 12px;
 }
 
 label[for="email-login"], label[for="password-login"],
@@ -50,8 +64,8 @@ label[for="email-register"], label[for="password-register"], label[for="password
 
 .footer {
     position: fixed;
-    bottom: 16px;
-    left: 32px;
+    bottom: 2rem;
+    left: 2.5rem;
     font-size: 1rem;
     color: #a6a6a6;
 }
