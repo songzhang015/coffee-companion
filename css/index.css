@@ -60,8 +60,9 @@ body {
     color: #ffc67c;
     display: flex;
     font-family: "Comfortaa", sans-serif;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
     gap: 2rem;
     flex-wrap: wrap;
 }
+
