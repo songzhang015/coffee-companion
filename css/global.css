@@ -1,5 +1,13 @@
 /* CSS File for Coffee Companion App - Global */
 :root {
-    --bg-color: #221308;
-    --text-white: #f5f2ee;
+    --bg-color: #241401;
+    --text-white: white;
 }
+
+/* @font-face {
+    font-family: "frederickathegreat";
+    src: url("../assets/fonts/frederickathegreat.woff2") format("woff2"),
+         url("../assets/fonts/frederickathegreat.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+} */
