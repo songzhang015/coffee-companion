@@ -12,6 +12,7 @@ document.addEventListener("click", (e) => {
 const urlRoute = (event) => {
     event = event || window.event;
     event.preventDefault();
+    window.history.pushState({}, "")
 }
 
 const urlLocationHandler = async () => {
