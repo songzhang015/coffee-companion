@@ -67,11 +67,9 @@ body {
     display: flex;
     font-family: "Comfortaa", sans-serif;
     justify-content: space-evenly;
-
     width: 100%;
     gap: 2rem;
     flex-wrap: wrap;
-    
 }
 
 .feature {
