@@ -4,10 +4,26 @@
     --text-white: white;
 }
 
-/* @font-face {
-    font-family: "frederickathegreat";
-    src: url("../assets/fonts/frederickathegreat.woff2") format("woff2"),
-         url("../assets/fonts/frederickathegreat.woff") format("woff");
+@font-face {
+    font-family: "Comfortaa";
+    src: url("../assets/fonts/comfortaa-regular.woff2") format("woff2"),
+         url("../assets/fonts/comfortaa-regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
-} */
+}
+
+@font-face {
+    font-family: "Style Script";
+    src: url("../assets/fonts/stylescript-regular.woff2") format("woff2"),
+         url("../assets/fonts/stylescript-regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Cabin Sketch";
+    src: url("../assets/fonts/cabinsketch-regular.woff2") format("woff2"),
+         url("../assets/fonts/cabinsketch-regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
