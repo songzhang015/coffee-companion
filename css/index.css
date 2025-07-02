@@ -32,14 +32,14 @@ body {
 }
 
 .header {
-    font-size: 4rem;
+    font-size: clamp(4rem, calc(1rem + 4vw), 5rem);
     color: var(--text-white);
     font-family: "Style Script", sans-serif;
     margin-bottom: 3rem;
 }
 
 .tagline {
-    font-size: 1.5rem;
+    font-size: clamp(1.5rem, calc(1rem + 1.5vw), 1.875rem);
     color: var(--text-white);
     font-family: "Comfortaa", sans-serif;
     display: flex;
@@ -48,7 +48,7 @@ body {
 
 .start {
     padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    font-size: clamp(1rem, calc(1rem + 0.8vw), 1.25rem);
     background-color: #32CD32;
     font-family: "Comfortaa", sans-serif;
     border-radius: 21px;
@@ -64,7 +64,7 @@ body {
 }
 
 .features {
-    font-size: 1.25rem;
+    font-size: clamp(1.25rem, calc(1rem + 1vw), 1.5625rem);
     color: #ffc67c;
     display: flex;
     font-family: "Comfortaa", sans-serif;
@@ -83,8 +83,8 @@ body {
 }
 
 .icon-container {
-    width: 5rem;
-    height: 5rem;
+    width: clamp(5rem, calc(1rem + 5vw), 6.25rem);
+    height: clamp(5rem, calc(1rem + 5vw), 6.25rem);
     background-color: rgb(148, 60, 0);
     border-radius: 50%;
     display: flex;
@@ -103,8 +103,8 @@ body {
 
 .icon {
     filter: brightness(0) invert(1);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: clamp(2.5rem, calc(1rem + 2.5vw), 3.125rem);
+    height: clamp(2.5rem, calc(1rem + 2.5vw), 3.125rem);
 }
 
 
