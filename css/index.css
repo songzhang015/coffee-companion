@@ -32,14 +32,14 @@ body {
 }
 
 .header {
-    font-size: 8rem;
+    font-size: 4rem;
     color: var(--text-white);
     font-family: "Style Script", sans-serif;
     margin-bottom: 3rem;
 }
 
 .tagline {
-    font-size: 3rem;
+    font-size: 1.5rem;
     color: var(--text-white);
     font-family: "Comfortaa", sans-serif;
     display: flex;
@@ -47,15 +47,15 @@ body {
 }
 
 .start {
-    padding: 1.25rem 2.5rem;
-    font-size: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
     background-color: #32CD32;
     font-family: "Comfortaa", sans-serif;
     border-radius: 21px;
     color: var(--text-white);
     margin-bottom: 6rem;
     cursor: pointer;
-    transition: background-color 0.25s ease;
+    transition: background-color 0.2s ease;
     
 }
 
@@ -64,7 +64,7 @@ body {
 }
 
 .features {
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: #ffc67c;
     display: flex;
     font-family: "Comfortaa", sans-serif;
@@ -83,8 +83,8 @@ body {
 }
 
 .icon-container {
-    width: 6.5rem;
-    height: 6.5rem;
+    width: 5rem;
+    height: 5rem;
     background-color: rgb(148, 60, 0);
     border-radius: 50%;
     display: flex;
@@ -103,8 +103,8 @@ body {
 
 .icon {
     filter: brightness(0) invert(1);
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 
