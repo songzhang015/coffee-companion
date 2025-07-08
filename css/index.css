@@ -32,14 +32,14 @@ body {
 }
 
 .header {
-    font-size: clamp(4rem, calc(1rem + 4vw), 5rem);
+    font-size: clamp(4rem, calc(1rem + 4vw), 6rem);
     color: var(--text-white);
     font-family: "Style Script", sans-serif;
-    margin-bottom: 3rem;
+    margin-bottom: clamp(4rem, calc(1rem + 3vw), 6rem);
 }
 
 .tagline {
-    font-size: clamp(1.5rem, calc(1rem + 1.5vw), 1.875rem);
+    font-size: clamp(1.5rem, calc(1rem + 1.5vw), 2rem);
     color: var(--text-white);
     font-family: "Comfortaa", sans-serif;
     display: flex;
