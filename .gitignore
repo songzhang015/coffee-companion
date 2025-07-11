@@ -1,2 +1,4 @@
 layout.png
 .DS_Store
+dist/
+node_modules/

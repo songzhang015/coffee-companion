@@ -1,4 +1,10 @@
 /* JS File for Coffee Companion App - Home Page */
+import "../css/global.css";
+import "../css/home.css";
+import logIcon from "../assets/icons/log.svg";
+import adjustIcon from "../assets/icons/adjust.svg";
+
+import { attachEventListeners } from "./navigation";
 
 const mainContainer = document.querySelector(".main-container");
 
@@ -31,19 +37,12 @@ function initMain() {
 	}
 
 	// Create and append both sections
-	const logSection = createSection(
-		"log-container",
-		"assets/icons/log.svg",
-		"Log"
-	);
-	const adjustSection = createSection(
-		"adjust-container",
-		"assets/icons/adjust.svg",
-		"Adjust"
-	);
+	const logSection = createSection("log-container", logIcon, "Log");
+	const adjustSection = createSection("adjust-container", adjustIcon, "Adjust");
 
 	mainContainer.appendChild(logSection);
 	mainContainer.appendChild(adjustSection);
 }
 
 initMain();
+attachEventListeners();

@@ -1,4 +1,6 @@
 /* JS File for Coffee Companion App - Account Page */
+import "../css/global.css";
+import "../css/account.css";
 
 function showRegister() {
 	document.querySelector(".login-form").style.display = "none";
