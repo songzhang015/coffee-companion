@@ -27,6 +27,25 @@ body {
     gap: 2rem;
 }
 
+.icon-container {
+    width: clamp(6rem, calc(1rem + 10vw), 10rem);
+    height: clamp(6rem, calc(1rem + 10vw), 10rem);
+    background-color: rgb(148, 60, 0);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.25s ease;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    user-select: none;
+    border: 6px solid rgb(69, 30, 0);
+}
+
+.icon-container:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.4);
+}
+
 .icon {
     height: clamp(3rem, calc(1rem + 5vw), 6rem);
     width: clamp(3rem, calc(1rem + 5vw), 6rem);

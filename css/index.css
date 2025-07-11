@@ -83,8 +83,8 @@ body {
 }
 
 .icon-container {
-    width: clamp(5rem, calc(1rem + 5vw), 6.25rem);
-    height: clamp(5rem, calc(1rem + 5vw), 6.25rem);
+    width: clamp(6rem, calc(1rem + 5vw), 6.25rem);
+    height: clamp(6rem, calc(1rem + 5vw), 6.25rem);
     background-color: rgb(148, 60, 0);
     border-radius: 50%;
     display: flex;
