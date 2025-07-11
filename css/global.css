@@ -2,6 +2,7 @@
 :root {
     --bg-color: #241401;
     --text-white: white;
+    --text-beige: #ffc67c;
 }
 
 @font-face {
