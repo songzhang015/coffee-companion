@@ -9,7 +9,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
 }
 
 .main-container {
@@ -29,11 +28,11 @@ body {
 }
 
 .icon {
-    height: 7.5rem;
-    width: 7.5rem;
+    height: clamp(3rem, calc(1rem + 5vw), 6rem);
+    width: clamp(3rem, calc(1rem + 5vw), 6rem);
     filter: brightness(0) invert(1);
 }
 
 .label {
-    font-size: 2.5rem;
+    font-size: clamp(1rem, calc(1rem + 1vw), 2rem);
 }
