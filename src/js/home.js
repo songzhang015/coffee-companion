@@ -6,10 +6,9 @@ import adjustIcon from "../assets/icons/adjust.svg";
 
 import { attachEventListeners } from "./navigation";
 
-const mainContainer = document.querySelector(".main-container");
-
 function initMain() {
-	mainContainer.innerHTML = "";
+	const mainContainer = document.createElement("div");
+	mainContainer.classList.add("main-container");
 
 	// Helper to create a section (log and adjust)
 	function createSection(className, iconSrc, labelText) {
@@ -42,17 +41,51 @@ function initMain() {
 
 	mainContainer.appendChild(logSection);
 	mainContainer.appendChild(adjustSection);
+	document.body.appendChild(mainContainer);
+	attachEventListeners();
 }
 
 function initLogPage() {
-	alert("Log section clicked!");
+	document.body.innerHTML = "";
+
+	const mainContainer = document.createElement("div");
+	mainContainer.classList.add("main-container-log");
+
+	const entryForm = document.createElement("div");
+	entryForm.classList.add("entry-form");
+
+	const recentEntriesTitle = document.createElement("h1");
+	recentEntriesTitle.textContent = "Recent Entries";
+	entryForm.appendChild(recentEntriesTitle);
+
+	const returnButton = document.createElement("button");
+	returnButton.textContent = "<-- Return";
+	entryForm.appendChild(returnButton);
+
+	const entriesContainer = document.createElement("div");
+	entriesContainer.classList.add("entries-container");
+	entryForm.appendChild(entriesContainer);
+
+	// FACTOR OUT INTO NEW FUNCTION
+	const exampleEntryContainer = document.createElement("div");
+	exampleEntryContainer.classList.add("entry-container");
+	entriesContainer.appendChild(exampleEntryContainer);
+
+	const exampleEntryContainer2 = document.createElement("div");
+	exampleEntryContainer2.classList.add("entry-container");
+	entriesContainer.appendChild(exampleEntryContainer2);
+
+	mainContainer.appendChild(entryForm);
+	document.body.appendChild(mainContainer);
 }
 
 function initAdjustPage() {
 	alert("Adjust section clicked!");
 }
 
-initMain();
-attachEventListeners();
+document.addEventListener("DOMContentLoaded", () => {
+	initMain();
+	initLogPage();
+});
 
 export { initLogPage, initAdjustPage };

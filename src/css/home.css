@@ -4,7 +4,6 @@ body {
     background-color: var(--bg-color);
     margin: 0;
     padding: 0;
-    color: var(--text-beige);
     display: grid;
     justify-content: center;
     align-items: center;
@@ -25,6 +24,7 @@ body {
     align-items: center;
     font-family: "Comfortaa", sans-serif;
     gap: 2rem;
+    color: var(--text-beige);
 }
 
 .icon-container {
@@ -57,8 +57,39 @@ body {
 }
 
 /* Log section of homepage */
+.main-container-log {
+    height: 90vh;
+    width: 90vw;
+    background-color: var(--bg-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
 
+.entry-form {
+    height: 85%;
+    width: 95%;
+    background-color: var(--bg-tan);
+    border-radius: 12px;
+    border: 1px solid;
+}
 
+.entries-container {
+    height: 80%;
+    width: 100%;
+    background-color: rgb(255, 217, 217);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.entry-container {
+    height: 10%;
+    width: 95%;
+    background-color: blanchedalmond;
+}
 
 
 

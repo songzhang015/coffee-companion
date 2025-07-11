@@ -1,6 +1,8 @@
 /* CSS File for Coffee Companion App - Global */
 :root {
     --bg-color: #241401;
+    --bg-white: #F2F3F4;
+    --bg-tan: #f7f3e9;
     --text-white: white;
     --text-beige: #ffc67c;
 }
