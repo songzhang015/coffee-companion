@@ -44,5 +44,15 @@ function initMain() {
 	mainContainer.appendChild(adjustSection);
 }
 
+function initLogPage() {
+	alert("Log section clicked!");
+}
+
+function initAdjustPage() {
+	alert("Adjust section clicked!");
+}
+
 initMain();
 attachEventListeners();
+
+export { initLogPage, initAdjustPage };

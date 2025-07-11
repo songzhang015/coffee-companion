@@ -1,4 +1,6 @@
 /* Navigation File for Coffee Companion App to traverse between logging and adjusting brews for homescreen */
+import { initLogPage } from "./home.js";
+import { initAdjustPage } from "./home.js";
 
 function attachEventListeners() {
 	const logSection = document.querySelector(".log-container .icon-container");
@@ -7,16 +9,12 @@ function attachEventListeners() {
 	);
 
 	logSection.addEventListener("click", () => {
-		navigateToLogPage();
+		initLogPage();
 	});
 
 	adjustSection.addEventListener("click", () => {
-		alert("Adjust section clicked!");
+		initAdjustPage();
 	});
-}
-
-function navigateToLogPage() {
-	document.body.innerHTML = "";
 }
 
 export { attachEventListeners };
