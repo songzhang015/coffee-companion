@@ -4,9 +4,8 @@ import "../css/home.css";
 import logIcon from "../assets/icons/log.svg";
 import adjustIcon from "../assets/icons/adjust.svg";
 
-import { attachEventListeners } from "./navigation";
-
 function initMain() {
+	document.body.innerHTML = "";
 	const mainContainer = document.createElement("div");
 	mainContainer.classList.add("main-container");
 
@@ -48,19 +47,29 @@ function initMain() {
 function initLogPage() {
 	document.body.innerHTML = "";
 
+	// Main, white container
 	const mainContainer = document.createElement("div");
 	mainContainer.classList.add("main-container-log");
 
+	// Main form, yellow container
 	const entryForm = document.createElement("div");
 	entryForm.classList.add("entry-form");
 
+	const entriesHeader = document.createElement("div");
+	entriesHeader.classList.add("entries-header");
+
 	const recentEntriesTitle = document.createElement("h1");
 	recentEntriesTitle.textContent = "Recent Entries";
-	entryForm.appendChild(recentEntriesTitle);
+	entriesHeader.appendChild(recentEntriesTitle);
 
 	const returnButton = document.createElement("button");
 	returnButton.textContent = "<-- Return";
-	entryForm.appendChild(returnButton);
+	returnButton.addEventListener("click", () => {
+		initMain();
+	});
+	entriesHeader.appendChild(returnButton);
+
+	entryForm.appendChild(entriesHeader);
 
 	const entriesContainer = document.createElement("div");
 	entriesContainer.classList.add("entries-container");
@@ -71,6 +80,7 @@ function initLogPage() {
 	exampleEntryContainer.classList.add("entry-container");
 	entriesContainer.appendChild(exampleEntryContainer);
 
+	// FACTOR OUT INTO NEW FUNCTION
 	const exampleEntryContainer2 = document.createElement("div");
 	exampleEntryContainer2.classList.add("entry-container");
 	entriesContainer.appendChild(exampleEntryContainer2);
@@ -83,9 +93,24 @@ function initAdjustPage() {
 	alert("Adjust section clicked!");
 }
 
+function attachEventListeners() {
+	const logSection = document.querySelector(".log-container .icon-container");
+	const adjustSection = document.querySelector(
+		".adjust-container .icon-container"
+	);
+
+	logSection.addEventListener("click", () => {
+		initLogPage();
+	});
+
+	adjustSection.addEventListener("click", () => {
+		initAdjustPage();
+	});
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
-	initLogPage();
+	setTimeout(initLogPage, 10);
 });
 
 export { initLogPage, initAdjustPage };

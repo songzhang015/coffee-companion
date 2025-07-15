@@ -75,6 +75,13 @@ body {
     border: 1px solid;
 }
 
+.entries-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5% 0 2.5%;
+}
+
 .entries-container {
     height: 80%;
     width: 100%;
