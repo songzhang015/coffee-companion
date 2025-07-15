@@ -41,7 +41,7 @@ function initMain() {
 	mainContainer.appendChild(logSection);
 	mainContainer.appendChild(adjustSection);
 	document.body.appendChild(mainContainer);
-	attachEventListeners();
+	attachSectionEventListeners();
 }
 
 function initLogPage() {
@@ -59,6 +59,7 @@ function initLogPage() {
 	entriesHeader.classList.add("entries-header");
 
 	const recentEntriesTitle = document.createElement("h1");
+	recentEntriesTitle.classList.add("entries-title");
 	recentEntriesTitle.textContent = "Recent Entries";
 	entriesHeader.appendChild(recentEntriesTitle);
 
@@ -90,24 +91,62 @@ function initLogPage() {
 	newEntryButton.classList.add("add-entries-button");
 	newEntryButton.textContent = "New Entry";
 	entryForm.appendChild(newEntryButton);
+	newEntryButton.addEventListener("click", () => {
+		initNewEntryPage();
+	});
 }
 
-function initAdjustPage() {
-	alert("Adjust section clicked!");
-}
+function initNewEntryPage() {
+	const entryForm = document.querySelector(".entry-form");
 
-function attachEventListeners() {
-	const logSection = document.querySelector(".log-container .icon-container");
-	const adjustSection = document.querySelector(
-		".adjust-container .icon-container"
-	);
+	const entriesContainer = document.querySelector(".entries-container");
+	entriesContainer.innerHTML = "";
 
-	logSection.addEventListener("click", () => {
+	let oldButton = document.querySelector(".add-entries-button");
+	oldButton.remove();
+
+	const title = document.querySelector(".entries-title");
+	title.textContent = "New Entry";
+
+	const entryContainerName = document.createElement("div");
+	entryContainerName.classList.add("new-entry-container");
+
+	const entryContainerDate = document.createElement("div");
+	entryContainerDate.classList.add("new-entry-container");
+
+	const entryTitleName = document.createElement("h2");
+	entryTitleName.textContent = "Entry / Coffee Title";
+	const entryInputName = document.createElement("input");
+	entryInputName.classList.add("entry-input");
+	entryInputName.placeholder = "e.g. Columbian";
+
+	const entryTitleDate = document.createElement("h2");
+	entryTitleDate.textContent = "Date";
+	const entryInputDate = document.createElement("input");
+	entryInputDate.classList.add("entry-input");
+	entryInputDate.placeholder = "e.g. 2004-09-18";
+
+	entryContainerName.append(entryTitleName);
+	entryContainerName.append(entryInputName);
+	entryContainerDate.append(entryTitleDate);
+	entryContainerDate.append(entryInputDate);
+	entriesContainer.append(entryContainerName);
+	entriesContainer.append(entryContainerDate);
+
+	const newEntryButton = document.createElement("button");
+	newEntryButton.classList.add("add-entries-button");
+	newEntryButton.textContent = "Add Journal Entry";
+	entryForm.appendChild(newEntryButton);
+	newEntryButton.addEventListener("click", () => {
 		initLogPage();
 	});
 
-	adjustSection.addEventListener("click", () => {
-		initAdjustPage();
+	const cancelNewEntryButton = document.createElement("button");
+	cancelNewEntryButton.classList.add("add-entries-button");
+	cancelNewEntryButton.textContent = "Cancel";
+	entryForm.appendChild(cancelNewEntryButton);
+	cancelNewEntryButton.addEventListener("click", () => {
+		initLogPage();
 	});
 }
 
@@ -127,6 +166,25 @@ function addEntryToPage(title, date) {
 	entryContainer.appendChild(entryDate);
 
 	container.appendChild(entryContainer);
+}
+
+function initAdjustPage() {
+	alert("Adjust section clicked!");
+}
+
+function attachSectionEventListeners() {
+	const logSection = document.querySelector(".log-container .icon-container");
+	const adjustSection = document.querySelector(
+		".adjust-container .icon-container"
+	);
+
+	logSection.addEventListener("click", () => {
+		initLogPage();
+	});
+
+	adjustSection.addEventListener("click", () => {
+		initAdjustPage();
+	});
 }
 
 document.addEventListener("DOMContentLoaded", () => {

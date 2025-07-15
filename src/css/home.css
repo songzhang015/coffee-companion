@@ -123,6 +123,17 @@ body {
     filter: brightness(90%);
 }
 
+.new-entry-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 4rem 0 4rem;
+
+}
+
+.new-entry-container > h2 {
+    margin: 0;
+    padding: 0;
+}
 
 
 
