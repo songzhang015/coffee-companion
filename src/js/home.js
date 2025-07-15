@@ -69,24 +69,27 @@ function initLogPage() {
 	});
 	entriesHeader.appendChild(returnButton);
 
+	const divider = document.createElement("div");
+	divider.classList.add("divider");
+
 	entryForm.appendChild(entriesHeader);
+	entryForm.appendChild(divider);
 
 	const entriesContainer = document.createElement("div");
 	entriesContainer.classList.add("entries-container");
 	entryForm.appendChild(entriesContainer);
 
-	// FACTOR OUT INTO NEW FUNCTION
-	const exampleEntryContainer = document.createElement("div");
-	exampleEntryContainer.classList.add("entry-container");
-	entriesContainer.appendChild(exampleEntryContainer);
-
-	// FACTOR OUT INTO NEW FUNCTION
-	const exampleEntryContainer2 = document.createElement("div");
-	exampleEntryContainer2.classList.add("entry-container");
-	entriesContainer.appendChild(exampleEntryContainer2);
-
 	mainContainer.appendChild(entryForm);
 	document.body.appendChild(mainContainer);
+
+	addEntryToPage("Googa Coffee", "25/01/15");
+	addEntryToPage("Goomba Coffee", "25/01/16");
+	addEntryToPage("Goota Coffee", "25/01/17");
+
+	const newEntryButton = document.createElement("button");
+	newEntryButton.classList.add("add-entries-button");
+	newEntryButton.textContent = "New Entry";
+	entryForm.appendChild(newEntryButton);
 }
 
 function initAdjustPage() {
@@ -106,6 +109,24 @@ function attachEventListeners() {
 	adjustSection.addEventListener("click", () => {
 		initAdjustPage();
 	});
+}
+
+function addEntryToPage(title, date) {
+	const container = document.querySelector(".entries-container");
+
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("entry-container");
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.textContent = title;
+
+	const entryDate = document.createElement("h2");
+	entryDate.textContent = date;
+
+	entryContainer.appendChild(entryTitle);
+	entryContainer.appendChild(entryDate);
+
+	container.appendChild(entryContainer);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
