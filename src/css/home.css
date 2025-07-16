@@ -127,7 +127,6 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0 4rem 0 4rem;
-
 }
 
 .new-entry-container > h2 {
@@ -135,6 +134,12 @@ body {
     padding: 0;
 }
 
+.entry-selector {
+    width: 25%;
+}
 
+.add-field-button {
+    width: 5rem;
+}
 
 /* Adjust section of homepage */

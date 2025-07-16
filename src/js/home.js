@@ -4,6 +4,16 @@ import "../css/home.css";
 import logIcon from "../assets/icons/log.svg";
 import adjustIcon from "../assets/icons/adjust.svg";
 
+let entries = [];
+const optionalFields = {
+	roastLevel: ["Roast Level", "e.g. Dark Roast"],
+	coffeeAmount: ["Coffee Amount", "e.g. 13g"],
+	waterTemp: ["Water Temperature", "e.g. 212°F"],
+	waterAmount: ["Water Amount", "e.g. 200g"],
+	grindSize: ["Grind Size", "e.g. Medium Fine"],
+	brewTime: ["Brew Time", "e.g. 3 minutes"],
+};
+
 function initMain() {
 	document.body.innerHTML = "";
 	const mainContainer = document.createElement("div");
@@ -83,9 +93,9 @@ function initLogPage() {
 	mainContainer.appendChild(entryForm);
 	document.body.appendChild(mainContainer);
 
-	addEntryToPage("Googa Coffee", "25/01/15");
-	addEntryToPage("Goomba Coffee", "25/01/16");
-	addEntryToPage("Goota Coffee", "25/01/17");
+	entries.forEach((entry) => {
+		addEntryToPage(entry);
+	});
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.classList.add("add-entries-button");
@@ -108,64 +118,153 @@ function initNewEntryPage() {
 	const title = document.querySelector(".entries-title");
 	title.textContent = "New Entry";
 
-	const entryContainerName = document.createElement("div");
-	entryContainerName.classList.add("new-entry-container");
+	const entryContainerOptional = document.createElement("div");
+	entryContainerOptional.classList.add("new-entry-container");
 
-	const entryContainerDate = document.createElement("div");
-	entryContainerDate.classList.add("new-entry-container");
+	const entryOptionalTitle = document.createElement("h2");
+	entryOptionalTitle.textContent = "Add Optional Field:";
 
-	const entryTitleName = document.createElement("h2");
-	entryTitleName.textContent = "Entry / Coffee Title";
-	const entryInputName = document.createElement("input");
-	entryInputName.classList.add("entry-input");
-	entryInputName.placeholder = "e.g. Columbian";
+	const entryOptionalSelector = document.createElement("select");
+	entryOptionalSelector.classList.add("entry-selector");
 
-	const entryTitleDate = document.createElement("h2");
-	entryTitleDate.textContent = "Date";
-	const entryInputDate = document.createElement("input");
-	entryInputDate.classList.add("entry-input");
-	entryInputDate.placeholder = "e.g. 2004-09-18";
+	(function initOptions() {
+		const entryOptionPlaceholder = document.createElement("option");
+		entryOptionPlaceholder.value = "";
+		entryOptionPlaceholder.disabled = true;
+		entryOptionPlaceholder.selected = true;
+		entryOptionPlaceholder.hidden = true;
+		entryOptionPlaceholder.textContent = "-- Select a field --";
+		entryOptionalSelector.append(entryOptionPlaceholder);
 
-	entryContainerName.append(entryTitleName);
-	entryContainerName.append(entryInputName);
-	entryContainerDate.append(entryTitleDate);
-	entryContainerDate.append(entryInputDate);
-	entriesContainer.append(entryContainerName);
-	entriesContainer.append(entryContainerDate);
+		const roastLevel = document.createElement("option");
+		roastLevel.value = "roastLevel";
+		roastLevel.textContent = "Roast Level";
+		entryOptionalSelector.append(roastLevel);
+
+		const coffeeAmount = document.createElement("option");
+		coffeeAmount.value = "coffeeAmount";
+		coffeeAmount.textContent = "Coffee Amount";
+		entryOptionalSelector.append(coffeeAmount);
+
+		const waterTemp = document.createElement("option");
+		waterTemp.value = "waterTemp";
+		waterTemp.textContent = "Water Temperature";
+		entryOptionalSelector.append(waterTemp);
+
+		const waterAmount = document.createElement("option");
+		waterAmount.value = "waterAmount";
+		waterAmount.textContent = "Water Amount";
+		entryOptionalSelector.append(waterAmount);
+
+		const grindSize = document.createElement("option");
+		grindSize.value = "grindSize";
+		grindSize.textContent = "Grind Size";
+		entryOptionalSelector.append(grindSize);
+
+		const brewTime = document.createElement("option");
+		brewTime.value = "brewTime";
+		brewTime.textContent = "Brew Time";
+		entryOptionalSelector.append(brewTime);
+	})();
+
+	entryContainerOptional.append(entryOptionalTitle);
+	entryContainerOptional.append(entryOptionalSelector);
+
+	addNewField("Date:", "e.g. 01/20/2025", "date");
+	addNewField("Entry Title:", "e.g. Columbian", "title");
+
+	const addFieldButton = document.createElement("button");
+	addFieldButton.classList.add("add-field-button");
+	addFieldButton.textContent = "Add Field";
+	entryContainerOptional.append(addFieldButton);
+	addFieldButton.addEventListener("click", () => {
+		const selectedValue = entryOptionalSelector.value;
+		if (selectedValue !== "") {
+			const fieldDetails = optionalFields[selectedValue];
+			addNewField(fieldDetails[0], fieldDetails[1], selectedValue);
+			entryOptionalSelector.selectedOptions[0].remove();
+			entryOptionalSelector.value = "";
+			if (entryOptionalSelector.options.length <= 1) {
+				entryOptionalSelector.style.display = "none";
+				entryOptionalTitle.style.display = "none";
+				addFieldButton.style.display = "none";
+			}
+		}
+	});
+
+	entriesContainer.append(entryContainerOptional);
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.classList.add("add-entries-button");
 	newEntryButton.textContent = "Add Journal Entry";
-	entryForm.appendChild(newEntryButton);
+	entryForm.append(newEntryButton);
 	newEntryButton.addEventListener("click", () => {
+		const entryInputTitle = document.querySelector(".title");
+		const entryInputDate = document.querySelector(".date");
+		createNewEntry(entryInputTitle.value, entryInputDate.value);
 		initLogPage();
 	});
 
 	const cancelNewEntryButton = document.createElement("button");
 	cancelNewEntryButton.classList.add("add-entries-button");
 	cancelNewEntryButton.textContent = "Cancel";
-	entryForm.appendChild(cancelNewEntryButton);
+	entryForm.append(cancelNewEntryButton);
 	cancelNewEntryButton.addEventListener("click", () => {
 		initLogPage();
 	});
 }
 
-function addEntryToPage(title, date) {
+function addNewField(title, placeholder, cls) {
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("new-entry-container");
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.textContent = title;
+	const entryInput = document.createElement("input");
+	entryInput.classList.add("entry-input");
+	entryInput.classList.add(cls);
+	entryInput.placeholder = placeholder;
+
+	entryContainer.append(entryTitle);
+	entryContainer.append(entryInput);
+
+	const entriesContainer = document.querySelector(".entries-container");
+	entriesContainer.insertBefore(
+		entryContainer,
+		entriesContainer.lastElementChild
+	);
+}
+
+function createNewEntry(title, date) {
+	const newEntry = {
+		title: title,
+		date: date,
+		roast: "",
+		coffeeAmount: "",
+		waterTemp: "",
+		waterAmount: "",
+		grindSize: "",
+		brewTime: "",
+	};
+	entries.push(newEntry);
+}
+
+function addEntryToPage(entry) {
 	const container = document.querySelector(".entries-container");
 
 	const entryContainer = document.createElement("div");
 	entryContainer.classList.add("entry-container");
 
 	const entryTitle = document.createElement("h2");
-	entryTitle.textContent = title;
+	entryTitle.textContent = entry.title;
 
 	const entryDate = document.createElement("h2");
-	entryDate.textContent = date;
+	entryDate.textContent = entry.date;
 
-	entryContainer.appendChild(entryTitle);
-	entryContainer.appendChild(entryDate);
+	entryContainer.append(entryTitle);
+	entryContainer.append(entryDate);
 
-	container.appendChild(entryContainer);
+	container.append(entryContainer);
 }
 
 function initAdjustPage() {
@@ -189,7 +288,11 @@ function attachSectionEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
+	createNewEntry("Googa Coffee", "01/20/25");
+	createNewEntry("Goomba Coffee", "02/15/25");
+	createNewEntry("Goota Coffee", "03/25/25");
 	setTimeout(initLogPage, 10);
+	console.log(entries);
 });
 
 export { initLogPage, initAdjustPage };
