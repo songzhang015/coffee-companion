@@ -14,6 +14,17 @@ const optionalFields = {
 	brewTime: ["Brew Time", "e.g. 3 minutes"],
 };
 
+const fieldNames = {
+	title: "Entry Title",
+	date: "Date",
+	roastLevel: "Roast Level",
+	coffeeAmount: "Coffee Amount",
+	waterTemp: "Water Temperature",
+	waterAmount: "Water Amount",
+	grindSize: "Grind Size",
+	brewTime: "Brew Time",
+};
+
 function initMain() {
 	document.body.innerHTML = "";
 	const mainContainer = document.createElement("div");
@@ -108,7 +119,6 @@ function initLogPage() {
 
 function initNewEntryPage() {
 	const entryForm = document.querySelector(".entry-form");
-
 	const entriesContainer = document.querySelector(".entries-container");
 	entriesContainer.innerHTML = "";
 
@@ -201,7 +211,23 @@ function initNewEntryPage() {
 	newEntryButton.addEventListener("click", () => {
 		const entryInputTitle = document.querySelector(".title");
 		const entryInputDate = document.querySelector(".date");
-		createNewEntry(entryInputTitle.value, entryInputDate.value);
+		const entryInputRoastLevel = document.querySelector(".roastLevel");
+		const entryInputCoffeeAmount = document.querySelector(".coffeeAmount");
+		const entryInputWaterTemp = document.querySelector(".waterTemp");
+		const entryInputWaterAmount = document.querySelector(".waterAmount");
+		const entryInputGrindSize = document.querySelector(".grindSize");
+		const entryInputBrewTime = document.querySelector(".brewTime");
+
+		createNewEntry(
+			entryInputTitle?.value ?? "",
+			entryInputDate?.value ?? "",
+			entryInputRoastLevel?.value ?? "",
+			entryInputCoffeeAmount?.value ?? "",
+			entryInputWaterTemp?.value ?? "",
+			entryInputWaterAmount?.value ?? "",
+			entryInputGrindSize?.value ?? "",
+			entryInputBrewTime?.value ?? ""
+		);
 		initLogPage();
 	});
 
@@ -235,16 +261,25 @@ function addNewField(title, placeholder, cls) {
 	);
 }
 
-function createNewEntry(title, date) {
+function createNewEntry(
+	title,
+	date,
+	roastLevel,
+	coffeeAmount,
+	waterTemp,
+	waterAmount,
+	grindSize,
+	brewTime
+) {
 	const newEntry = {
-		title: title,
-		date: date,
-		roast: "",
-		coffeeAmount: "",
-		waterTemp: "",
-		waterAmount: "",
-		grindSize: "",
-		brewTime: "",
+		title,
+		date,
+		roastLevel,
+		coffeeAmount,
+		waterTemp,
+		waterAmount,
+		grindSize,
+		brewTime,
 	};
 	entries.push(newEntry);
 }
@@ -265,7 +300,48 @@ function addEntryToPage(entry) {
 	entryContainer.append(entryDate);
 
 	container.append(entryContainer);
+	entryContainer.addEventListener("click", () => {
+		viewEntry(entry);
+	});
 }
+
+function viewEntry(entry) {
+	const entryForm = document.querySelector(".entry-form");
+	const entriesContainer = document.querySelector(".entries-container");
+	entriesContainer.innerHTML = "";
+
+	let oldButton = document.querySelector(".add-entries-button");
+
+	oldButton.remove();
+
+	const title = document.querySelector(".entries-title");
+	title.textContent = "View Entry";
+
+	for (const field in entry) {
+		const fieldValue = entry[field];
+		if (fieldValue !== "") {
+			viewEntryAddField(entry, field);
+		}
+	}
+}
+
+function viewEntryAddField(entry, field) {
+	const mainContainer = document.querySelector(".entries-container");
+
+	const container = document.createElement("div");
+	container.classList.add("view-entry-container");
+
+	const title = document.createElement("h2");
+	title.textContent = fieldNames[field];
+
+	const body = document.createElement("p");
+	body.textContent = entry[field];
+
+	container.append(title, body);
+	mainContainer.append(container);
+}
+
+//
 
 function initAdjustPage() {
 	alert("Adjust section clicked!");
