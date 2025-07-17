@@ -262,14 +262,14 @@ function addNewField(title, placeholder, cls) {
 }
 
 function createNewEntry(
-	title,
-	date,
-	roastLevel,
-	coffeeAmount,
-	waterTemp,
-	waterAmount,
-	grindSize,
-	brewTime
+	title = "",
+	date = "",
+	roastLevel = "",
+	coffeeAmount = "",
+	waterTemp = "",
+	waterAmount = "",
+	grindSize = "",
+	brewTime = ""
 ) {
 	const newEntry = {
 		title,
