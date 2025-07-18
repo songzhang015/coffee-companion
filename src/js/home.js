@@ -86,7 +86,7 @@ function initLogPage() {
 
 	const returnButton = document.createElement("button");
 	returnButton.classList.add("return-button");
-	returnButton.textContent = "<-- Return";
+	returnButton.textContent = "← Go Back";
 	returnButton.addEventListener("click", () => {
 		initMain();
 	});
@@ -162,7 +162,6 @@ function initNewEntryPage() {
 		fieldCount++;
 	}
 
-
 	addNewField("Entry Title:", "e.g. Columbian", "title");
 	addNewField("Date:", "e.g. 01/20/2025", "date");
 	for (const field in optionalFields) {
@@ -197,10 +196,12 @@ function initNewEntryPage() {
 		initLogPage();
 	});
 
+	const header = document.querySelector(".entries-header");
+
 	const cancelNewEntryButton = document.createElement("button");
-	cancelNewEntryButton.classList.add("add-entries-button");
-	cancelNewEntryButton.textContent = "Cancel";
-	entryForm.append(cancelNewEntryButton);
+	cancelNewEntryButton.classList.add("cancel-entries-button");
+	cancelNewEntryButton.textContent = "×";
+	header.append(cancelNewEntryButton);
 	cancelNewEntryButton.addEventListener("click", () => {
 		initLogPage();
 	});
