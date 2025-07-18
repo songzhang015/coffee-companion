@@ -85,6 +85,7 @@ function initLogPage() {
 	entriesHeader.appendChild(recentEntriesTitle);
 
 	const returnButton = document.createElement("button");
+	returnButton.classList.add("return-button");
 	returnButton.textContent = "<-- Return";
 	returnButton.addEventListener("click", () => {
 		initMain();
@@ -124,6 +125,9 @@ function initNewEntryPage() {
 
 	let oldButton = document.querySelector(".add-entries-button");
 	oldButton.remove();
+
+	let returnButton = document.querySelector(".return-button");
+	returnButton.remove();
 
 	const title = document.querySelector(".entries-title");
 	title.textContent = "New Entry";
@@ -311,22 +315,26 @@ function viewEntry(entry) {
 	entriesContainer.innerHTML = "";
 
 	let oldButton = document.querySelector(".add-entries-button");
-
 	oldButton.remove();
 
+	let returnButton = document.querySelector(".return-button");
+	returnButton.remove();
+
 	const title = document.querySelector(".entries-title");
-	title.textContent = "View Entry";
+	title.textContent = entry.title;
 
 	for (const field in entry) {
-		const fieldValue = entry[field];
-		if (fieldValue !== "") {
-			viewEntryAddField(entry, field);
+		if (field !== "title") {
+			const fieldValue = entry[field];
+			if (fieldValue !== "") {
+				viewEntryAddField(entry, field);
+			}
 		}
 	}
 
 	const cancelNewEntryButton = document.createElement("button");
 	cancelNewEntryButton.classList.add("add-entries-button");
-	cancelNewEntryButton.textContent = "Cancel";
+	cancelNewEntryButton.textContent = "Back to Entries";
 	entryForm.append(cancelNewEntryButton);
 	cancelNewEntryButton.addEventListener("click", () => {
 		initLogPage();
