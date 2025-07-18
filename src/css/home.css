@@ -88,6 +88,27 @@ body {
     margin: 0 4rem 0 4rem;
 }
 
+.return-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 12px;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: black;
+    will-change: transform;
+    color: white;
+}
+
+.return-button:hover {
+    cursor: pointer;
+    box-shadow: none;
+    transform: scale(0.98);
+    background-color: rgb(28, 28, 28)
+}
+
 .entries-container {
     width: 100%;
     display: flex;
@@ -159,6 +180,7 @@ body {
 }
 
 .cancel-entries-button {
+    background-color: transparent;
     color: rgb(255, 157, 0);
     border: none;
     transition: color 0.1s;
