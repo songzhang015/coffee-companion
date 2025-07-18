@@ -6,12 +6,12 @@ import adjustIcon from "../assets/icons/adjust.svg";
 
 let entries = [];
 const optionalFields = {
-	roastLevel: ["Roast Level", "e.g. Dark Roast"],
-	coffeeAmount: ["Coffee Amount", "e.g. 13g"],
-	waterTemp: ["Water Temperature", "e.g. 212°F"],
-	waterAmount: ["Water Amount", "e.g. 200g"],
-	grindSize: ["Grind Size", "e.g. Medium Fine"],
-	brewTime: ["Brew Time", "e.g. 3 minutes"],
+	roastLevel: ["Roast Level", "e.g. Dark Roast (optional)"],
+	coffeeAmount: ["Coffee Amount", "e.g. 13g (optional)"],
+	waterTemp: ["Water Temperature", "e.g. 212°F (optional)"],
+	waterAmount: ["Water Amount", "e.g. 200g (optional)"],
+	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
+	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
 };
 
 const fieldNames = {
@@ -132,81 +132,43 @@ function initNewEntryPage() {
 	const title = document.querySelector(".entries-title");
 	title.textContent = "New Entry";
 
-	const entryContainerOptional = document.createElement("div");
-	entryContainerOptional.classList.add("new-entry-container");
+	let currentRow = null;
+	let fieldCount = 0;
 
-	const entryOptionalTitle = document.createElement("h2");
-	entryOptionalTitle.textContent = "Add Optional Field:";
+	function addNewField(title, placeholder, cls) {
+		const entryContainer = document.createElement("div");
+		entryContainer.classList.add("new-entry-container");
 
-	const entryOptionalSelector = document.createElement("select");
-	entryOptionalSelector.classList.add("entry-selector");
+		const entryTitle = document.createElement("h2");
+		entryTitle.textContent = title;
 
-	(function initOptions() {
-		const entryOptionPlaceholder = document.createElement("option");
-		entryOptionPlaceholder.value = "";
-		entryOptionPlaceholder.disabled = true;
-		entryOptionPlaceholder.selected = true;
-		entryOptionPlaceholder.hidden = true;
-		entryOptionPlaceholder.textContent = "-- Select a field --";
-		entryOptionalSelector.append(entryOptionPlaceholder);
+		const entryInput = document.createElement("input");
+		entryInput.classList.add("entry-input", cls);
+		entryInput.placeholder = placeholder;
 
-		const roastLevel = document.createElement("option");
-		roastLevel.value = "roastLevel";
-		roastLevel.textContent = "Roast Level";
-		entryOptionalSelector.append(roastLevel);
+		entryContainer.append(entryTitle, entryInput);
 
-		const coffeeAmount = document.createElement("option");
-		coffeeAmount.value = "coffeeAmount";
-		coffeeAmount.textContent = "Coffee Amount";
-		entryOptionalSelector.append(coffeeAmount);
+		const entriesContainer = document.querySelector(".entries-container");
 
-		const waterTemp = document.createElement("option");
-		waterTemp.value = "waterTemp";
-		waterTemp.textContent = "Water Temperature";
-		entryOptionalSelector.append(waterTemp);
+		if (!currentRow || fieldCount % 2 === 0) {
+			currentRow = document.createElement("div");
+			currentRow.classList.add("entry-row");
 
-		const waterAmount = document.createElement("option");
-		waterAmount.value = "waterAmount";
-		waterAmount.textContent = "Water Amount";
-		entryOptionalSelector.append(waterAmount);
-
-		const grindSize = document.createElement("option");
-		grindSize.value = "grindSize";
-		grindSize.textContent = "Grind Size";
-		entryOptionalSelector.append(grindSize);
-
-		const brewTime = document.createElement("option");
-		brewTime.value = "brewTime";
-		brewTime.textContent = "Brew Time";
-		entryOptionalSelector.append(brewTime);
-	})();
-
-	entryContainerOptional.append(entryOptionalTitle);
-	entryContainerOptional.append(entryOptionalSelector);
-
-	addNewField("Date:", "e.g. 01/20/2025", "date");
-	addNewField("Entry Title:", "e.g. Columbian", "title");
-
-	const addFieldButton = document.createElement("button");
-	addFieldButton.classList.add("add-field-button");
-	addFieldButton.textContent = "Add Field";
-	entryContainerOptional.append(addFieldButton);
-	addFieldButton.addEventListener("click", () => {
-		const selectedValue = entryOptionalSelector.value;
-		if (selectedValue !== "") {
-			const fieldDetails = optionalFields[selectedValue];
-			addNewField(fieldDetails[0], fieldDetails[1], selectedValue);
-			entryOptionalSelector.selectedOptions[0].remove();
-			entryOptionalSelector.value = "";
-			if (entryOptionalSelector.options.length <= 1) {
-				entryOptionalSelector.style.display = "none";
-				entryOptionalTitle.style.display = "none";
-				addFieldButton.style.display = "none";
-			}
+			const optionalField = document.querySelector(".optional-field-container");
+			entriesContainer.insertBefore(currentRow, optionalField);
 		}
-	});
 
-	entriesContainer.append(entryContainerOptional);
+		currentRow.appendChild(entryContainer);
+		fieldCount++;
+	}
+
+
+	addNewField("Entry Title:", "e.g. Columbian", "title");
+	addNewField("Date:", "e.g. 01/20/2025", "date");
+	for (const field in optionalFields) {
+		const [label, placeholder] = optionalFields[field];
+		addNewField(label, placeholder, field);
+	}
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.classList.add("add-entries-button");
@@ -242,27 +204,6 @@ function initNewEntryPage() {
 	cancelNewEntryButton.addEventListener("click", () => {
 		initLogPage();
 	});
-}
-
-function addNewField(title, placeholder, cls) {
-	const entryContainer = document.createElement("div");
-	entryContainer.classList.add("new-entry-container");
-
-	const entryTitle = document.createElement("h2");
-	entryTitle.textContent = title;
-	const entryInput = document.createElement("input");
-	entryInput.classList.add("entry-input");
-	entryInput.classList.add(cls);
-	entryInput.placeholder = placeholder;
-
-	entryContainer.append(entryTitle);
-	entryContainer.append(entryInput);
-
-	const entriesContainer = document.querySelector(".entries-container");
-	entriesContainer.insertBefore(
-		entryContainer,
-		entriesContainer.lastElementChild
-	);
 }
 
 function createNewEntry(
