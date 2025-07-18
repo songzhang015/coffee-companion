@@ -162,6 +162,20 @@ body {
 	margin-bottom: 1rem;
 }
 
+.entry-input {
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 0.4rem 0.6rem 0.4rem 0.6rem;
+}
+
+.entry-input:hover {
+    background-color: #fcf3d8;
+}
+
+.entry-input:focus {
+    background-color: rgb(252, 224, 153);
+}
+
 .new-entry-container {
 	display: flex;
 	flex-direction: column;

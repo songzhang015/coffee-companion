@@ -3,6 +3,8 @@ import "../css/global.css";
 import "../css/home.css";
 import logIcon from "../assets/icons/log.svg";
 import adjustIcon from "../assets/icons/adjust.svg";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 let entries = [];
 const optionalFields = {
@@ -160,6 +162,13 @@ function initNewEntryPage() {
 
 		currentRow.appendChild(entryContainer);
 		fieldCount++;
+
+		if (cls === "date") {
+			flatpickr(entryInput, {
+				dateFormat: "m/d/Y",
+				allowInput: true
+			});
+		}
 	}
 
 	addNewField("Entry Title:", "e.g. Columbian", "title");
@@ -323,9 +332,9 @@ function attachSectionEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
-	createNewEntry("Googa Coffee", "01/20/25");
-	createNewEntry("Goomba Coffee", "02/15/25");
-	createNewEntry("Goota Coffee", "03/25/25");
+	createNewEntry("Googa Coffee", "01/20/2025");
+	createNewEntry("Goomba Coffee", "02/15/2025");
+	createNewEntry("Goota Coffee", "03/25/2025");
 	setTimeout(initLogPage, 10);
 	console.log(entries);
 });
