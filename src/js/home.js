@@ -323,6 +323,14 @@ function viewEntry(entry) {
 			viewEntryAddField(entry, field);
 		}
 	}
+
+	const cancelNewEntryButton = document.createElement("button");
+	cancelNewEntryButton.classList.add("add-entries-button");
+	cancelNewEntryButton.textContent = "Cancel";
+	entryForm.append(cancelNewEntryButton);
+	cancelNewEntryButton.addEventListener("click", () => {
+		initLogPage();
+	});
 }
 
 function viewEntryAddField(entry, field) {
@@ -341,8 +349,9 @@ function viewEntryAddField(entry, field) {
 	mainContainer.append(container);
 }
 
-//
 
+
+// Other Stuff
 function initAdjustPage() {
 	alert("Adjust section clicked!");
 }
