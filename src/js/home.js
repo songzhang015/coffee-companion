@@ -14,6 +14,7 @@ const optionalFields = {
 	waterAmount: ["Water Amount", "e.g. 200g (optional)"],
 	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
 	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
+	notes: ["Notes", "e.g. Clean, lingering sweetness (optional)"]
 };
 
 const fieldNames = {
@@ -25,6 +26,7 @@ const fieldNames = {
 	waterAmount: "Water Amount",
 	grindSize: "Grind Size",
 	brewTime: "Brew Time",
+	notes: "Notes",
 };
 
 function initMain() {
@@ -142,6 +144,7 @@ function initNewEntryPage() {
 		entryContainer.classList.add("new-entry-container");
 
 		const entryTitle = document.createElement("h2");
+		entryTitle.classList.add("entry-title");
 		entryTitle.textContent = title;
 
 		const entryInput = document.createElement("input");
@@ -191,6 +194,7 @@ function initNewEntryPage() {
 		const entryInputWaterAmount = document.querySelector(".waterAmount");
 		const entryInputGrindSize = document.querySelector(".grindSize");
 		const entryInputBrewTime = document.querySelector(".brewTime");
+		const entryInputNotes = document.querySelector(".notes");
 
 		createNewEntry(
 			entryInputTitle?.value ?? "",
@@ -200,7 +204,8 @@ function initNewEntryPage() {
 			entryInputWaterTemp?.value ?? "",
 			entryInputWaterAmount?.value ?? "",
 			entryInputGrindSize?.value ?? "",
-			entryInputBrewTime?.value ?? ""
+			entryInputBrewTime?.value ?? "",
+			entryInputNotes?.value ?? ""
 		);
 		initLogPage();
 	});
@@ -224,7 +229,8 @@ function createNewEntry(
 	waterTemp = "",
 	waterAmount = "",
 	grindSize = "",
-	brewTime = ""
+	brewTime = "",
+	notes = ""
 ) {
 	const newEntry = {
 		title,
@@ -235,6 +241,7 @@ function createNewEntry(
 		waterAmount,
 		grindSize,
 		brewTime,
+		notes,
 	};
 	entries.push(newEntry);
 }
@@ -274,11 +281,21 @@ function viewEntry(entry) {
 	const title = document.querySelector(".entries-title");
 	title.textContent = entry.title;
 
+	let currentRow = null;
+	let fieldCount = 0;
+
 	for (const field in entry) {
 		if (field !== "title") {
 			const fieldValue = entry[field];
 			if (fieldValue !== "") {
-				viewEntryAddField(entry, field);
+				if (!currentRow || fieldCount % 2 === 0) {
+					currentRow = document.createElement("div");
+					currentRow.classList.add("entry-row");
+					entriesContainer.appendChild(currentRow);
+				}
+				const fieldContainer = viewEntryAddField(entry, field);
+				currentRow.appendChild(fieldContainer);
+				fieldCount++;
 			}
 		}
 	}
@@ -293,8 +310,6 @@ function viewEntry(entry) {
 }
 
 function viewEntryAddField(entry, field) {
-	const mainContainer = document.querySelector(".entries-container");
-
 	const container = document.createElement("div");
 	container.classList.add("view-entry-container");
 
@@ -305,7 +320,7 @@ function viewEntryAddField(entry, field) {
 	body.textContent = entry[field];
 
 	container.append(title, body);
-	mainContainer.append(container);
+	return container;
 }
 
 
@@ -334,9 +349,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	initMain();
 	createNewEntry("Googa Coffee", "01/20/2025");
 	createNewEntry("Goomba Coffee", "02/15/2025");
-	createNewEntry("Goota Coffee", "03/25/2025");
+	createNewEntry("Goota Coffee", "03/25/2025", "Light Roast", "13g", "190F", "200g", "Medium Fine", "2 minutes", "Smelly");
 	setTimeout(initLogPage, 10);
 	console.log(entries);
 });
+
 
 export { initLogPage, initAdjustPage };

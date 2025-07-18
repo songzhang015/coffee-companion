@@ -136,6 +136,10 @@ body {
     transform: translateY(-2px);
 }
 
+.entry-title {
+    font-size: 1.25rem;
+}
+
 .add-entries-button {
     display: flex;
     justify-content: center;
@@ -159,7 +163,32 @@ body {
 
 .entry-row {
 	display: flex;
-	margin-bottom: 1rem;
+	margin-bottom: 0.25rem;
+}
+
+.view-entry-container {
+	padding: 1rem;
+	border: 1px solid black;
+	border-radius: 8px;
+	flex: 1;
+}
+
+.entry-row > .view-entry-container:first-child {
+    margin-left: 4rem;
+}
+
+.entry-row > .view-entry-container:last-child {
+    margin-right: 4rem;
+    margin-left: 2rem;
+}
+
+.entry-row > .view-entry-container:only-child {
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+
+.entry-row > .new-entry-container:only-child {
+    flex: 1;
 }
 
 .entry-input {
@@ -187,10 +216,6 @@ body {
 .new-entry-container > h2 {
     margin: 0;
     padding: 0;
-}
-
-.view-entry-container {
-    padding: 0 4rem 0 4rem;
 }
 
 .cancel-entries-button {
