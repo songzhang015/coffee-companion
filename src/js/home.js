@@ -262,13 +262,51 @@ function addEntryToPage(entry) {
 	const entryDate = document.createElement("h2");
 	entryDate.textContent = entry.date;
 
+	const deleteButton = document.createElement("button");
+	deleteButton.classList.add("delete-entry-button");
+	deleteButton.textContent = "×";
+
+	entryContainer.addEventListener("mouseenter", () => {
+		deleteButton.style.opacity = "1";
+	});
+
+	entryContainer.addEventListener("mouseleave", () => {
+		deleteButton.style.opacity = "0";
+	});
+
+	deleteButton.addEventListener("mouseenter", () => {
+		deleteButton.style.opacity = "1";
+	});
+
+	deleteButton.addEventListener("mouseleave", () => {
+		deleteButton.style.opacity = "0";
+	});
+
+	deleteButton.addEventListener("click", (e) => {
+		e.stopPropagation();
+		deleteEntry(entry);
+	});
+
 	entryContainer.append(entryTitle);
 	entryContainer.append(entryDate);
+	entryContainer.append(deleteButton);
 
 	container.append(entryContainer);
 	entryContainer.addEventListener("click", () => {
 		viewEntry(entry);
 	});
+
+	function deleteEntry(entryToDelete) {
+		const entryIndex = entries.findIndex(
+			(entry) =>
+				entry.title === entryToDelete.title && entry.date === entryToDelete.date
+		);
+
+		if (entryIndex !== -1) {
+			entries.splice(entryIndex, 1);
+			initLogPage();
+		}
+	}
 }
 
 function viewEntry(entry) {

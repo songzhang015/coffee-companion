@@ -129,6 +129,27 @@ body {
     align-items: center;
     padding: 0 1rem 0 1rem;
     transition: background-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    position: relative;
+}
+
+.delete-entry-button {
+    position: absolute;
+	right: -45px;
+    background-color: transparent;
+    color: rgb(255, 157, 0);
+    border: none;
+    transition: color 0.1s;
+    font-size: 2.15rem;
+    transition: color 0.1s, opacity 0.1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+.delete-entry-button:hover {
+    color: rgb(255, 35, 35);
+    cursor: pointer;
 }
 
 .entry-container:hover {
