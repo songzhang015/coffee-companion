@@ -173,6 +173,7 @@ function initNewEntryPage() {
 			flatpickr(entryInput, {
 				dateFormat: "m/d/Y",
 				allowInput: true,
+				maxDate: "today",
 			});
 		}
 	}
