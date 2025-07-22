@@ -14,7 +14,7 @@ const optionalFields = {
 	waterAmount: ["Water Amount", "e.g. 200g (optional)"],
 	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
 	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
-	notes: ["Notes", "e.g. Clean, lingering sweetness (optional)"]
+	notes: ["Notes", "e.g. Clean, lingering sweetness (optional)"],
 };
 
 const fieldNames = {
@@ -123,7 +123,6 @@ function initLogPage() {
 }
 
 function initNewEntryPage() {
-	const entryForm = document.querySelector(".entry-form");
 	const entriesContainer = document.querySelector(".entries-container");
 	entriesContainer.innerHTML = "";
 
@@ -132,6 +131,10 @@ function initNewEntryPage() {
 
 	let returnButton = document.querySelector(".return-button");
 	returnButton.remove();
+
+	const newForm = document.createElement("form");
+	entriesContainer.replaceWith(newForm);
+	newForm.appendChild(entriesContainer);
 
 	const title = document.querySelector(".entries-title");
 	title.textContent = "New Entry";
@@ -169,7 +172,7 @@ function initNewEntryPage() {
 		if (cls === "date") {
 			flatpickr(entryInput, {
 				dateFormat: "m/d/Y",
-				allowInput: true
+				allowInput: true,
 			});
 		}
 	}
@@ -182,30 +185,30 @@ function initNewEntryPage() {
 	}
 
 	const newEntryButton = document.createElement("button");
+	newEntryButton.type = "submit";
 	newEntryButton.classList.add("add-entries-button");
 	newEntryButton.textContent = "Add Journal Entry";
-	entryForm.append(newEntryButton);
-	newEntryButton.addEventListener("click", () => {
-		const entryInputTitle = document.querySelector(".title");
-		const entryInputDate = document.querySelector(".date");
-		const entryInputRoastLevel = document.querySelector(".roastLevel");
-		const entryInputCoffeeAmount = document.querySelector(".coffeeAmount");
-		const entryInputWaterTemp = document.querySelector(".waterTemp");
-		const entryInputWaterAmount = document.querySelector(".waterAmount");
-		const entryInputGrindSize = document.querySelector(".grindSize");
-		const entryInputBrewTime = document.querySelector(".brewTime");
-		const entryInputNotes = document.querySelector(".notes");
+	newForm.appendChild(newEntryButton);
 
+	document.querySelector(".title").required = true;
+	document.querySelector(".date").required = true;
+
+	newForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const getValue = (className) => {
+			const element = document.querySelector(`.${className}`);
+			return element ? element.value : "";
+		};
 		createNewEntry(
-			entryInputTitle?.value ?? "",
-			entryInputDate?.value ?? "",
-			entryInputRoastLevel?.value ?? "",
-			entryInputCoffeeAmount?.value ?? "",
-			entryInputWaterTemp?.value ?? "",
-			entryInputWaterAmount?.value ?? "",
-			entryInputGrindSize?.value ?? "",
-			entryInputBrewTime?.value ?? "",
-			entryInputNotes?.value ?? ""
+			getValue("title"),
+			getValue("date"),
+			getValue("roastLevel"),
+			getValue("coffeeAmount"),
+			getValue("waterTemp"),
+			getValue("waterAmount"),
+			getValue("grindSize"),
+			getValue("brewTime"),
+			getValue("notes")
 		);
 		initLogPage();
 	});
@@ -323,8 +326,6 @@ function viewEntryAddField(entry, field) {
 	return container;
 }
 
-
-
 // Other Stuff
 function initAdjustPage() {
 	alert("Adjust section clicked!");
@@ -349,10 +350,19 @@ document.addEventListener("DOMContentLoaded", () => {
 	initMain();
 	createNewEntry("Googa Coffee", "01/20/2025");
 	createNewEntry("Goomba Coffee", "02/15/2025");
-	createNewEntry("Goota Coffee", "03/25/2025", "Light Roast", "13g", "190F", "200g", "Medium Fine", "2 minutes", "Smelly");
+	createNewEntry(
+		"Goota Coffee",
+		"03/25/2025",
+		"Light Roast",
+		"13g",
+		"190F",
+		"200g",
+		"Medium Fine",
+		"2 minutes",
+		"Smelly"
+	);
 	setTimeout(initLogPage, 10);
 	console.log(entries);
 });
-
 
 export { initLogPage, initAdjustPage };
