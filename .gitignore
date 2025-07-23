@@ -8,5 +8,5 @@ frontend/dist/
 frontend/node_modules/
 
 .DS_Store
-backend/commands.txt
+commands.txt
 layout.png

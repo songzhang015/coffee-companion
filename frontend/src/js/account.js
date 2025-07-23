@@ -33,27 +33,6 @@ function attachFormSwitchListeners() {
 	});
 }
 
-function confirmPasswordValidation() {
-	const password = document.getElementById("password-register");
-	const confirmPassword = document.getElementById("password-register-confirm");
-
-	function validatePasswordMatch() {
-		if (password.value !== confirmPassword.value) {
-			confirmPassword.setCustomValidity("Passwords do not match.");
-		} else {
-			confirmPassword.setCustomValidity("");
-		}
-	}
-
-	registerForm.addEventListener("submit", function (e) {
-		validatePasswordMatch();
-
-		if (!confirmPassword.checkValidity()) {
-			e.preventDefault();
-		}
-	});
-}
-
 function continueAsGuest() {
 	const continueButton = document.querySelector(".guest");
 	continueButton.addEventListener("click", () => {
@@ -62,6 +41,11 @@ function continueAsGuest() {
 }
 
 function submission() {
+	const passwordInput = document.getElementById("password-login");
+
+	passwordInput.addEventListener("input", () => {
+		passwordInput.setCustomValidity("");
+	});
 	loginForm.addEventListener("submit", async (e) => {
 		e.preventDefault();
 
@@ -73,6 +57,58 @@ function submission() {
 				body: JSON.stringify({
 					email: document.getElementById("email-login").value,
 					password: document.getElementById("password-login").value,
+				}),
+			});
+			const result = await response.json();
+
+			if (!response.ok) {
+				if (response.status === 401) {
+					passwordInput.setCustomValidity("Incorrect password");
+					passwordInput.reportValidity();
+				} else {
+					throw new Error(result.message);
+				}
+				return;
+			}
+
+			passwordInput.setCustomValidity("");
+
+			if (result.success) {
+				window.location.href = "/home";
+			}
+		} catch (e) {
+			console.error("Request failed:", e);
+		}
+	});
+
+	const confirmPassword = document.getElementById("password-register-confirm");
+	confirmPassword.addEventListener("input", () => {
+		if (
+			confirmPassword.value ===
+			document.getElementById("password-register").value
+		) {
+			confirmPassword.setCustomValidity("");
+		} else {
+			confirmPassword.setCustomValidity("Passwords do not match.");
+		}
+	});
+
+	registerForm.addEventListener("submit", async (e) => {
+		e.preventDefault();
+
+		if (!registerForm.checkValidity()) {
+			registerForm.reportValidity();
+			return;
+		}
+
+		// Sends info to register API, which returns into response and parsed into result
+		try {
+			const response = await fetch("/api/users", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					email: document.getElementById("email-register").value,
+					password: document.getElementById("password-register").value,
 				}),
 			});
 			const result = await response.json();
@@ -92,7 +128,6 @@ function submission() {
 
 function init() {
 	attachFormSwitchListeners();
-	confirmPasswordValidation();
 	continueAsGuest();
 	submission();
 }
