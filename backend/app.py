@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory, request
+from flask import Flask, jsonify, send_from_directory, request, session 
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -9,6 +9,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__, static_folder='../frontend/dist')
+app.secret_key = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 CORS(app)
 
@@ -93,17 +94,46 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
             return jsonify({'success': True, 'message': "Login successful"}), 200
         else:
             return jsonify({'success': False, 'message': "Incorrect password"}), 401
     except Exception as e:
         return jsonify({'success': False, 'message': "Internal server error"}), 500
 
-
-
 @app.route('/api/auth/logout', methods=['POST'])
 def logout():
-    pass
+    session.pop('user_id', None)
+    return jsonify({'success': True, 'message': "Logout successful"}), 200
+
+@app.route('/api/entries', methods=['GET'])
+def get_user_entries():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'message': "Not authenticated"}), 401
+    user_id = session['user_id']
+    user = User.query.get(user_id)
+
+    entries = [
+        {
+            "id": entry.id,
+            "title": entry.title,
+            "date": entry.date,
+            "roastLevel": entry.roastLevel,
+            "coffeeAmount": entry.coffeeAmount,
+            "waterTemp": entry.waterTemp,
+            "waterAmount": entry.waterAmount,
+            "grindSize": entry.grindSize,
+            "brewTime": entry.brewTime,
+            "notes": entry.notes,
+            "aroma": entry.aroma,
+            "texture": entry.texture,
+            "flavor": entry.flavor,
+            "acidity": entry.acidity,
+        }
+        for entry in user.entries
+    ]
+
+    return jsonify({'success': True, 'entries': entries}), 200
 
 if __name__ == '__main__':
     with app.app_context():

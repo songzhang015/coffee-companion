@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import Mapped, mapped_column
-from typing import Optional
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey
+from typing import Optional, List
 
 db = SQLAlchemy()
 
@@ -9,14 +10,16 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(db.String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(db.String(255), nullable=False)
 
+    entries: Mapped[List["Entry"]] = relationship(back_populates="user")
+
     def __repr__(self):
         return f"User('{self.email}')"
     
 class Entry(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-
     title: Mapped[str] = mapped_column(db.String(100), nullable=False)
     date: Mapped[str] = mapped_column(db.String(10), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
     aroma: Mapped[int] = mapped_column(nullable=False)
     texture: Mapped[int] = mapped_column(nullable=False)
@@ -31,3 +34,4 @@ class Entry(db.Model):
     brewTime: Mapped[Optional[str]] = mapped_column(db.String(100))
     notes: Mapped[Optional[str]] = mapped_column(db.String(1000))
     
+    user: Mapped["User"] = relationship(back_populates="entries")

@@ -9,9 +9,15 @@ def seed_db(db):
         User(email="user3@example.com", password=generate_password_hash("password123")),
     ]
     
+    for user in users:
+        db.session.add(user)
+    
+    db.session.commit()
+
     # Create sample entries
     entries = [
         Entry(
+            user=users[0],
             title="Sunrise Pour Over",
             date="07/01/2025",
             roastLevel="Light",
@@ -27,6 +33,7 @@ def seed_db(db):
             acidity=4
         ),
         Entry(
+            user=users[1],
             title="Afternoon Espresso",
             date="07/05/2025",
             roastLevel="Dark",
@@ -42,6 +49,7 @@ def seed_db(db):
             acidity=2
         ),
         Entry(
+            user=users[2],
             title="Weekend V60",
             date="07/07/2025",
             roastLevel="Medium",
@@ -58,8 +66,6 @@ def seed_db(db):
         ),
     ]
 
-    for user in users:
-        db.session.add(user)
     for entry in entries:
         db.session.add(entry)
     
