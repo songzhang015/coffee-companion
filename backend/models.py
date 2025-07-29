@@ -1,11 +1,33 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import Mapped, mapped_column
+from typing import Optional
 
 db = SQLAlchemy()
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(db.String(120), unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(db.String(255), nullable=False)
 
     def __repr__(self):
         return f"User('{self.email}')"
+    
+class Entry(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    title: Mapped[str] = mapped_column(db.String(100), nullable=False)
+    date: Mapped[str] = mapped_column(db.String(10), nullable=False)
+
+    aroma: Mapped[int] = mapped_column(nullable=False)
+    texture: Mapped[int] = mapped_column(nullable=False)
+    flavor: Mapped[int] = mapped_column(nullable=False)
+    acidity: Mapped[int] = mapped_column(nullable=False)
+
+    roastLevel: Mapped[Optional[str]] = mapped_column(db.String(100))
+    coffeeAmount: Mapped[Optional[str]] = mapped_column(db.String(100))
+    waterTemp: Mapped[Optional[str]] = mapped_column(db.String(100))
+    waterAmount: Mapped[Optional[str]] = mapped_column(db.String(100))
+    grindSize: Mapped[Optional[str]] = mapped_column(db.String(100))
+    brewTime: Mapped[Optional[str]] = mapped_column(db.String(100))
+    notes: Mapped[Optional[str]] = mapped_column(db.String(1000))
+    
