@@ -200,6 +200,7 @@ function initNewEntryPage() {
 
 		if (fullWidth) {
 			currentRow = null;
+			fieldCount = 0;
 		}
 
 		if (cls === "date") {
