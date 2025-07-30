@@ -421,8 +421,10 @@ function viewEntry(entry) {
 	let currentRow = null;
 	let fieldCount = 0;
 
-	for (const field in entry) {
-		if (field !== "title") {
+	console.log(entry);
+
+	for (const field in fieldNames) {
+		if (field !== "title" && field !== "user") {
 			const fieldValue = entry[field];
 			if (fieldValue !== "") {
 				if (!currentRow || fieldCount % 2 === 0) {
