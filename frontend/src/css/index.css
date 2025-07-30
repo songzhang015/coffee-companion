@@ -32,39 +32,41 @@ body {
 }
 
 .header {
-    font-size: clamp(4rem, calc(1rem + 4vw), 6rem);
+    font-size: 7.5rem;
     color: var(--text-white);
     font-family: "Style Script", sans-serif;
-    margin-bottom: clamp(3rem, calc(1rem + 3vw), 6rem);
+    margin-bottom: 6rem;
 }
 
 .tagline {
-    font-size: clamp(1.5rem, calc(1rem + 1.5vw), 2rem);
+    font-size: 2.5rem;
     color: var(--text-white);
     font-family: "Comfortaa", sans-serif;
     display: flex;
-    margin-bottom: 1em;
+    margin-bottom: 4rem;
 }
 
-.start {
-    padding: 0.75rem 1.25rem;
-    font-size: clamp(1rem, calc(1rem + 0.8vw), 1.25rem);
-    background-color: #32CD32;
-    font-family: "Comfortaa", sans-serif;
-    border-radius: 21px;
-    color: var(--text-white);
-    margin-bottom: 6rem;
+.start-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 1.5rem;
+    background-color: #ff8c00;
+    font-family: "Source Sans 3", sans-serif;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 10rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    line-height: 1;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.start:hover {
-    background-color: #2AB22A;
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(255, 166, 0, 0.15);
 }
 
 .features {
-    font-size: clamp(1.25rem, calc(1rem + 1vw), 1.5625rem);
+    font-size: 1.65rem;
     color: var(--text-beige);
     display: flex;
     font-family: "Comfortaa", sans-serif;
@@ -83,8 +85,8 @@ body {
 }
 
 .icon-container {
-    width: clamp(6rem, calc(1rem + 5vw), 6.25rem);
-    height: clamp(6rem, calc(1rem + 5vw), 6.25rem);
+    width: 6.5rem;
+    height: 6.5rem;
     background-color: rgb(148, 60, 0);
     border-radius: 50%;
     display: flex;
@@ -101,9 +103,59 @@ body {
 
 .icon {
     filter: brightness(0) invert(1);
-    width: clamp(2.5rem, calc(1rem + 2.5vw), 3.125rem);
-    height: clamp(2.5rem, calc(1rem + 2.5vw), 3.125rem);
+    width: 3.25rem;
+    height: 3.25rem;
 }
 
+@media (max-width: 1280px) {
+    /* Laptops */
+    .header {
+        font-size: 6.5rem;
+        margin-bottom: 5rem;
+    }
 
+    .tagline {
+        font-size: 2rem;
+        margin-bottom: 3.5rem;
+    }
 
+    .start-btn {
+        padding: 0.5rem 1.25rem;
+        font-size: 1.25rem;
+        margin-bottom: 8rem;
+    }
+
+    .features {
+        font-size: 1.45rem;
+        gap: 1.75rem;
+    }
+
+    .feature {
+        gap: 1.75rem;
+    }
+
+    .icon-container {
+        width: 5.75rem;
+        height: 5.75rem;
+    }
+
+    .icon {
+        width: 2.875rem;
+        height: 2.875rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    /* Small screens, tablets */
+
+}
+
+@media (max-width: 768px) {
+    /* Tablets */
+
+}
+
+@media (max-width: 480px) {
+    /* Small/Medium Mobile Devices */
+
+}

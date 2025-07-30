@@ -3,7 +3,7 @@ import "../css/global.css";
 import "../css/index.css";
 
 function init() {
-	const startButton = document.querySelector(".start");
+	const startButton = document.querySelector(".start-btn");
 	startButton.addEventListener("click", () => {
 		window.location.href = "/account";
 	});
