@@ -107,8 +107,8 @@ body {
     height: 3.25rem;
 }
 
-@media (max-width: 1280px) {
-    /* Laptops */
+@media (max-width: 1920px) {
+    /* Desktops */
     .header {
         font-size: 6.5rem;
         margin-bottom: 5rem;
@@ -145,17 +145,40 @@ body {
     }
 }
 
-@media (max-width: 1024px) {
-    /* Small screens, tablets */
-
-}
-
 @media (max-width: 768px) {
-    /* Tablets */
+    /* Small screens, tablets */
+    .header {
+        font-size: 4.5rem;
+        margin-bottom: 3.75rem;
+    }
 
-}
+    .tagline {
+        font-size: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
 
-@media (max-width: 480px) {
-    /* Small/Medium Mobile Devices */
+    .start-btn {
+        padding: 0.5rem 1.25rem;
+        font-size: 1rem;
+        margin-bottom: 6rem;
+    }
 
+    .features {
+        font-size: 1rem;
+        gap: 1.25rem;
+    }
+
+    .feature {
+        gap: 1.25rem;
+    }
+
+    .icon-container {
+        width: 4.25rem;
+        height: 4.25rem;
+    }
+
+    .icon {
+        width: 2.15rem;
+        height: 2.15rem;
+    }
 }
