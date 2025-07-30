@@ -263,10 +263,10 @@ function initNewEntryPage() {
 		fieldCount++;
 	}
 
-	addSliderField("Aroma:", "aroma");
-	addSliderField("Texture:", "texture");
-	addSliderField("Flavor:", "flavor");
-	addSliderField("Acidity:", "acidity");
+	addSliderField("Aroma", "aroma");
+	addSliderField("Texture", "texture");
+	addSliderField("Flavor", "flavor");
+	addSliderField("Acidity", "acidity");
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.type = "submit";
@@ -482,8 +482,6 @@ function attachSectionEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
-	setTimeout(initLogPage, 10);
-	console.log(entries);
 });
 
 export { initLogPage, initAdjustPage };

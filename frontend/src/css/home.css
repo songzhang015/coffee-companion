@@ -67,7 +67,7 @@ body {
 }
 
 .entry-form {
-    height: 85%;
+    height: 90%;
     width: 95%;
     background-color: var(--bg-tan);
     border-radius: 12px;
@@ -79,7 +79,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 4rem 0 4rem;
+    padding: 0.5rem 4rem 0 4rem;
     font-family: "Merriweather", sans-serif;
 }
 
