@@ -238,6 +238,10 @@ body {
 	box-sizing: border-box;
 }
 
+.new-entry-container.full-width {
+    flex: 1 1 100%;
+}
+
 .new-entry-container > h2 {
     margin: 0;
     padding: 0;

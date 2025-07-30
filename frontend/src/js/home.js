@@ -7,6 +7,28 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 let entries = [];
+
+fetchEntries().then((fetchedEntries) => {
+	entries = fetchedEntries;
+});
+
+async function fetchEntries() {
+	try {
+		const response = await fetch("/api/entries");
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+		const json = await response.json();
+		if (!json.success) {
+			throw new Error(`Backend error: ${json.message}`);
+		}
+		return json.entries;
+	} catch (error) {
+		console.error(error.message);
+		return [];
+	}
+}
+
 const optionalFields = {
 	roastLevel: ["Roast Level", "e.g. Dark Roast (optional)"],
 	coffeeAmount: ["Coffee Amount", "e.g. 13g (optional)"],
@@ -27,6 +49,10 @@ const fieldNames = {
 	grindSize: "Grind Size",
 	brewTime: "Brew Time",
 	notes: "Notes",
+	aroma: "Aroma",
+	texture: "Texture",
+	flavor: "Flavor",
+	acidity: "Acidity",
 };
 
 function initMain() {
@@ -142,9 +168,13 @@ function initNewEntryPage() {
 	let currentRow = null;
 	let fieldCount = 0;
 
-	function addNewField(title, placeholder, cls) {
+	function addNewField(title, placeholder, cls, fullWidth = false) {
 		const entryContainer = document.createElement("div");
 		entryContainer.classList.add("new-entry-container");
+
+		if (fullWidth) {
+			entryContainer.classList.add("full-width");
+		}
 
 		const entryTitle = document.createElement("h2");
 		entryTitle.classList.add("entry-title");
@@ -158,16 +188,19 @@ function initNewEntryPage() {
 
 		const entriesContainer = document.querySelector(".entries-container");
 
-		if (!currentRow || fieldCount % 2 === 0) {
+		if (fullWidth || !currentRow || fieldCount % 2 === 0) {
 			currentRow = document.createElement("div");
 			currentRow.classList.add("entry-row");
 
-			const optionalField = document.querySelector(".optional-field-container");
-			entriesContainer.insertBefore(currentRow, optionalField);
+			entriesContainer.appendChild(currentRow);
 		}
 
 		currentRow.appendChild(entryContainer);
 		fieldCount++;
+
+		if (fullWidth) {
+			currentRow = null;
+		}
 
 		if (cls === "date") {
 			flatpickr(entryInput, {
@@ -182,8 +215,57 @@ function initNewEntryPage() {
 	addNewField("Date:", "e.g. 01/20/2025", "date");
 	for (const field in optionalFields) {
 		const [label, placeholder] = optionalFields[field];
-		addNewField(label, placeholder, field);
+		console.log(`field: ${field}, fullWidth: ${field === "notes"}`);
+		if (field === "notes") {
+			addNewField(label, placeholder, field, true);
+		} else {
+			addNewField(label, placeholder, field);
+		}
 	}
+
+	function addSliderField(title, cls) {
+		const entryContainer = document.createElement("div");
+		entryContainer.classList.add("new-entry-container");
+
+		const entryTitle = document.createElement("h2");
+		entryTitle.classList.add("entry-title");
+		entryTitle.textContent = title;
+
+		const sliderInput = document.createElement("input");
+		sliderInput.classList.add("entry-slider", cls);
+		sliderInput.type = "range";
+		sliderInput.min = "0";
+		sliderInput.max = "5";
+		sliderInput.step = "1";
+		sliderInput.value = "3";
+
+		const valueDisplay = document.createElement("span");
+		valueDisplay.classList.add("slider-value");
+		valueDisplay.textContent = sliderInput.value;
+
+		sliderInput.addEventListener("input", () => {
+			valueDisplay.textContent = sliderInput.value;
+		});
+
+		entryContainer.append(entryTitle, sliderInput, valueDisplay);
+
+		const entriesContainer = document.querySelector(".entries-container");
+
+		if (!currentRow || fieldCount % 2 === 0) {
+			currentRow = document.createElement("div");
+			currentRow.classList.add("entry-row");
+
+			entriesContainer.appendChild(currentRow);
+		}
+
+		currentRow.appendChild(entryContainer);
+		fieldCount++;
+	}
+
+	addSliderField("Aroma:", "aroma");
+	addSliderField("Texture:", "texture");
+	addSliderField("Flavor:", "flavor");
+	addSliderField("Acidity:", "acidity");
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.type = "submit";
@@ -209,7 +291,11 @@ function initNewEntryPage() {
 			getValue("waterAmount"),
 			getValue("grindSize"),
 			getValue("brewTime"),
-			getValue("notes")
+			getValue("notes"),
+			getValue("aroma"),
+			getValue("texture"),
+			getValue("flavor"),
+			getValue("acidity")
 		);
 		initLogPage();
 	});
@@ -234,7 +320,11 @@ function createNewEntry(
 	waterAmount = "",
 	grindSize = "",
 	brewTime = "",
-	notes = ""
+	notes = "",
+	aroma = 3,
+	texture = 3,
+	flavor = 3,
+	acidity = 3
 ) {
 	const newEntry = {
 		title,
@@ -246,6 +336,10 @@ function createNewEntry(
 		grindSize,
 		brewTime,
 		notes,
+		aroma,
+		texture,
+		flavor,
+		acidity,
 	};
 	entries.push(newEntry);
 }
@@ -387,19 +481,6 @@ function attachSectionEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
-	createNewEntry("Googa Coffee", "01/20/2025");
-	createNewEntry("Goomba Coffee", "02/15/2025");
-	createNewEntry(
-		"Goota Coffee",
-		"03/25/2025",
-		"Light Roast",
-		"13g",
-		"190F",
-		"200g",
-		"Medium Fine",
-		"2 minutes",
-		"Smelly"
-	);
 	setTimeout(initLogPage, 10);
 	console.log(entries);
 });
