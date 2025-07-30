@@ -6,23 +6,17 @@ import adjustIcon from "../assets/icons/adjust.svg";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-let entries = [];
-
-fetchEntries().then((fetchedEntries) => {
-	entries = fetchedEntries;
-});
-
 async function fetchEntries() {
 	try {
 		const response = await fetch("/api/entries");
 		if (!response.ok) {
 			throw new Error(`HTTP error: ${response.status}`);
 		}
-		const json = await response.json();
-		if (!json.success) {
-			throw new Error(`Backend error: ${json.message}`);
+		const result = await response.json();
+		if (!result.success) {
+			throw new Error(`Backend error: ${result.message}`);
 		}
-		return json.entries;
+		return result.entries;
 	} catch (error) {
 		console.error(error.message);
 		return [];
@@ -135,8 +129,10 @@ function initLogPage() {
 	mainContainer.appendChild(entryForm);
 	document.body.appendChild(mainContainer);
 
-	entries.forEach((entry) => {
-		addEntryToPage(entry);
+	fetchEntries().then((fetchedEntries) => {
+		fetchedEntries.forEach((entry) => {
+			addEntryToPage(entry);
+		});
 	});
 
 	const newEntryButton = document.createElement("button");
@@ -216,7 +212,6 @@ function initNewEntryPage() {
 	addNewField("Date:", "e.g. 01/20/2025", "date");
 	for (const field in optionalFields) {
 		const [label, placeholder] = optionalFields[field];
-		console.log(`field: ${field}, fullWidth: ${field === "notes"}`);
 		if (field === "notes") {
 			addNewField(label, placeholder, field, true);
 		} else {
@@ -277,13 +272,13 @@ function initNewEntryPage() {
 	document.querySelector(".title").required = true;
 	document.querySelector(".date").required = true;
 
-	newForm.addEventListener("submit", (e) => {
+	newForm.addEventListener("submit", async (e) => {
 		e.preventDefault();
 		const getValue = (className) => {
 			const element = document.querySelector(`.${className}`);
 			return element ? element.value : "";
 		};
-		createNewEntry(
+		await createNewEntry(
 			getValue("title"),
 			getValue("date"),
 			getValue("roastLevel"),
@@ -312,7 +307,7 @@ function initNewEntryPage() {
 	});
 }
 
-function createNewEntry(
+async function createNewEntry(
 	title = "",
 	date = "",
 	roastLevel = "",
@@ -342,7 +337,25 @@ function createNewEntry(
 		flavor,
 		acidity,
 	};
-	entries.push(newEntry);
+	try {
+		const response = await fetch("/api/entries", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newEntry),
+		});
+		if (!response.ok) {
+			throw new Error(`HTTP error: ${response.status}`);
+		}
+
+		const result = await response.json();
+		if (!result.success) {
+			throw new Error(`Backend error: ${result.message}`);
+		}
+	} catch (error) {
+		console.error(error.message);
+	}
 }
 
 function addEntryToPage(entry) {
@@ -390,17 +403,21 @@ function addEntryToPage(entry) {
 	entryContainer.addEventListener("click", () => {
 		viewEntry(entry);
 	});
+}
 
-	function deleteEntry(entryToDelete) {
-		const entryIndex = entries.findIndex(
-			(entry) =>
-				entry.title === entryToDelete.title && entry.date === entryToDelete.date
-		);
+async function deleteEntry(entryToDelete) {
+	try {
+		const response = await fetch(`/api/entries/${entryToDelete.id}`, {
+			method: "DELETE",
+		});
 
-		if (entryIndex !== -1) {
-			entries.splice(entryIndex, 1);
-			initLogPage();
+		if (!response.ok) {
+			throw new Error(`Delete failed: ${response.status}`);
 		}
+
+		initLogPage();
+	} catch (error) {
+		console.error("Error deleting entry:", error);
 	}
 }
 
@@ -420,8 +437,6 @@ function viewEntry(entry) {
 
 	let currentRow = null;
 	let fieldCount = 0;
-
-	console.log(entry);
 
 	for (const field in fieldNames) {
 		if (field !== "title" && field !== "user") {

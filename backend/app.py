@@ -2,7 +2,7 @@ from flask import Flask, jsonify, send_from_directory, request, session
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from models import db, User
+from models import db, User, Entry
 from seeder import seed_db
 import os
 
@@ -50,7 +50,7 @@ def get_users():
     return jsonify([{"id": user.id, "email": user.email} for user in users])
 
 @app.route('/api/users', methods=['POST'])
-def register(): # TODO Add more checks (try except?), test registration, at least 6 chars
+def register():
     try:
         data = request.get_json()
         if not data:
@@ -110,30 +110,83 @@ def logout():
 def get_user_entries():
     if 'user_id' not in session:
         return jsonify({'success': False, 'message': "Not authenticated"}), 401
-    user_id = session['user_id']
-    user = User.query.get(user_id)
+    
+    try:
+        user_id = session['user_id']
+        user = User.query.get(user_id)
+        entries = [
+            {
+                "id": entry.id,
+                "title": entry.title,
+                "date": entry.date,
+                "roastLevel": entry.roastLevel,
+                "coffeeAmount": entry.coffeeAmount,
+                "waterTemp": entry.waterTemp,
+                "waterAmount": entry.waterAmount,
+                "grindSize": entry.grindSize,
+                "brewTime": entry.brewTime,
+                "notes": entry.notes,
+                "aroma": entry.aroma,
+                "texture": entry.texture,
+                "flavor": entry.flavor,
+                "acidity": entry.acidity,
+            }
+            for entry in user.entries
+        ]
+        return jsonify({'success': True, 'entries': entries}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': "Internal server error"}), 500
 
-    entries = [
-        {
-            "id": entry.id,
-            "title": entry.title,
-            "date": entry.date,
-            "roastLevel": entry.roastLevel,
-            "coffeeAmount": entry.coffeeAmount,
-            "waterTemp": entry.waterTemp,
-            "waterAmount": entry.waterAmount,
-            "grindSize": entry.grindSize,
-            "brewTime": entry.brewTime,
-            "notes": entry.notes,
-            "aroma": entry.aroma,
-            "texture": entry.texture,
-            "flavor": entry.flavor,
-            "acidity": entry.acidity,
-        }
-        for entry in user.entries
-    ]
-
-    return jsonify({'success': True, 'entries': entries}), 200
+@app.route('/api/entries', methods=['POST'])
+def create_entry():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'message': "Not authenticated"}), 401
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'success': False, 'message': "Missing data"}), 400
+        
+        user_id = session['user_id']
+        new_entry = Entry(
+            title=data.get('title'),
+            date=data.get('date'),
+            user_id=user_id,
+            roastLevel=data.get('roastLevel'),
+            coffeeAmount=data.get('coffeeAmount'),
+            waterTemp=data.get('waterTemp'),
+            waterAmount=data.get('waterAmount'),
+            grindSize=data.get('grindSize'),
+            brewTime=data.get('brewTime'),
+            notes=data.get('notes'),
+            aroma=int(data.get('aroma')),
+            texture=int(data.get('texture')),
+            flavor=int(data.get('flavor')),
+            acidity=int(data.get('acidity'))
+        )
+        db.session.add(new_entry)
+        db.session.commit()
+        return jsonify({'success': True, 'message': "Entry created successfully"}), 201
+    
+    except Exception as e:
+        return jsonify({'success': False, 'message': "Internal server error"}), 500
+    
+@app.route('/api/entries/<entry_id>', methods=['DELETE'])
+def delete_entry(entry_id):
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'message': "Authentication required"}), 401
+    try:
+        user_id = session['user_id']
+        entry = Entry.query.filter_by(id=entry_id, user_id=user_id).first()
+        
+        if not entry:
+            return jsonify({'success': False, 'message': "Entry not found"}), 404
+        
+        db.session.delete(entry)
+        db.session.commit()
+        return jsonify({'success': True, 'message': "Entry deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'message': "Internal server error"}), 500
+    
 
 if __name__ == '__main__':
     with app.app_context():
