@@ -89,6 +89,7 @@ function initMain() {
 	attachSectionEventListeners();
 }
 
+// Log Page
 function initLogPage() {
 	document.body.innerHTML = "";
 
@@ -230,7 +231,7 @@ function initNewEntryPage() {
 		const sliderInput = document.createElement("input");
 		sliderInput.classList.add("entry-slider", cls);
 		sliderInput.type = "range";
-		sliderInput.min = "0";
+		sliderInput.min = "1";
 		sliderInput.max = "5";
 		sliderInput.step = "1";
 		sliderInput.value = "3";
@@ -477,11 +478,183 @@ function viewEntryAddField(entry, field) {
 	return container;
 }
 
-// Other Stuff
+// Adjust Page
 function initAdjustPage() {
-	alert("Adjust section clicked!");
+	document.body.innerHTML = "";
+
+	const mainContainer = document.createElement("div");
+	mainContainer.classList.add("main-container-adjust");
+	document.body.append(mainContainer);
+
+	const sidebar = document.createElement("div");
+	sidebar.classList.add("sidebar-adjust");
+	mainContainer.append(sidebar);
+
+	const sidebarTitle = document.createElement("h1");
+	sidebarTitle.classList.add("sidebar-title");
+	sidebarTitle.textContent = "Entries";
+	sidebar.append(sidebarTitle);
+
+	const divider = document.createElement("div");
+	divider.classList.add("divider-adjust");
+	sidebar.append(divider);
+
+	const entriesContainer = document.createElement("div");
+	entriesContainer.classList.add("entries-container-adjust");
+	sidebar.append(entriesContainer);
+
+	const rightContainer = document.createElement("div");
+	rightContainer.classList.add("right-container");
+	mainContainer.append(rightContainer);
+
+	const selectEntryPlaceholder = document.createElement("h2");
+	selectEntryPlaceholder.classList.add("select-entry-placeholder");
+	selectEntryPlaceholder.textContent = "Select an entry";
+	rightContainer.append(selectEntryPlaceholder);
+
+	loadAdjustEntries();
 }
 
+function loadAdjustEntries() {
+	const container = document.querySelector(".entries-container-adjust");
+	fetchEntries().then((fetchedEntries) => {
+		fetchedEntries.forEach((entry) => {
+			const entryContainer = document.createElement("div");
+			entryContainer.classList.add("entry-container-adjust");
+
+			const entryTitle = document.createElement("p");
+			entryTitle.textContent = entry.title;
+			entryContainer.append(entryTitle);
+
+			const entryDate = document.createElement("p");
+			entryDate.textContent = entry.date;
+			entryContainer.append(entryDate);
+
+			container.append(entryContainer);
+			entryContainer.addEventListener("click", () => {
+				selectEntry(entry);
+			});
+		});
+	});
+}
+
+function selectEntry(entry) {
+	const rightSection = document.querySelector(".right-container");
+	rightSection.innerHTML = "";
+	rightSection.classList.add("selected");
+
+	const topSection = document.createElement("div");
+	topSection.classList.add("adjust-top-section");
+	rightSection.append(topSection);
+
+	const bottomSection = document.createElement("div");
+	bottomSection.classList.add("adjust-bottom-section");
+	rightSection.append(bottomSection);
+
+	const rightTitle = document.createElement("h2");
+	rightTitle.classList.add("right-title");
+	rightTitle.textContent = `Coffee: ${entry.title}`;
+	topSection.append(rightTitle);
+
+	for (const field in fieldNames) {
+		if (field !== "title" && entry[field] !== "") {
+			const element = document.createElement("p");
+			element.textContent = `${fieldNames[field]}: ${entry[field]}`;
+			topSection.append(element);
+		}
+	}
+
+	const issuesTitle = document.createElement("h2");
+	issuesTitle.classList.add("issues-title");
+	issuesTitle.textContent = "Select all applicable issues";
+	bottomSection.append(issuesTitle);
+
+	const issueTooltip = document.createElement("div");
+	issueTooltip.classList.add("issue-tooltip");
+	document.body.append(issueTooltip);
+
+	populateIssues();
+}
+
+function populateIssues() {
+	const container = document.querySelector(".adjust-bottom-section");
+
+	const issuesContainer = document.createElement("div");
+	issuesContainer.classList.add("issues-container");
+
+	const issueData = [
+		{
+			text: "Bitter",
+			info: "An astringent taste, similar to citrus peels, 99% cocoa chocolate, or grapefruit.",
+		},
+		{
+			text: "Sour",
+			info: "A tart or acidic taste, similar to lemon or vinegar.",
+		},
+		{ text: "Weak", info: "Lacking in strength or body, water-like." },
+		{
+			text: "Heavy",
+			info: "Too heavy, dense, or full, or too strong of a cup.",
+		},
+		{
+			text: "Burnt",
+			info: "A smoky, ashy, or charred taste.",
+		},
+		{
+			text: "Bland",
+			info: "Lacking in flavor, like bean-water with very little distinctive flavor.",
+		},
+		{
+			text: "Cardboard-like",
+			info: "A papery, woody, or stale taste.",
+		},
+		{
+			text: "Overextracted",
+			info: "Having bitter, dry, or too strong of flavors.",
+		},
+	];
+
+	const issueTooltip = document.querySelector(".issue-tooltip");
+
+	issueData.forEach((issue) => {
+		const issueElement = document.createElement("div");
+		issueElement.classList.add("issue");
+		issueElement.textContent = issue.text;
+		issuesContainer.append(issueElement);
+
+		issueElement.addEventListener("mouseenter", (event) => {
+			issueTooltip.textContent = issue.info;
+			issueTooltip.classList.add("visible");
+
+			const rect = event.target.getBoundingClientRect();
+			issueTooltip.style.left = `${rect.left + rect.width / 2}px`;
+			issueTooltip.style.top = `${rect.top - issueTooltip.offsetHeight - 10}px`;
+		});
+
+		issueElement.addEventListener("mouseleave", () => {
+			issueTooltip.classList.remove("visible");
+		});
+
+		issueElement.addEventListener("click", () => {
+			issueElement.classList.toggle("selected");
+
+			const hasSelectedIssue =
+				issuesContainer.querySelector(".issue.selected") !== null;
+			goForwardBtn.classList.toggle("clickable", hasSelectedIssue);
+		});
+	});
+
+	container.append(issuesContainer);
+
+	const goForwardBtn = document.createElement("button");
+	goForwardBtn.classList.add("go-forward-btn");
+	goForwardBtn.textContent = "Continue";
+	container.append(goForwardBtn);
+
+	goForwardBtn.classList.remove("clickable");
+}
+
+// Other
 function attachSectionEventListeners() {
 	const logSection = document.querySelector(".log-container .icon-container");
 	const adjustSection = document.querySelector(
