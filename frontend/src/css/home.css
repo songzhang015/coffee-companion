@@ -180,10 +180,10 @@ body {
 }
 
 .add-entries-button:hover {
-    filter: brightness(93%);
+    filter: brightness(92%);
     cursor: pointer;
     box-shadow: none;
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
 .entry-row {
@@ -415,10 +415,17 @@ body {
 
 .go-forward-btn {
     font-size: 1.5rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.5rem 1rem;
     opacity: 0.5;
     user-select: none;
     pointer-events: none;
+    border-radius: 12px;
+    transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: rgb(252, 213, 55);
+    will-change: transform;
+    font-weight: 600;
+    font-family: "Source Sans 3", sans-serif;
 }
 
 .go-forward-btn.clickable {
@@ -427,34 +434,51 @@ body {
     cursor: pointer;
 }
 
+.go-forward-btn:hover {
+    filter: brightness(92%);
+    cursor: pointer;
+    box-shadow: none;
+    transform: scale(0.96);
+}
+
 .analysis-container {
     color: white;
     max-width: 50rem;
     max-height: 100vh;
+    background-color: #57534e;
+    padding: 1rem;
 }
 
 .analysis-item {
-    border: 2px solid red;
+    background-color:  #292524;
+    padding: 1rem;
 }
 
 .analysis-box {
-    border: 2px solid white;
-    background-color: blueviolet;
     display: flex;
     justify-content: center;
 }
 
 .analysis-title {
-    margin: 0;
+    margin: 0 0 1rem 0;
+    color: white;
+}
+
+.issue-title {
+    color: white;
 }
 
 .analysis-solution {
     margin: 0 0 1rem 0;
-    background-color: black;
+    font-size: 1.15rem;
+    line-height: 1.5rem;
+    white-space: pre-wrap;
 }
 
 .analysis-btns {
+    margin-top: 1rem;
     display: flex;
+    gap: 1rem;
 }
 
 .prev-button, .next-button, .finish-button {

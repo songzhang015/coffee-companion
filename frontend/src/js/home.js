@@ -50,73 +50,102 @@ const fieldNames = {
 };
 
 const issueSolutions = {
-	bitter: `Bitterness mainly comes from incorrect brewing or bad beans.
-	First, check what beans you have. Cheap or certain types of Robusta beans
-	are naturally bitter, as are super dark roasted beans. Otherwise, the
-	bitterness is likely due to an over-extraction of the coffee beans.
-	The most common problem is that the coffee is grinded too fine (or small).
-	If the grind size seems standard, check the brew time- most coffee is
-	brewed for around 1-5 minutes depending on the method. Next, determine
-	the ideal ratio of coffee to water for your brewing method and try
-	adjusting it if it isn't in that range. Most common ratios of coffee to
-	water is around 1:15, 1:16, or 1:17. Lower than 1:12 or higher than 1:21
-	is atypical for non-espresso brews. If you happen to be severely agitating
-	your coffee as it brews, try toning that down. Otherwise, not common but
-	you could try brewing at a lower temperature (ex. <205°).`,
-	sour: `Sourness mainly comes from incorrect brewing. First, check how fine
-	(small) your coffee beans are. If they are super coarse (aka bigger
-	chunks), try grinding them to be finer. For non-espresso drinks, try
-	increasing the brew time by 20-30 seconds, especially if it's under a
-	minute. Next, determine the ideal ratio of coffee to water for your brewing
-	method and try adjusting it if it isn't in that range. Most common ratios
-	of coffee to water is around 1:15, 1:16, or 1:17. Lower than 1:12 or
-	higher than 1:21 is atypical for non-espresso brews. If your water is on
-	the cooler side (ex. <205°), try brewing it with off-the-boil water
-	(increased temps).`,
-	weak: `Weak or watery coffee mainly comes from an incorrect ratio of
-	coffee to water, with weaker coffee coming from higher amounts of water.
-	If you measure the amount of coffee to water, ensure the ratio is less
-	than 1:21, getting closer to most methods and recipes which is around
-	1:18 or less. If increased bitterness occurs, adjust the grind size as
-	opposed to increasing water. Otherwise, look at common brew times for
-	your method and if you are within range, increase times by 30-60 seconds
-	and seeing if that helps. If the coffee is weak but without much
-	bitterness, you could try to increase extraction by grinding finer
-	(smaller). Lastly, if nothing else try increasing water temperatures to
-	help extract more flavors.`,
-	heavy: `Heavy or bold coffee can be too much, too strong. This is likely
-	due to a more extracted coffee or a darker roasted, fully bodied coffee.
-	The most common reason for a heavy cup of coffee is a close coffee to water
-	ratio. Most espresso (super strong coffee) is brewed from 1:1, 1:2, and 1:3.
-	A stronger non-espresso ratio is around 1:12 or 1:14, so if you are brewing
-	this type of coffee, try increasing the water to 1:16, 1:17, or even 1:18.
-	If the coffee tastes bold and heavy without much bitterness, try grinding
-	a little bit coarser which will lessen the extraction. Extra agitation or
-	stirring can also contribute to a bolder cup.`,
-	burnt: `If a coffee tastes burnt, the easiest and most common problems are
-	bad coffee and unclean coffee machines or makers if you use any of
-	those devices. Super cheap or incredibly dark roasted coffee can have a
-	burnt taste, and oils in uncleaned coffee machines can contribute to a
-	burnt taste. Otherwise, unlikely but possible issues can arise from an
-	overextraction (ex. too finely grounded) of beans or too hot of water.`,
+	bitter: `Bitterness usually comes from bad beans or brewing issues.
+
+1. Check your beans. Cheap, super dark roasted beans, and certain types of
+Robusta beans tend to be more bitter.
+
+2. Over-extraction of the coffee beans due to the coffee being grinded too
+fine (or small) is another common issue.
+
+3. If the grind size seems standard, check the brew time. Most coffee methods
+brew for around 1-5 minutes.
+
+4. Research the ideal ratio of coffee to water for your brewing technique.
+Most common ratios range between 1:15 to 1:17. Try to avoid below 1:12 or above
+1:21 for non-espresso brews.
+
+5. Avoid excessive agitation during brewing.
+
+6. If nothing else, try brewing at a lower temperature (ex. <205°).`,
+
+	sour: `Sourness mainly comes from incorrect brewing.
+	
+1. Check how fine (small) your ground coffee is. If it's super coarse, try
+grinding them to be smaller.
+
+2. For non-espresso drinks, try increasing the brew time by 20-30 seconds,
+especially if it's under a minute.
+
+3. Research the ideal ratio of coffee to water for your brewing technique.
+Most common ratios range between 1:15 to 1:17. Try to avoid below 1:12 or above
+1:21 for non-espresso brews.
+
+4. If your water is on the cooler side (ex. <205°), try brewing it with
+freshly off-the-boil water.`,
+
+	weak: `Weak or watery coffee mainly comes from an incorrect ratio of coffee
+to water, with weaker coffee coming from higher amounts of water.
+
+1. Measure the amount of coffee to water, keeping the ratio less than 1:21, 
+ideally around 1:18 or less. If increased bitterness arises, adjust the grind
+size as opposed to increasing water.
+	
+2. Check typical brew times for your method and, if within range, try adding
+30-60 seconds on the clock.
+
+3. If the coffee is weak but without much bitterness, try increasing extraction
+by grinding finer (smaller).
+
+4. If nothing else, try increasing water temperatures to help extract more
+flavors.`,
+
+	heavy: `Heavy or bold coffee is likely due to an over-extraction or a darker roast.
+
+1. The most common reason for a heavy cup of coffee is a low coffee to water
+ratio. Most espresso uses between 1:1 to 1:3 but non-espresso drinks are often
+between 1:16 to 1:18. Try to avoid lower than a 1:14 ratio.
+
+2. If the coffee tastes bold and heavy without much bitterness, try grinding
+a little bit coarser which will lessen the extraction.
+
+3. Extra agitation or stirring can also contribute to a bolder cup.`,
+
+	burnt: `If your coffee tastes burnt, the easiest and most common problems are from
+bad coffee and unclean coffee machines/tools.
+	
+1. Super cheap or incredibly dark roasted coffee can have a burnt taste.
+	
+2. Oils in uncleaned coffee machines can also contribute to a burnt taste.
+
+3. Unlikely but possible issues can arise from an overextraction
+(ex. too finely ground) of beans or too hot of water.`,
+
 	bland: `If your coffee tastes bland, the most common issue is not enough
-	coffee. If your ratio is greater than 1:21, try reducing it to 1:21. If
-	it's 1:21, try a common 1:18 ratio, or 1:16 ratio. Some people enjoy even
-	lower, which you could try if it is bland. Otherwise, if the coffee tastes
-	bland you could attempt to grind a bit finer if the coffee doesn't taste
-	bitter. Minor changes that may help is increasing water temperatures or
-	brewing for longer if the ranges are on the lower end.`,
-	cardboard: `Beans that taste like cardboard or stale/papery often comes
-	simply from the quality of the beans. Older coffee, especially pre-ground
-	can taste stale or like cardboard. Otherwise, check that your water temps
-	are >200° and you rinse out your machines/devices/filters which may or may
-	not have an effect.`,
-	overextracted: `Overextracted coffee tasting bitter or harsh can be solved
-	by grinding coarser, as super fine particles can slip through or get in
-	the taste. A long brew time can also lead to overextraction. Perhaps limit
-	it to 2-3 minutes if you are brewing for longger. Lastly, a ratio of 1:14
-	or lower for most non-espresso techniques could be overextracted depending
-	on your tastes and the coffee beans.`,
+coffee.
+
+1. If your ratio is greater than 1:21, try a common 1:18 ratio, or 1:16 ratio.
+Some people enjoy even lower, which you could try if it's still bland.
+	
+2. You could attempt to grind a bit finer if the coffee doesn't taste bitter.
+
+3. Otherwise, try increasing water temperatures or brewing for longer.`,
+
+	cardboard: `Beans that taste like cardboard or stale/papery often comes from
+from the quality of the beans.
+
+1. Older coffee, especially pre-ground can taste stale or like cardboard.
+
+2. Otherwise, check that your water temps are above 200° which may impart this
+taste.`,
+	overextracted: `1. Overextracted coffee tasting bitter or harsh can be solved by grinding
+coarser, as super fine particles can slip through or get in the taste.
+
+2. A long brew time can also lead to overextraction. Try limiting it to 3-4
+minutes or lower.
+
+3. Lastly, a ratio of 1:14 or lower for most non-espresso techniques could be
+overextracted depending on your preferences and the coffee beans.`,
 };
 
 function initMain() {
@@ -826,7 +855,7 @@ function displayAnalysis(issue, counter) {
 	const issueBox = document.createElement("div");
 	issueBox.classList.add("analysis-box");
 	const issueTitle = document.createElement("h2");
-	issueTitle.classList.add("analysis-title");
+	issueTitle.classList.add("issue-title");
 	issueTitle.textContent = issue;
 	issueBox.append(issueTitle);
 	issueContainer.append(issueBox);
@@ -861,9 +890,6 @@ function attachSectionEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
-	setTimeout(() => {
-		initAdjustPage();
-	}, 25);
 });
 
 export { initLogPage, initAdjustPage };
