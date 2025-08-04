@@ -372,6 +372,7 @@ body {
     inset: 0;
     z-index: -2;
     background-color: gray;
+    border-radius: 6px;
 }
 
 .issue:hover {
@@ -384,14 +385,13 @@ body {
     inset: 0;
     z-index: -1;
     background-color: greenyellow;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s;
-    will-change: transform;
+    border-radius: 6px;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.5s ease;
 }
 
 .issue.selected::after {
-    transform: scaleX(1);
+    clip-path: inset(0 0 0 0);
 }
 
 .issue-tooltip {
