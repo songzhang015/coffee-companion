@@ -355,7 +355,6 @@ body {
 }
 
 .issue {
-    background-color: gray;
     padding: 0.25rem;
     display: flex;
     justify-content: center;
@@ -364,14 +363,35 @@ body {
     transition: transform 0.2s;
     font-size: 1.5rem;
     user-select: none;
+    position: relative;
+}
+
+.issue::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-color: gray;
 }
 
 .issue:hover {
     transform: scale(1.05);
 }
 
-.issue.selected {
+.issue::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background-color: greenyellow;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s;
+    will-change: transform;
+}
+
+.issue.selected::after {
+    transform: scaleX(1);
 }
 
 .issue-tooltip {
@@ -411,7 +431,6 @@ body {
     color: white;
     max-width: 50rem;
     max-height: 100vh;
-
 }
 
 .analysis-item {
