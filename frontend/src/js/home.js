@@ -745,26 +745,102 @@ function initContinuePage() {
 	mainTitle.textContent = "You selected...";
 	mainContainer.append(mainTitle);
 
-	issues.forEach((issue) => {
-		const issueContainer = document.createElement("div");
-		issueContainer.classList.add("analysis-item");
-
-		const issueBox = document.createElement("div");
-		issueBox.classList.add("analysis-box");
-		const issueTitle = document.createElement("h2");
-		issueTitle.classList.add("analysis-title");
-		issueTitle.textContent = issue;
-		issueBox.append(issueTitle);
-		issueContainer.append(issueBox);
-
-		const issueSolution = document.createElement("p");
-		issueSolution.classList.add("analysis-solution");
-		issueSolution.textContent = issueSolutions[issue.toLowerCase()];
-		issueContainer.append(issueSolution);
-
-		mainContainer.append(issueContainer);
-	});
 	document.body.append(mainContainer);
+
+	let counter = 0;
+	let maxIdx = issues.length - 1;
+	console.log(`maxIdx = ${maxIdx}`);
+
+	issues.forEach((issue) => {
+		displayAnalysis(issue, counter);
+		counter += 1;
+	});
+
+	counter = 0;
+
+	const analysisBtns = document.createElement("div");
+	analysisBtns.classList.add("analysis-btns");
+
+	const prevButton = document.createElement("button");
+	prevButton.classList.add("prev-button");
+	prevButton.textContent = "Previous";
+	analysisBtns.append(prevButton);
+	prevButton.style.display = "none";
+	prevButton.addEventListener("click", () => {
+		if (counter > 0) {
+			const curItem = document.querySelector(`[data-index='${counter}']`);
+			curItem.style.display = "none";
+
+			counter -= 1;
+			const prevItem = document.querySelector(`[data-index='${counter}']`);
+			prevItem.style.display = "block";
+
+			finishButton.style.display = "none";
+		}
+	});
+
+	const nextButton = document.createElement("button");
+	nextButton.classList.add("next-button");
+	nextButton.textContent = "Next";
+	analysisBtns.append(nextButton);
+	nextButton.style.display = "none";
+	nextButton.addEventListener("click", () => {
+		if (counter < maxIdx) {
+			const curItem = document.querySelector(`[data-index='${counter}']`);
+			curItem.style.display = "none";
+
+			counter += 1;
+			const nextItem = document.querySelector(`[data-index='${counter}']`);
+			nextItem.style.display = "block";
+
+			if (counter === maxIdx) {
+				finishButton.style.display = "flex";
+			}
+		}
+	});
+
+	const finishButton = document.createElement("button");
+	finishButton.classList.add("finish-button");
+	finishButton.textContent = "Finish";
+	analysisBtns.append(finishButton);
+	finishButton.addEventListener("click", () => {
+		initMain();
+	});
+
+	if (maxIdx !== 0) {
+		prevButton.style.display = "flex";
+		nextButton.style.display = "flex";
+		finishButton.style.display = "none";
+	}
+
+	mainContainer.append(analysisBtns);
+}
+
+function displayAnalysis(issue, counter) {
+	const mainContainer = document.querySelector(".analysis-container");
+
+	const issueContainer = document.createElement("div");
+	issueContainer.classList.add("analysis-item");
+	issueContainer.dataset.index = counter;
+
+	const issueBox = document.createElement("div");
+	issueBox.classList.add("analysis-box");
+	const issueTitle = document.createElement("h2");
+	issueTitle.classList.add("analysis-title");
+	issueTitle.textContent = issue;
+	issueBox.append(issueTitle);
+	issueContainer.append(issueBox);
+
+	const issueSolution = document.createElement("p");
+	issueSolution.classList.add("analysis-solution");
+	issueSolution.textContent = issueSolutions[issue.toLowerCase()];
+	issueContainer.append(issueSolution);
+
+	mainContainer.append(issueContainer);
+
+	if (counter !== 0) {
+		issueContainer.style.display = "none";
+	}
 }
 
 // Other
