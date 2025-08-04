@@ -49,6 +49,76 @@ const fieldNames = {
 	acidity: "Acidity",
 };
 
+const issueSolutions = {
+	bitter: `Bitterness mainly comes from incorrect brewing or bad beans.
+	First, check what beans you have. Cheap or certain types of Robusta beans
+	are naturally bitter, as are super dark roasted beans. Otherwise, the
+	bitterness is likely due to an over-extraction of the coffee beans.
+	The most common problem is that the coffee is grinded too fine (or small).
+	If the grind size seems standard, check the brew time- most coffee is
+	brewed for around 1-5 minutes depending on the method. Next, determine
+	the ideal ratio of coffee to water for your brewing method and try
+	adjusting it if it isn't in that range. Most common ratios of coffee to
+	water is around 1:15, 1:16, or 1:17. Lower than 1:12 or higher than 1:21
+	is atypical for non-espresso brews. If you happen to be severely agitating
+	your coffee as it brews, try toning that down. Otherwise, not common but
+	you could try brewing at a lower temperature (ex. <205°).`,
+	sour: `Sourness mainly comes from incorrect brewing. First, check how fine
+	(small) your coffee beans are. If they are super coarse (aka bigger
+	chunks), try grinding them to be finer. For non-espresso drinks, try
+	increasing the brew time by 20-30 seconds, especially if it's under a
+	minute. Next, determine the ideal ratio of coffee to water for your brewing
+	method and try adjusting it if it isn't in that range. Most common ratios
+	of coffee to water is around 1:15, 1:16, or 1:17. Lower than 1:12 or
+	higher than 1:21 is atypical for non-espresso brews. If your water is on
+	the cooler side (ex. <205°), try brewing it with off-the-boil water
+	(increased temps).`,
+	weak: `Weak or watery coffee mainly comes from an incorrect ratio of
+	coffee to water, with weaker coffee coming from higher amounts of water.
+	If you measure the amount of coffee to water, ensure the ratio is less
+	than 1:21, getting closer to most methods and recipes which is around
+	1:18 or less. If increased bitterness occurs, adjust the grind size as
+	opposed to increasing water. Otherwise, look at common brew times for
+	your method and if you are within range, increase times by 30-60 seconds
+	and seeing if that helps. If the coffee is weak but without much
+	bitterness, you could try to increase extraction by grinding finer
+	(smaller). Lastly, if nothing else try increasing water temperatures to
+	help extract more flavors.`,
+	heavy: `Heavy or bold coffee can be too much, too strong. This is likely
+	due to a more extracted coffee or a darker roasted, fully bodied coffee.
+	The most common reason for a heavy cup of coffee is a close coffee to water
+	ratio. Most espresso (super strong coffee) is brewed from 1:1, 1:2, and 1:3.
+	A stronger non-espresso ratio is around 1:12 or 1:14, so if you are brewing
+	this type of coffee, try increasing the water to 1:16, 1:17, or even 1:18.
+	If the coffee tastes bold and heavy without much bitterness, try grinding
+	a little bit coarser which will lessen the extraction. Extra agitation or
+	stirring can also contribute to a bolder cup.`,
+	burnt: `If a coffee tastes burnt, the easiest and most common problems are
+	bad coffee and unclean coffee machines or makers if you use any of
+	those devices. Super cheap or incredibly dark roasted coffee can have a
+	burnt taste, and oils in uncleaned coffee machines can contribute to a
+	burnt taste. Otherwise, unlikely but possible issues can arise from an
+	overextraction (ex. too finely grounded) of beans or too hot of water.`,
+	bland: `If your coffee tastes bland, the most common issue is not enough
+	coffee. If your ratio is greater than 1:21, try reducing it to 1:21. If
+	it's 1:21, try a common 1:18 ratio, or 1:16 ratio. Some people enjoy even
+	lower, which you could try if it is bland. Otherwise, if the coffee tastes
+	bland you could attempt to grind a bit finer if the coffee doesn't taste
+	bitter. Minor changes that may help is increasing water temperatures or
+	brewing for longer if the ranges are on the lower end.`,
+	cardboard: `Beans that taste like cardboard or stale/papery often comes
+	simply from the quality of the beans. Older coffee, especially pre-ground
+	can taste stale or like cardboard. Otherwise, check that your water temps
+	are >200° and you rinse out your machines/devices/filters which may or may
+	not have an effect.`,
+	overextracted: `Overextracted coffee tasting bitter or harsh can be solved
+	by grinding coarser, as super fine particles can slip through or get in
+	the taste. A long brew time can also lead to overextraction. Perhaps limit
+	it to 2-3 minutes if you are brewing for longger. Lastly, a ratio of 1:14
+	or lower for most non-espresso techniques could be overextracted depending
+	on your tastes and the coffee beans.`,
+};
+
 function initMain() {
 	document.body.innerHTML = "";
 	const mainContainer = document.createElement("div");
@@ -585,7 +655,7 @@ function populateIssues() {
 	const issueData = [
 		{
 			text: "Bitter",
-			info: "An astringent taste, similar to citrus peels, 99% cocoa chocolate, or grapefruit.",
+			info: "An astringent taste, similar to citrus peels, very dark chocolate, or grapefruit.",
 		},
 		{
 			text: "Sour",
@@ -605,7 +675,7 @@ function populateIssues() {
 			info: "Lacking in flavor, like bean-water with very little distinctive flavor.",
 		},
 		{
-			text: "Cardboard-like",
+			text: "Cardboard",
 			info: "A papery, woody, or stale taste.",
 		},
 		{
@@ -615,6 +685,10 @@ function populateIssues() {
 	];
 
 	const issueTooltip = document.querySelector(".issue-tooltip");
+
+	const goForwardBtn = document.createElement("button");
+	goForwardBtn.classList.add("go-forward-btn");
+	goForwardBtn.textContent = "Continue";
 
 	issueData.forEach((issue) => {
 		const issueElement = document.createElement("div");
@@ -645,13 +719,52 @@ function populateIssues() {
 	});
 
 	container.append(issuesContainer);
-
-	const goForwardBtn = document.createElement("button");
-	goForwardBtn.classList.add("go-forward-btn");
-	goForwardBtn.textContent = "Continue";
 	container.append(goForwardBtn);
 
+	goForwardBtn.addEventListener("click", () => {
+		initContinuePage();
+	});
+
 	goForwardBtn.classList.remove("clickable");
+}
+
+function initContinuePage() {
+	const issues = Array.from(
+		document
+			.querySelector(".issues-container")
+			.querySelectorAll(".issue.selected")
+	).map((e) => e.textContent);
+
+	document.body.innerHTML = "";
+
+	const mainContainer = document.createElement("div");
+	mainContainer.classList.add("analysis-container");
+
+	const mainTitle = document.createElement("h1");
+	mainTitle.classList.add("analysis-title");
+	mainTitle.textContent = "You selected...";
+	mainContainer.append(mainTitle);
+
+	issues.forEach((issue) => {
+		const issueContainer = document.createElement("div");
+		issueContainer.classList.add("analysis-item");
+
+		const issueBox = document.createElement("div");
+		issueBox.classList.add("analysis-box");
+		const issueTitle = document.createElement("h2");
+		issueTitle.classList.add("analysis-title");
+		issueTitle.textContent = issue;
+		issueBox.append(issueTitle);
+		issueContainer.append(issueBox);
+
+		const issueSolution = document.createElement("p");
+		issueSolution.classList.add("analysis-solution");
+		issueSolution.textContent = issueSolutions[issue.toLowerCase()];
+		issueContainer.append(issueSolution);
+
+		mainContainer.append(issueContainer);
+	});
+	document.body.append(mainContainer);
 }
 
 // Other
@@ -672,6 +785,9 @@ function attachSectionEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initMain();
+	setTimeout(() => {
+		initAdjustPage();
+	}, 25);
 });
 
 export { initLogPage, initAdjustPage };

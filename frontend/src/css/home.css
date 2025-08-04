@@ -406,3 +406,30 @@ body {
     pointer-events: auto;
     cursor: pointer;
 }
+
+.analysis-container {
+    color: white;
+    max-width: 50rem;
+    max-height: 100vh;
+
+}
+
+.analysis-item {
+    border: 2px solid red;
+}
+
+.analysis-box {
+    border: 2px solid white;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+}
+
+.analysis-title {
+    margin: 0;
+}
+
+.analysis-solution {
+    margin: 0 0 1rem 0;
+    background-color: black;
+}
