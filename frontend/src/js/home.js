@@ -666,16 +666,62 @@ function selectEntry(entry) {
 	bottomSection.classList.add("adjust-bottom-section");
 	rightSection.append(bottomSection);
 
-	const rightTitle = document.createElement("h2");
+	const rightTitle = document.createElement("h1");
 	rightTitle.classList.add("right-title");
-	rightTitle.textContent = `Coffee: ${entry.title}`;
+	rightTitle.textContent = `${entry.title}`;
 	topSection.append(rightTitle);
 
+	const rightdate = document.createElement("h2");
+	rightdate.classList.add("right-date");
+	rightdate.textContent = `${entry.date}`;
+	topSection.append(rightdate);
+
+	const fieldsContainers = document.createElement("div");
+	fieldsContainers.classList.add("fields-containers");
+	topSection.append(fieldsContainers);
+
+	const divider = document.createElement("div");
+	divider.classList.add("fields-divider");
+
+	// Brewing Perameters
+	const fieldsLeftSection = document.createElement("div");
+	fieldsLeftSection.classList.add("fields-left-section");
+	fieldsContainers.append(fieldsLeftSection);
+
+	const fieldsLeftTitle = document.createElmeent("h3");
+	fieldsLeftTitle.classList.add("fields-left-title");
+	fieldsLeftTitle.textContent = "Brewing Parameters";
+	fieldsLeftSection.append(fieldsLeftTitle);
+	fieldsLeftSection.append(divider);
+
+	// Tasting Notes
+	const fieldsRightSection = document.createElement("div");
+	fieldsRightSection.classList.add("fields-right-section");
+	fieldsContainers.append(fieldsRightSection);
+
+	const fieldsRightTitle = document.createElmeent("h3");
+	fieldsRightTitle.classList.add("fields-right-title");
+	fieldsRightTitle.textContent = "Tasting Notes";
+	fieldsRightSection.append(fieldsRightTitle);
+	fieldsRightSection.append(divider);
+
+	const leftSect = [
+		"roastLevel",
+		"coffeeAmount",
+		"waterTemp",
+		"waterAmount",
+		"grindSize",
+		"brewTime",
+	];
+
+	const rightSect = ["notes", "texture", "flavor", "acidity"];
+
 	for (const field in fieldNames) {
-		if (field !== "title" && entry[field] !== "") {
+		// TODO: If in left section append to left, if in right section append to right
+		if (field !== "title" && field !== "date" && entry[field] !== "") {
 			const element = document.createElement("p");
 			element.textContent = `${fieldNames[field]}: ${entry[field]}`;
-			topSection.append(element);
+			fieldsContainers.append(element);
 		}
 	}
 
