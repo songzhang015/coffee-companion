@@ -5,6 +5,8 @@
     --bg-tan: #f7f3e9;
     --text-white: white;
     --text-beige: #ffc67c;
+    --main-btn: #df7b00;
+    --golden-btn: rgb(250, 210, 55);
 }
 
 @font-face {
@@ -43,5 +45,13 @@
     font-family: "Source Sans 3";
     src: url("../assets/fonts/sourcesans3.ttf") format('truetype');
     font-weight: 200 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../assets/fonts/roboto.woff2") format("woff2"),
+         url("../assets/fonts/roboto.woff") format("woff");
+    font-weight: normal;
     font-style: normal;
 }
