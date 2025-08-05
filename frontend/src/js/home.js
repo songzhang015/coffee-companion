@@ -680,30 +680,42 @@ function selectEntry(entry) {
 	fieldsContainers.classList.add("fields-containers");
 	topSection.append(fieldsContainers);
 
-	const divider = document.createElement("div");
-	divider.classList.add("fields-divider");
+	const leftDivider = document.createElement("div");
+	const rightDivider = document.createElement("div");
+	leftDivider.classList.add("fields-divider");
+	rightDivider.classList.add("fields-divider");
 
 	// Brewing Perameters
 	const fieldsLeftSection = document.createElement("div");
 	fieldsLeftSection.classList.add("fields-left-section");
 	fieldsContainers.append(fieldsLeftSection);
 
-	const fieldsLeftTitle = document.createElmeent("h3");
+	const fieldsLeftTitle = document.createElement("h3");
 	fieldsLeftTitle.classList.add("fields-left-title");
 	fieldsLeftTitle.textContent = "Brewing Parameters";
+
+	const leftFieldsContainer = document.createElement("div");
+	leftFieldsContainer.classList.add("left-fields-container");
+
 	fieldsLeftSection.append(fieldsLeftTitle);
-	fieldsLeftSection.append(divider);
+	fieldsLeftSection.append(leftDivider);
+	fieldsLeftSection.append(leftFieldsContainer);
 
 	// Tasting Notes
 	const fieldsRightSection = document.createElement("div");
 	fieldsRightSection.classList.add("fields-right-section");
 	fieldsContainers.append(fieldsRightSection);
 
-	const fieldsRightTitle = document.createElmeent("h3");
+	const rightFieldsContainer = document.createElement("div");
+	rightFieldsContainer.classList.add("right-fields-container");
+
+	const fieldsRightTitle = document.createElement("h3");
 	fieldsRightTitle.classList.add("fields-right-title");
 	fieldsRightTitle.textContent = "Tasting Notes";
+
 	fieldsRightSection.append(fieldsRightTitle);
-	fieldsRightSection.append(divider);
+	fieldsRightSection.append(rightDivider);
+	fieldsRightSection.append(rightFieldsContainer);
 
 	const leftSect = [
 		"roastLevel",
@@ -714,15 +726,38 @@ function selectEntry(entry) {
 		"brewTime",
 	];
 
-	const rightSect = ["notes", "texture", "flavor", "acidity"];
+	const rightSect = ["notes", "aroma", "texture", "flavor", "acidity"];
 
 	for (const field in fieldNames) {
-		// TODO: If in left section append to left, if in right section append to right
-		if (field !== "title" && field !== "date" && entry[field] !== "") {
-			const element = document.createElement("p");
-			element.textContent = `${fieldNames[field]}: ${entry[field]}`;
-			fieldsContainers.append(element);
+		if (entry[field] !== "") {
+			const line = document.createElement("div");
+			line.classList.add("field-line");
+			if (field === "notes") {
+				line.classList.add("notes");
+				const notesLine = document.createElement("p");
+				notesLine.textContent = `${fieldNames[field]}: ${entry[field]}`;
+				line.append(notesLine);
+			} else {
+				const parameter = document.createElement("p");
+				parameter.textContent = `${fieldNames[field]}:`;
+
+				const value = document.createElement("p");
+				value.textContent = `${entry[field]}`;
+
+				line.append(parameter);
+				line.append(value);
+			}
+
+			if (leftSect.includes(field)) {
+				leftFieldsContainer.append(line);
+			} else if (rightSect.includes(field)) {
+				rightFieldsContainer.append(line);
+			}
 		}
+	}
+
+	if (leftFieldsContainer.children.length === 0) {
+		fieldsLeftSection.remove();
 	}
 
 	const issuesTitle = document.createElement("h2");
