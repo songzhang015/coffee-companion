@@ -276,7 +276,14 @@ function initNewEntryPage() {
 		entryTitle.classList.add("entry-title");
 		entryTitle.textContent = title;
 
-		const entryInput = document.createElement("input");
+		let entryInput;
+		if (cls === "notes") {
+			entryInput = document.createElement("textarea");
+			entryInput.rows = 5;
+		} else {
+			entryInput = document.createElement("input");
+		}
+
 		entryInput.classList.add("entry-input", cls);
 		entryInput.placeholder = placeholder;
 
@@ -610,6 +617,15 @@ function initAdjustPage() {
 	selectEntryPlaceholder.classList.add("select-entry-placeholder");
 	selectEntryPlaceholder.textContent = "Select an entry";
 	rightContainer.append(selectEntryPlaceholder);
+
+	const returnButton = document.createElement("button");
+	returnButton.classList.add("return-button");
+	returnButton.classList.add("top-right");
+	returnButton.textContent = "← Go Back";
+	returnButton.addEventListener("click", () => {
+		initMain();
+	});
+	mainContainer.append(returnButton);
 
 	loadAdjustEntries();
 }
