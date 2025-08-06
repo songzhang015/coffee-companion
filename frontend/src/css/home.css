@@ -422,6 +422,11 @@ textarea.entry-input::placeholder {
     transition: background-color 0.15s, transform 0.15s, box-shadow 0.15s;
     position: relative;
     font-weight: bold;
+    flex-wrap: wrap;
+}
+
+.entry-container-adjust > p {
+    word-break: break-word;
 }
 
 .entry-container-adjust:hover {
@@ -467,6 +472,10 @@ textarea.entry-input::placeholder {
     margin: 1rem 0 -0.5rem 0;
 }
 
+.right-title.long {
+    font-size: 2rem;
+}
+
 .right-date {
     font-size: 1.5rem;
     color: rgb(90, 90, 90);
@@ -497,7 +506,7 @@ textarea.entry-input::placeholder {
     margin-top: 0.5rem;
 }
 
-.left-fields-container {
+.left-fields-container, .right-fields-container {
     width: 100%;
 }
 
@@ -507,12 +516,22 @@ textarea.entry-input::placeholder {
     align-items: center;
     width: 100%;
     gap: 0.25rem;
-    height: 3rem;
+    min-height: 3rem;
+    flex-wrap: wrap;
+}
+
+.field-line:not(.notes) > p:first-of-type {
+    font-weight: bold;
 }
 
 .field-line.notes {
     flex-wrap: wrap;
     text-align: center;
+}
+
+.field-line > p {
+    margin: 0;
+    word-break: break-word;
 }
 
 .adjust-bottom-section {
@@ -625,7 +644,6 @@ textarea.entry-input::placeholder {
 .analysis-container {
     color: white;
     margin-top: 7.5rem;
-    min-width: 50rem;
     max-height: 100vh;
     background-color: #57534e;
     padding: 1rem;
@@ -634,6 +652,38 @@ textarea.entry-input::placeholder {
 .analysis-item {
     background-color:  #292524;
     padding: 1rem;
+    height: 31rem;
+    width: 41rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    display: none;
+    opacity: 0;
+    transform: none;
+    position: absolute;
+}
+
+.analysis-item.active {
+    opacity: 1;
+    position: relative;
+    display: flex;
+}
+
+.analysis-item.active .issue-title,
+.analysis-item.active .analysis-solution {
+    animation: fadeInSlide 0.6s;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .analysis-box {
@@ -647,6 +697,7 @@ textarea.entry-input::placeholder {
 }
 
 .issue-title {
+    margin: 0 0 1rem 0;
     color: white;
 }
 
@@ -674,7 +725,6 @@ textarea.entry-input::placeholder {
     font-weight: 600;
     font-family: "Source Sans 3", sans-serif;
 }
-
 
 .prev-button:hover, .next-button:hover, .finish-button:hover {
     filter: brightness(92%);

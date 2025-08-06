@@ -295,6 +295,7 @@ function initNewEntryPage() {
 			entryInput.rows = 5;
 		} else {
 			entryInput = document.createElement("input");
+			entryInput.maxLength = 80;
 		}
 
 		entryInput.classList.add("entry-input", cls);
@@ -705,6 +706,9 @@ function selectEntry(entry) {
 	const rightTitle = document.createElement("h1");
 	rightTitle.classList.add("right-title");
 	rightTitle.textContent = `${entry.title}`;
+	if (rightTitle.textContent.length > 45) {
+		rightTitle.classList.add("long");
+	}
 	topSection.append(rightTitle);
 
 	const rightdate = document.createElement("h2");
@@ -771,7 +775,13 @@ function selectEntry(entry) {
 			if (field === "notes") {
 				line.classList.add("notes");
 				const notesLine = document.createElement("p");
-				notesLine.textContent = `${fieldNames[field]}: ${entry[field]}`;
+				const strong = document.createElement("strong");
+				strong.textContent = `${fieldNames[field]}: `;
+
+				const text = document.createTextNode(entry[field]);
+
+				notesLine.textContent = "";
+				notesLine.append(strong, text);
 				line.append(notesLine);
 			} else {
 				const parameter = document.createElement("p");
@@ -930,11 +940,11 @@ function initContinuePage() {
 	prevButton.addEventListener("click", () => {
 		if (counter > 0) {
 			const curItem = document.querySelector(`[data-index='${counter}']`);
-			curItem.style.display = "none";
+			curItem.classList.remove("active");
 
 			counter -= 1;
 			const prevItem = document.querySelector(`[data-index='${counter}']`);
-			prevItem.style.display = "block";
+			prevItem.classList.add("active");
 
 			finishButton.style.display = "none";
 		}
@@ -948,11 +958,11 @@ function initContinuePage() {
 	nextButton.addEventListener("click", () => {
 		if (counter < maxIdx) {
 			const curItem = document.querySelector(`[data-index='${counter}']`);
-			curItem.style.display = "none";
+			curItem.classList.remove("active");
 
 			counter += 1;
 			const nextItem = document.querySelector(`[data-index='${counter}']`);
-			nextItem.style.display = "block";
+			nextItem.classList.add("active");
 
 			if (counter === maxIdx) {
 				finishButton.style.display = "flex";
@@ -999,8 +1009,8 @@ function displayAnalysis(issue, counter) {
 
 	mainContainer.append(issueContainer);
 
-	if (counter !== 0) {
-		issueContainer.style.display = "none";
+	if (counter === 0) {
+		issueContainer.classList.add("active");
 	}
 }
 
