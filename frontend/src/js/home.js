@@ -7,8 +7,6 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import { guestState } from "./guestState.js";
 
-console.log("Current guest state:", guestState.isGuest);
-
 async function fetchEntries() {
 	if (guestState.isGuest === true) {
 		try {
