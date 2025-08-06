@@ -143,7 +143,7 @@ body {
     position: absolute;
 	right: -45px;
     background-color: transparent;
-    color: rgb(255, 157, 0);
+    color: var(--main-btn);
     border: none;
     transition: color 0.1s;
     font-size: 2.15rem;
@@ -381,9 +381,6 @@ textarea.entry-input::placeholder {
         margin: 1.5rem 0;
     }
 }
-
-
-
 
 /* Adjust section of homepage */
 .main-container-adjust {
