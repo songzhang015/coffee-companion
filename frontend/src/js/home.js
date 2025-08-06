@@ -777,12 +777,17 @@ function selectEntry(entry) {
 				const notesLine = document.createElement("p");
 				const strong = document.createElement("strong");
 				strong.textContent = `${fieldNames[field]}: `;
+				notesLine.appendChild(strong);
 
-				const text = document.createTextNode(entry[field]);
+				const lines = entry[field].split("\n");
+				lines.forEach((lineText, i) => {
+					notesLine.appendChild(document.createTextNode(lineText));
+					if (i < lines.length - 1) {
+						notesLine.appendChild(document.createElement("br"));
+					}
+				});
 
-				notesLine.textContent = "";
-				notesLine.append(strong, text);
-				line.append(notesLine);
+				line.appendChild(notesLine);
 			} else {
 				const parameter = document.createElement("p");
 				parameter.textContent = `${fieldNames[field]}:`;
@@ -790,6 +795,9 @@ function selectEntry(entry) {
 				const value = document.createElement("p");
 				value.textContent = `${entry[field]}`;
 
+				if (value.textContent.length > 40) {
+					value.style.fontSize = "0.9rem";
+				}
 				line.append(parameter);
 				line.append(value);
 			}

@@ -524,11 +524,6 @@ textarea.entry-input::placeholder {
     font-weight: bold;
 }
 
-.field-line.notes {
-    flex-wrap: wrap;
-    text-align: center;
-}
-
 .field-line > p {
     margin: 0;
     word-break: break-word;
@@ -616,6 +611,7 @@ textarea.entry-input::placeholder {
 .go-forward-btn {
     font-size: 1.5rem;
     padding: 0.25rem 1rem;
+    margin-bottom: 1rem;
     opacity: 0.5;
     user-select: none;
     pointer-events: none;
@@ -731,4 +727,15 @@ textarea.entry-input::placeholder {
     cursor: pointer;
     box-shadow: none;
     transform: scale(0.96);
+}
+
+@media (max-width: 1920px) {
+    .issues-container {
+        gap: 2rem 8rem;
+        margin: 1rem;
+    }
+
+    .issues-title {
+        margin-bottom: 0;
+    }
 }
