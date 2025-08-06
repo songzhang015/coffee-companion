@@ -5,21 +5,34 @@ import logIcon from "../assets/icons/log.svg";
 import adjustIcon from "../assets/icons/adjust.svg";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { guestState } from "./guestState.js";
+
+console.log("Current guest state:", guestState.isGuest);
 
 async function fetchEntries() {
-	try {
-		const response = await fetch("/api/entries");
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
+	if (guestState.isGuest === true) {
+		try {
+			const entriesJSON = localStorage.getItem("localEntries");
+			return entriesJSON ? JSON.parse(entriesJSON) : [];
+		} catch (error) {
+			console.error(error.message);
+			return [];
 		}
-		const result = await response.json();
-		if (!result.success) {
-			throw new Error(`Backend error: ${result.message}`);
+	} else {
+		try {
+			const response = await fetch("/api/entries");
+			if (!response.ok) {
+				throw new Error(`HTTP error: ${response.status}`);
+			}
+			const result = await response.json();
+			if (!result.success) {
+				throw new Error(`Backend error: ${result.message}`);
+			}
+			return result.entries;
+		} catch (error) {
+			console.error(error.message);
+			return [];
 		}
-		return result.entries;
-	} catch (error) {
-		console.error(error.message);
-		return [];
 	}
 }
 
@@ -444,24 +457,36 @@ async function createNewEntry(
 		flavor,
 		acidity,
 	};
-	try {
-		const response = await fetch("/api/entries", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newEntry),
-		});
-		if (!response.ok) {
-			throw new Error(`HTTP error: ${response.status}`);
-		}
 
-		const result = await response.json();
-		if (!result.success) {
-			throw new Error(`Backend error: ${result.message}`);
+	if (guestState.isGuest === true) {
+		try {
+			const entries = await fetchEntries();
+			newEntry.id = Date.now();
+			entries.push(newEntry);
+			localStorage.setItem("localEntries", JSON.stringify(entries));
+		} catch (error) {
+			console.error(error.message);
 		}
-	} catch (error) {
-		console.error(error.message);
+	} else {
+		try {
+			const response = await fetch("/api/entries", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newEntry),
+			});
+			if (!response.ok) {
+				throw new Error(`HTTP error: ${response.status}`);
+			}
+
+			const result = await response.json();
+			if (!result.success) {
+				throw new Error(`Backend error: ${result.message}`);
+			}
+		} catch (error) {
+			console.error(error.message);
+		}
 	}
 }
 
@@ -513,18 +538,29 @@ function addEntryToPage(entry) {
 }
 
 async function deleteEntry(entryToDelete) {
-	try {
-		const response = await fetch(`/api/entries/${entryToDelete.id}`, {
-			method: "DELETE",
-		});
-
-		if (!response.ok) {
-			throw new Error(`Delete failed: ${response.status}`);
+	if (guestState.isGuest === true) {
+		try {
+			let entries = await fetchEntries();
+			entries = entries.filter((entry) => entry.id !== entryToDelete.id);
+			localStorage.setItem("localEntries", JSON.stringify(entries));
+			initLogPage();
+		} catch (error) {
+			console.error(error.message);
 		}
+	} else {
+		try {
+			const response = await fetch(`/api/entries/${entryToDelete.id}`, {
+				method: "DELETE",
+			});
 
-		initLogPage();
-	} catch (error) {
-		console.error("Error deleting entry:", error);
+			if (!response.ok) {
+				throw new Error(`Delete failed: ${response.status}`);
+			}
+
+			initLogPage();
+		} catch (error) {
+			console.error("Error deleting entry:", error);
+		}
 	}
 }
 
@@ -875,7 +911,6 @@ function initContinuePage() {
 
 	let counter = 0;
 	let maxIdx = issues.length - 1;
-	console.log(`maxIdx = ${maxIdx}`);
 
 	issues.forEach((issue) => {
 		displayAnalysis(issue, counter);

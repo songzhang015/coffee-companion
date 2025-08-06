@@ -2,6 +2,8 @@
 import "../css/global.css";
 import "../css/account.css";
 
+import { guestState } from "./guestState.js";
+
 const loginForm = document.querySelector(".login-form");
 const registerForm = document.querySelector(".register-form");
 
@@ -20,22 +22,28 @@ function showLogin() {
 }
 
 function attachFormSwitchListeners() {
-	document
-		.querySelector(".switch-register-btn")
-		.addEventListener("click", (e) => {
+	const registerBtn = document.querySelector(".switch-register-btn");
+	if (registerBtn) {
+		registerBtn.addEventListener("click", (e) => {
 			e.preventDefault();
 			showRegister();
 		});
+	}
 
-	document.querySelector(".switch-login-btn").addEventListener("click", (e) => {
-		e.preventDefault();
-		showLogin();
-	});
+	const loginBtn = document.querySelector(".switch-login-btn");
+	if (loginBtn) {
+		loginBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			showLogin();
+		});
+	}
 }
 
 function continueAsGuest() {
 	const continueButton = document.querySelector(".guest");
-	continueButton.addEventListener("click", () => {
+	continueButton.addEventListener("click", (e) => {
+		e.preventDefault();
+		guestState.isGuest = true;
 		window.location.href = "/home";
 	});
 }
@@ -74,6 +82,7 @@ function submission() {
 			passwordInput.setCustomValidity("");
 
 			if (result.success) {
+				guestState.isGuest = false;
 				window.location.href = "/home";
 			}
 		} catch (e) {
@@ -118,6 +127,7 @@ function submission() {
 			}
 
 			if (result.success) {
+				guestState.isGuest = false;
 				window.location.href = "/home";
 			}
 		} catch (e) {
@@ -132,4 +142,6 @@ function init() {
 	submission();
 }
 
-init();
+document.addEventListener("DOMContentLoaded", () => {
+	init();
+});
