@@ -92,7 +92,6 @@ button:hover {
     transform: scale(0.96);
 }
 
-
 /* Prevents autofill affecting transparent input background */
 input:-webkit-autofill {
     background-color: transparent;
@@ -100,7 +99,6 @@ input:-webkit-autofill {
     -webkit-text-fill-color: white;
     transition: background-color 9999s ease-in-out 0s;
 }
-
 
 label[for="email-login"], label[for="password-login"],
 label[for="email-register"], label[for="password-register"], label[for="password-register-confirm"] {

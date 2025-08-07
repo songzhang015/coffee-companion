@@ -18,18 +18,16 @@ db.init_app(app)
 # Serve HTML pages
 @app.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return app.send_static_file('index.html')
 
 @app.route('/home')
 def home():
-    return send_from_directory(app.static_folder, 'home.html')
+    return app.send_static_file('home.html')
 
 @app.route('/account')
 def account():
-    return send_from_directory(app.static_folder, 'account.html')
+    return app.send_static_file('account.html')
 
-
-# Serve JS, CSS, and other assets
 @app.route('/js/<path:filename>')
 def serve_js(filename):
     return send_from_directory(f'{app.static_folder}/js', filename)
@@ -41,7 +39,6 @@ def serve_css(filename):
 @app.route('/assets/<path:filename>')
 def serve_assets(filename):
     return send_from_directory(f'{app.static_folder}/assets', filename)
-
 
 # APIs
 @app.route('/api/users', methods=['GET'])
