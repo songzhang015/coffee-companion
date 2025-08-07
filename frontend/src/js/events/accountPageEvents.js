@@ -1,6 +1,6 @@
 /**
  * accountPageEvents.js
- * Contains all events for the account page
+ * Contains account page events for form switching, guest login, and submissions
  */
 
 import { showRegister, showLogin } from "../dom/accountFormUI";
