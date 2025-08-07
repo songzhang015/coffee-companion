@@ -5,7 +5,7 @@ import logIcon from "../assets/icons/log.svg";
 import adjustIcon from "../assets/icons/adjust.svg";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-import { guestState } from "./guestState.js";
+import { guestState } from "./states/guestState.js";
 
 async function fetchEntries() {
 	if (guestState.isGuest === true) {

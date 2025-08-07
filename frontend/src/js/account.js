@@ -2,7 +2,8 @@
 import "../css/global.css";
 import "../css/account.css";
 
-import { guestState } from "./guestState.js";
+import { guestState } from "./states/guestState.js";
+import { login, register } from "./apis/accountAuthApi.js";
 
 const loginForm = document.querySelector(".login-form");
 const registerForm = document.querySelector(".register-form");
@@ -54,30 +55,15 @@ function submission() {
 	passwordInput.addEventListener("input", () => {
 		passwordInput.setCustomValidity("");
 	});
+
 	loginForm.addEventListener("submit", async (e) => {
 		e.preventDefault();
 
-		// Sends info to login API, which returns into response and parsed into result
 		try {
-			const response = await fetch("/api/auth/login", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					email: document.getElementById("email-login").value,
-					password: document.getElementById("password-login").value,
-				}),
-			});
-			const result = await response.json();
+			const email = document.getElementById("email-login").value;
+			const password = passwordInput.value;
 
-			if (!response.ok) {
-				if (response.status === 401) {
-					passwordInput.setCustomValidity("Incorrect password");
-					passwordInput.reportValidity();
-				} else {
-					throw new Error(result.message);
-				}
-				return;
-			}
+			const result = await login(email, password);
 
 			passwordInput.setCustomValidity("");
 
@@ -85,8 +71,13 @@ function submission() {
 				guestState.isGuest = false;
 				window.location.href = "/home";
 			}
-		} catch (e) {
-			console.error("Request failed:", e);
+		} catch (error) {
+			if (error.status === 401) {
+				passwordInput.setCustomValidity("Incorrect password");
+				passwordInput.reportValidity();
+			} else {
+				console.error("Request failed:", error);
+			}
 		}
 	});
 
@@ -110,28 +101,18 @@ function submission() {
 			return;
 		}
 
-		// Sends info to register API, which returns into response and parsed into result
 		try {
-			const response = await fetch("/api/users", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					email: document.getElementById("email-register").value,
-					password: document.getElementById("password-register").value,
-				}),
-			});
-			const result = await response.json();
+			const email = document.getElementById("email-register").value;
+			const password = document.getElementById("password-register").value;
 
-			if (!response.ok) {
-				throw new Error(result.message);
-			}
+			const result = await register(email, password);
 
 			if (result.success) {
 				guestState.isGuest = false;
 				window.location.href = "/home";
 			}
-		} catch (e) {
-			console.error("Request failed:", e);
+		} catch (error) {
+			console.error("Request failed:", error);
 		}
 	});
 }

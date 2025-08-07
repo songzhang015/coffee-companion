@@ -74,6 +74,8 @@ def register():
 
         db.session.add(new_user)
         db.session.commit()
+        session['user_id'] = new_user.id
+        
         return jsonify({'success': True, 'message': "Registration successful"}), 201
     except Exception as e:
         return jsonify({'success': False, 'message': "Internal server error"}), 500
