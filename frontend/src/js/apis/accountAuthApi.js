@@ -1,6 +1,6 @@
 /**
  * accountAuthApi.js
- * Handles login and registration API calls for the account page.
+ * Handles login and registration API calls for the account page
  */
 
 // Sends email and password to backend API for logging in, returns result to be parsed
