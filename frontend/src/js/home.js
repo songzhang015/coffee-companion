@@ -24,10 +24,10 @@ function initNewEntryPage() {
 	entriesContainer.innerHTML = "";
 
 	let oldButton = document.querySelector(".add-entries-button");
-	oldButton.remove();
+	if (oldButton) oldButton.remove();
 
 	let returnButton = document.querySelector(".return-button");
-	returnButton.remove();
+	if (returnButton) returnButton.remove();
 
 	const newForm = document.createElement("form");
 	entriesContainer.replaceWith(newForm);
@@ -36,115 +36,82 @@ function initNewEntryPage() {
 	const title = document.querySelector(".entries-title");
 	title.textContent = "New Entry";
 
-	let currentRow = null;
-	let fieldCount = 0;
+	let row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addNewField(row, "Entry Title:", "e.g. Columbian", "title");
+	addNewField(row, "Date:", "e.g. 01/20/2025", "date");
 
-	function addNewField(title, placeholder, cls, fullWidth = false) {
-		const entryContainer = document.createElement("div");
-		entryContainer.classList.add("new-entry-container");
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addNewField(
+		row,
+		optionalFields.roastLevel[0],
+		optionalFields.roastLevel[1],
+		"roastLevel"
+	);
+	addNewField(
+		row,
+		optionalFields.coffeeAmount[0],
+		optionalFields.coffeeAmount[1],
+		"coffeeAmount"
+	);
 
-		if (fullWidth) {
-			entryContainer.classList.add("full-width");
-		}
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addNewField(
+		row,
+		optionalFields.waterTemp[0],
+		optionalFields.waterTemp[1],
+		"waterTemp"
+	);
+	addNewField(
+		row,
+		optionalFields.waterAmount[0],
+		optionalFields.waterAmount[1],
+		"waterAmount"
+	);
 
-		const entryTitle = document.createElement("h2");
-		entryTitle.classList.add("entry-title");
-		entryTitle.textContent = title;
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addNewField(
+		row,
+		optionalFields.grindSize[0],
+		optionalFields.grindSize[1],
+		"grindSize"
+	);
+	addNewField(
+		row,
+		optionalFields.brewTime[0],
+		optionalFields.brewTime[1],
+		"brewTime"
+	);
 
-		let entryInput;
-		if (cls === "notes") {
-			entryInput = document.createElement("textarea");
-			entryInput.rows = 5;
-		} else {
-			entryInput = document.createElement("input");
-			entryInput.maxLength = 80;
-		}
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addNewField(
+		row,
+		optionalFields.notes[0],
+		optionalFields.notes[1],
+		"notes",
+		true
+	);
 
-		entryInput.classList.add("entry-input", cls);
-		entryInput.placeholder = placeholder;
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addSliderField(row, "Aroma", "aroma");
+	addSliderField(row, "Texture", "texture");
 
-		entryContainer.append(entryTitle, entryInput);
-
-		const entriesContainer = document.querySelector(".entries-container");
-
-		if (fullWidth || !currentRow || fieldCount % 2 === 0) {
-			currentRow = document.createElement("div");
-			currentRow.classList.add("entry-row");
-
-			entriesContainer.appendChild(currentRow);
-		}
-
-		currentRow.appendChild(entryContainer);
-		fieldCount++;
-
-		if (fullWidth) {
-			currentRow = null;
-			fieldCount = 0;
-		}
-
-		if (cls === "date") {
-			flatpickr(entryInput, {
-				dateFormat: "m/d/Y",
-				allowInput: true,
-				maxDate: "today",
-			});
-		}
-	}
-
-	addNewField("Entry Title:", "e.g. Columbian", "title");
-	addNewField("Date:", "e.g. 01/20/2025", "date");
-	for (const field in optionalFields) {
-		const [label, placeholder] = optionalFields[field];
-		if (field === "notes") {
-			addNewField(label, placeholder, field, true);
-		} else {
-			addNewField(label, placeholder, field);
-		}
-	}
-
-	function addSliderField(title, cls) {
-		const entryContainer = document.createElement("div");
-		entryContainer.classList.add("new-entry-container");
-
-		const entryTitle = document.createElement("h2");
-		entryTitle.classList.add("entry-title");
-		entryTitle.textContent = title;
-
-		const sliderInput = document.createElement("input");
-		sliderInput.classList.add("entry-slider", cls);
-		sliderInput.type = "range";
-		sliderInput.min = "1";
-		sliderInput.max = "5";
-		sliderInput.step = "1";
-		sliderInput.value = "3";
-
-		const valueDisplay = document.createElement("span");
-		valueDisplay.classList.add("slider-value");
-		valueDisplay.textContent = sliderInput.value;
-
-		sliderInput.addEventListener("input", () => {
-			valueDisplay.textContent = sliderInput.value;
-		});
-
-		entryContainer.append(entryTitle, sliderInput, valueDisplay);
-
-		const entriesContainer = document.querySelector(".entries-container");
-
-		if (!currentRow || fieldCount % 2 === 0) {
-			currentRow = document.createElement("div");
-			currentRow.classList.add("entry-row");
-
-			entriesContainer.appendChild(currentRow);
-		}
-
-		currentRow.appendChild(entryContainer);
-		fieldCount++;
-	}
-
-	addSliderField("Aroma", "aroma");
-	addSliderField("Texture", "texture");
-	addSliderField("Flavor", "flavor");
-	addSliderField("Acidity", "acidity");
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addSliderField(row, "Flavor", "flavor");
+	addSliderField(row, "Acidity", "acidity");
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.type = "submit";
@@ -188,6 +155,69 @@ function initNewEntryPage() {
 	cancelNewEntryButton.addEventListener("click", () => {
 		initLogPage();
 	});
+}
+
+function addNewField(row, title, placeholder, cls, fullWidth = false) {
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("new-entry-container");
+	if (fullWidth) {
+		entryContainer.classList.add("full-width");
+	}
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.classList.add("entry-title");
+	entryTitle.textContent = title;
+
+	let entryInput;
+	if (cls === "notes") {
+		entryInput = document.createElement("textarea");
+		entryInput.rows = 5;
+	} else {
+		entryInput = document.createElement("input");
+		entryInput.maxLength = 80;
+	}
+
+	entryInput.classList.add("entry-input", cls);
+	entryInput.placeholder = placeholder;
+
+	entryContainer.append(entryTitle, entryInput);
+	row.appendChild(entryContainer);
+
+	if (cls === "date") {
+		flatpickr(entryInput, {
+			dateFormat: "m/d/Y",
+			allowInput: true,
+			maxDate: "today",
+		});
+	}
+}
+
+function addSliderField(row, title, cls) {
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("new-entry-container");
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.classList.add("entry-title");
+	entryTitle.textContent = title;
+
+	const sliderInput = document.createElement("input");
+	sliderInput.classList.add("entry-slider", cls);
+	sliderInput.type = "range";
+	sliderInput.min = "1";
+	sliderInput.max = "5";
+	sliderInput.step = "1";
+	sliderInput.value = "3";
+
+	const valueDisplay = document.createElement("span");
+	valueDisplay.classList.add("slider-value");
+	valueDisplay.textContent = sliderInput.value;
+
+	sliderInput.addEventListener("input", () => {
+		valueDisplay.textContent = sliderInput.value;
+	});
+
+	entryContainer.append(entryTitle, sliderInput, valueDisplay);
+	row.appendChild(entryContainer);
 }
 
 async function createNewEntry(
