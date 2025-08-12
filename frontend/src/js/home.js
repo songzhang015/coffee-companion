@@ -12,67 +12,13 @@ import {
 import { getLocalEntries } from "./utils/storage";
 import { getServerEntries } from "./apis/homeApi";
 import { initMain } from "./dom/homeUI";
+import { initLogPage } from "./dom/logPageUI";
 
 async function fetchEntries() {
 	return guestState.isGuest ? getLocalEntries() : await getServerEntries();
 }
 
 // Log Page
-function initLogPage() {
-	document.body.innerHTML = "";
-
-	// Main, white container
-	const mainContainer = document.createElement("div");
-	mainContainer.classList.add("main-container-log");
-
-	// Main form, yellow container
-	const entryForm = document.createElement("div");
-	entryForm.classList.add("entry-form");
-
-	const entriesHeader = document.createElement("div");
-	entriesHeader.classList.add("entries-header");
-
-	const recentEntriesTitle = document.createElement("h1");
-	recentEntriesTitle.classList.add("entries-title");
-	recentEntriesTitle.textContent = "Recent Entries";
-	entriesHeader.appendChild(recentEntriesTitle);
-
-	const returnButton = document.createElement("button");
-	returnButton.classList.add("return-button");
-	returnButton.textContent = "← Go Back";
-	returnButton.addEventListener("click", () => {
-		initMain();
-	});
-	entriesHeader.appendChild(returnButton);
-
-	const divider = document.createElement("div");
-	divider.classList.add("divider");
-
-	entryForm.appendChild(entriesHeader);
-	entryForm.appendChild(divider);
-
-	const entriesContainer = document.createElement("div");
-	entriesContainer.classList.add("entries-container");
-	entryForm.appendChild(entriesContainer);
-
-	mainContainer.appendChild(entryForm);
-	document.body.appendChild(mainContainer);
-
-	fetchEntries().then((fetchedEntries) => {
-		fetchedEntries.forEach((entry) => {
-			addEntryToPage(entry);
-		});
-	});
-
-	const newEntryButton = document.createElement("button");
-	newEntryButton.classList.add("add-entries-button");
-	newEntryButton.textContent = "New Entry";
-	entryForm.appendChild(newEntryButton);
-	newEntryButton.addEventListener("click", () => {
-		initNewEntryPage();
-	});
-}
-
 function initNewEntryPage() {
 	const entriesContainer = document.querySelector(".entries-container");
 	entriesContainer.innerHTML = "";
@@ -842,4 +788,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	initMain();
 });
 
-export { initLogPage, initAdjustPage };
+export {
+	initLogPage,
+	initAdjustPage,
+	fetchEntries,
+	initNewEntryPage,
+	addEntryToPage,
+};
