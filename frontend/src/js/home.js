@@ -1,14 +1,9 @@
 /* JS File for Coffee Companion App - Home Page */
 import "../css/global.css";
 import "../css/home.css";
-import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import { guestState } from "./states/guestState.js";
-import {
-	optionalFields,
-	fieldNames,
-	issueSolutions,
-} from "./constants/constants.js";
+import { fieldNames, issueSolutions } from "./constants/constants.js";
 import { getLocalEntries } from "./utils/storage";
 import { getServerEntries } from "./apis/homeApi";
 import { initMain } from "./dom/homeUI";
@@ -554,4 +549,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	initMain();
 });
 
-export { initLogPage, initAdjustPage, fetchEntries, addEntryToPage };
+export { initAdjustPage, fetchEntries, addEntryToPage };

@@ -2,7 +2,8 @@
  * homePageEvents.js
  * Contains homepage events for going to 'Log' or 'Adjust' sections
  */
-import { initLogPage, initAdjustPage } from "../home";
+import { initAdjustPage } from "../home";
+import { initLogPage } from "../dom/logPageUI";
 
 function attachSectionEventListeners() {
 	const logSection = document.querySelector(".log-container .icon-container");
