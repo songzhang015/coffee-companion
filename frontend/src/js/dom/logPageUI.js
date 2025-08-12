@@ -5,8 +5,10 @@
 import {
 	addReturnListener,
 	addNewEntryListener,
+	submitNewEntryListener,
 } from "../events/logPageEvents";
 import { fetchEntries, addEntryToPage } from "../home";
+import { optionalFields } from "../constants/constants.js";
 
 // Initializes the log page when user clicks on the 'Log' section in the homepage
 function initLogPage() {
@@ -60,4 +62,161 @@ function initLogPage() {
 	addNewEntryListener(newEntryButton);
 }
 
-export { initLogPage };
+// Initializes the new entry page when the user hits "New Entry" in the log page
+function initNewEntryPage() {
+	const entriesContainer = document.querySelector(".entries-container");
+	entriesContainer.innerHTML = "";
+
+	let oldButton = document.querySelector(".add-entries-button");
+	if (oldButton) oldButton.remove();
+
+	let returnButton = document.querySelector(".return-button");
+	if (returnButton) returnButton.remove();
+
+	const newForm = document.createElement("form");
+	entriesContainer.replaceWith(newForm);
+	newForm.appendChild(entriesContainer);
+
+	const title = document.querySelector(".entries-title");
+	title.textContent = "New Entry";
+
+	let row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addNewField(row, "Entry Title:", "e.g. Columbian", "title");
+	addNewField(row, "Date:", "e.g. 01/20/2025", "date");
+
+	let colCount = 0;
+	let currentRow = null;
+
+	for (const key in optionalFields) {
+		if (key === "notes") continue;
+
+		if (colCount === 0) {
+			currentRow = document.createElement("div");
+			currentRow.classList.add("entry-row");
+			entriesContainer.appendChild(currentRow);
+		}
+
+		const [label, placeholder] = optionalFields[key];
+		addNewField(currentRow, label, placeholder, key);
+
+		colCount++;
+
+		if (colCount === 2) {
+			colCount = 0;
+			currentRow = null;
+		}
+	}
+
+	const notesRow = document.createElement("div");
+	notesRow.classList.add("entry-row");
+	entriesContainer.appendChild(notesRow);
+	addNewField(
+		notesRow,
+		optionalFields.notes[0],
+		optionalFields.notes[1],
+		"notes",
+		true
+	);
+
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addSliderField(row, "Aroma", "aroma");
+	addSliderField(row, "Texture", "texture");
+
+	row = document.createElement("div");
+	row.classList.add("entry-row");
+	entriesContainer.appendChild(row);
+	addSliderField(row, "Flavor", "flavor");
+	addSliderField(row, "Acidity", "acidity");
+
+	const newEntryButton = document.createElement("button");
+	newEntryButton.type = "submit";
+	newEntryButton.classList.add("add-entries-button");
+	newEntryButton.textContent = "Add Journal Entry";
+	newForm.appendChild(newEntryButton);
+
+	document.querySelector(".title").required = true;
+	document.querySelector(".date").required = true;
+
+	submitNewEntryListener(newForm);
+
+	const header = document.querySelector(".entries-header");
+
+	const cancelNewEntryButton = document.createElement("button");
+	cancelNewEntryButton.classList.add("cancel-entries-button");
+	cancelNewEntryButton.textContent = "×";
+	header.append(cancelNewEntryButton);
+	cancelNewEntryButton.addEventListener("click", () => {
+		initLogPage();
+	});
+}
+
+// Helper function for initNewEntryPage to add a field in new entry
+function addNewField(row, title, placeholder, cls, fullWidth = false) {
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("new-entry-container");
+	if (fullWidth) {
+		entryContainer.classList.add("full-width");
+	}
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.classList.add("entry-title");
+	entryTitle.textContent = title;
+
+	let entryInput;
+	if (cls === "notes") {
+		entryInput = document.createElement("textarea");
+		entryInput.rows = 5;
+	} else {
+		entryInput = document.createElement("input");
+		entryInput.maxLength = 80;
+	}
+
+	entryInput.classList.add("entry-input", cls);
+	entryInput.placeholder = placeholder;
+
+	entryContainer.append(entryTitle, entryInput);
+	row.appendChild(entryContainer);
+
+	if (cls === "date") {
+		flatpickr(entryInput, {
+			dateFormat: "m/d/Y",
+			allowInput: true,
+			maxDate: "today",
+		});
+	}
+}
+
+// Helper function for initNewEntryPage to add a slider in new entry
+function addSliderField(row, title, cls) {
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("new-entry-container");
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.classList.add("entry-title");
+	entryTitle.textContent = title;
+
+	const sliderInput = document.createElement("input");
+	sliderInput.classList.add("entry-slider", cls);
+	sliderInput.type = "range";
+	sliderInput.min = "1";
+	sliderInput.max = "5";
+	sliderInput.step = "1";
+	sliderInput.value = "3";
+
+	const valueDisplay = document.createElement("span");
+	valueDisplay.classList.add("slider-value");
+	valueDisplay.textContent = sliderInput.value;
+
+	sliderInput.addEventListener("input", () => {
+		valueDisplay.textContent = sliderInput.value;
+	});
+
+	entryContainer.append(entryTitle, sliderInput, valueDisplay);
+	row.appendChild(entryContainer);
+}
+
+export { initLogPage, initNewEntryPage };
