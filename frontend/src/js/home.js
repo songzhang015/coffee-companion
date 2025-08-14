@@ -1,147 +1,14 @@
 /* JS File for Coffee Companion App - Home Page */
 import "../css/global.css";
 import "../css/home.css";
-import "flatpickr/dist/flatpickr.min.css";
 import { guestState } from "./states/guestState.js";
 import { fieldNames, issueSolutions } from "./constants/constants.js";
 import { getLocalEntries } from "./utils/storage";
 import { getServerEntries } from "./apis/homeApi";
 import { initMain } from "./dom/homeUI";
-import { initLogPage } from "./dom/logPageUI";
 
 async function fetchEntries() {
 	return guestState.isGuest ? getLocalEntries() : await getServerEntries();
-}
-
-// Log Page
-function addEntryToPage(entry) {
-	const container = document.querySelector(".entries-container");
-
-	const entryContainer = document.createElement("div");
-	entryContainer.classList.add("entry-container");
-
-	const entryTitle = document.createElement("h2");
-	entryTitle.textContent = entry.title;
-
-	const entryDate = document.createElement("h2");
-	entryDate.textContent = entry.date;
-
-	const deleteButton = document.createElement("button");
-	deleteButton.classList.add("delete-entry-button");
-	deleteButton.textContent = "×";
-
-	entryContainer.addEventListener("mouseenter", () => {
-		deleteButton.style.opacity = "1";
-	});
-
-	entryContainer.addEventListener("mouseleave", () => {
-		deleteButton.style.opacity = "0";
-	});
-
-	deleteButton.addEventListener("mouseenter", () => {
-		deleteButton.style.opacity = "1";
-	});
-
-	deleteButton.addEventListener("mouseleave", () => {
-		deleteButton.style.opacity = "0";
-	});
-
-	deleteButton.addEventListener("click", (e) => {
-		e.stopPropagation();
-		deleteEntry(entry);
-	});
-
-	entryContainer.append(entryTitle);
-	entryContainer.append(entryDate);
-	entryContainer.append(deleteButton);
-
-	container.append(entryContainer);
-	entryContainer.addEventListener("click", () => {
-		viewEntry(entry);
-	});
-}
-
-async function deleteEntry(entryToDelete) {
-	if (guestState.isGuest === true) {
-		try {
-			let entries = await fetchEntries();
-			entries = entries.filter((entry) => entry.id !== entryToDelete.id);
-			localStorage.setItem("localEntries", JSON.stringify(entries));
-			initLogPage();
-		} catch (error) {
-			console.error(error.message);
-		}
-	} else {
-		try {
-			const response = await fetch(`/api/entries/${entryToDelete.id}`, {
-				method: "DELETE",
-			});
-
-			if (!response.ok) {
-				throw new Error(`Delete failed: ${response.status}`);
-			}
-
-			initLogPage();
-		} catch (error) {
-			console.error("Error deleting entry:", error);
-		}
-	}
-}
-
-function viewEntry(entry) {
-	const entryForm = document.querySelector(".entry-form");
-	const entriesContainer = document.querySelector(".entries-container");
-	entriesContainer.innerHTML = "";
-
-	let oldButton = document.querySelector(".add-entries-button");
-	oldButton.remove();
-
-	let returnButton = document.querySelector(".return-button");
-	returnButton.remove();
-
-	const title = document.querySelector(".entries-title");
-	title.textContent = entry.title;
-
-	let currentRow = null;
-	let fieldCount = 0;
-
-	for (const field in fieldNames) {
-		if (field !== "title" && field !== "user") {
-			const fieldValue = entry[field];
-			if (fieldValue !== "") {
-				if (!currentRow || fieldCount % 2 === 0) {
-					currentRow = document.createElement("div");
-					currentRow.classList.add("entry-row");
-					entriesContainer.appendChild(currentRow);
-				}
-				const fieldContainer = viewEntryAddField(entry, field);
-				currentRow.appendChild(fieldContainer);
-				fieldCount++;
-			}
-		}
-	}
-
-	const cancelNewEntryButton = document.createElement("button");
-	cancelNewEntryButton.classList.add("add-entries-button");
-	cancelNewEntryButton.textContent = "Back to Entries";
-	entryForm.append(cancelNewEntryButton);
-	cancelNewEntryButton.addEventListener("click", () => {
-		initLogPage();
-	});
-}
-
-function viewEntryAddField(entry, field) {
-	const container = document.createElement("div");
-	container.classList.add("view-entry-container");
-
-	const title = document.createElement("h2");
-	title.textContent = fieldNames[field];
-
-	const body = document.createElement("p");
-	body.textContent = entry[field];
-
-	container.append(title, body);
-	return container;
 }
 
 // Adjust Page
@@ -549,4 +416,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	initMain();
 });
 
-export { initAdjustPage, fetchEntries, addEntryToPage };
+export { initAdjustPage, fetchEntries };

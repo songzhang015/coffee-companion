@@ -4,6 +4,7 @@
  */
 import { fetchEntries } from "../home";
 import { guestState } from "../states/guestState.js";
+import { initLogPage } from "../dom/logPageUI.js";
 
 async function createNewEntry(
 	title = "",
@@ -68,4 +69,31 @@ async function createNewEntry(
 	}
 }
 
-export { createNewEntry };
+async function deleteEntry(entryToDelete) {
+	if (guestState.isGuest === true) {
+		try {
+			let entries = await fetchEntries();
+			entries = entries.filter((entry) => entry.id !== entryToDelete.id);
+			localStorage.setItem("localEntries", JSON.stringify(entries));
+			initLogPage();
+		} catch (error) {
+			console.error(error.message);
+		}
+	} else {
+		try {
+			const response = await fetch(`/api/entries/${entryToDelete.id}`, {
+				method: "DELETE",
+			});
+
+			if (!response.ok) {
+				throw new Error(`Delete failed: ${response.status}`);
+			}
+
+			initLogPage();
+		} catch (error) {
+			console.error("Error deleting entry:", error);
+		}
+	}
+}
+
+export { createNewEntry, deleteEntry };

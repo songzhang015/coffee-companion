@@ -6,10 +6,14 @@ import {
 	addReturnListener,
 	addNewEntryListener,
 	submitNewEntryListener,
+	deleteEntryListener,
+	viewEntryListener,
+	cancelNewEntryListener,
 } from "../events/logPageEvents";
-import { fetchEntries, addEntryToPage } from "../home";
-import { optionalFields } from "../constants/constants.js";
+import { fetchEntries } from "../home";
+import { optionalFields, fieldNames } from "../constants/constants.js";
 import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 // Initializes the log page when user clicks on the 'Log' section in the homepage
 function initLogPage() {
@@ -220,4 +224,103 @@ function addSliderField(row, title, cls) {
 	row.appendChild(entryContainer);
 }
 
-export { initLogPage, initNewEntryPage };
+// Adding entries to the main log page in recent entries
+function addEntryToPage(entry) {
+	const container = document.querySelector(".entries-container");
+
+	const entryContainer = document.createElement("div");
+	entryContainer.classList.add("entry-container");
+
+	const entryTitle = document.createElement("h2");
+	entryTitle.textContent = entry.title;
+
+	const entryDate = document.createElement("h2");
+	entryDate.textContent = entry.date;
+
+	const deleteButton = document.createElement("button");
+	deleteButton.classList.add("delete-entry-button");
+	deleteButton.textContent = "×";
+
+	entryContainer.addEventListener("mouseenter", () => {
+		deleteButton.style.opacity = "1";
+	});
+
+	entryContainer.addEventListener("mouseleave", () => {
+		deleteButton.style.opacity = "0";
+	});
+
+	deleteButton.addEventListener("mouseenter", () => {
+		deleteButton.style.opacity = "1";
+	});
+
+	deleteButton.addEventListener("mouseleave", () => {
+		deleteButton.style.opacity = "0";
+	});
+
+	deleteEntryListener(entry, deleteButton);
+
+	entryContainer.append(entryTitle);
+	entryContainer.append(entryDate);
+	entryContainer.append(deleteButton);
+
+	container.append(entryContainer);
+	viewEntryListener(entry, entryContainer);
+}
+
+// View a single entry in log page
+function viewEntry(entry) {
+	const entryForm = document.querySelector(".entry-form");
+	const entriesContainer = document.querySelector(".entries-container");
+	entriesContainer.innerHTML = "";
+
+	let oldButton = document.querySelector(".add-entries-button");
+	oldButton.remove();
+
+	let returnButton = document.querySelector(".return-button");
+	returnButton.remove();
+
+	const title = document.querySelector(".entries-title");
+	title.textContent = entry.title;
+
+	let currentRow = null;
+	let fieldCount = 0;
+
+	for (const field in fieldNames) {
+		if (field !== "title" && field !== "user") {
+			const fieldValue = entry[field];
+			if (fieldValue !== "") {
+				if (!currentRow || fieldCount % 2 === 0) {
+					currentRow = document.createElement("div");
+					currentRow.classList.add("entry-row");
+					entriesContainer.appendChild(currentRow);
+				}
+				const fieldContainer = viewEntryAddField(entry, field);
+				currentRow.appendChild(fieldContainer);
+				fieldCount++;
+			}
+		}
+	}
+
+	const cancelNewEntryButton = document.createElement("button");
+	cancelNewEntryButton.classList.add("add-entries-button");
+	cancelNewEntryButton.textContent = "Back to Entries";
+	entryForm.append(cancelNewEntryButton);
+	cancelNewEntryListener(cancelNewEntryButton);
+}
+
+// Helper function for viewEntry
+function viewEntryAddField(entry, field) {
+	const container = document.createElement("div");
+	container.classList.add("view-entry-container");
+
+	const title = document.createElement("h2");
+	title.textContent = fieldNames[field];
+
+	const body = document.createElement("p");
+	body.textContent = entry[field];
+
+	container.append(title, body);
+	return container;
+}
+
+export { initLogPage, initNewEntryPage, viewEntry };
