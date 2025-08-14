@@ -9,6 +9,7 @@ import {
 } from "../events/logPageEvents";
 import { fetchEntries, addEntryToPage } from "../home";
 import { optionalFields } from "../constants/constants.js";
+import flatpickr from "flatpickr";
 
 // Initializes the log page when user clicks on the 'Log' section in the homepage
 function initLogPage() {
