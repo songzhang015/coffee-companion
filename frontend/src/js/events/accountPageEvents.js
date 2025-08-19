@@ -2,7 +2,6 @@
  * accountPageEvents.js
  * Contains account page events for form switching, guest login, and submissions
  */
-
 import { showRegister, showLogin } from "../dom/accountFormUI";
 import { guestState } from "../states/guestState";
 import { login, register } from "../apis/accountAuthApi.js";

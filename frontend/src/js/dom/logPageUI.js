@@ -3,13 +3,13 @@
  * DOM content for the log portion of the homepage
  */
 import {
-	addReturnListener,
 	addNewEntryListener,
 	submitNewEntryListener,
 	deleteEntryListener,
 	viewEntryListener,
 	cancelNewEntryListener,
 } from "../events/logPageEvents";
+import { addReturnListener } from "../events/homePageEvents.js";
 import { fetchEntries } from "../home";
 import { optionalFields, fieldNames } from "../constants/constants.js";
 import flatpickr from "flatpickr";

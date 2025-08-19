@@ -2,16 +2,8 @@
  * logPageEvents.js
  * Contains log page events for the 'Log' section of the homepage
  */
-import { initMain } from "../dom/homeUI";
 import { initLogPage, initNewEntryPage, viewEntry } from "../dom/logPageUI";
 import { createNewEntry, deleteEntry } from "../apis/logPageApi";
-
-// Return button to go to main
-function addReturnListener(btn) {
-	btn.addEventListener("click", () => {
-		initMain();
-	});
-}
 
 // New Entry button in log page
 function addNewEntryListener(btn) {
@@ -70,7 +62,6 @@ function viewEntryListener(entry, btn) {
 }
 
 export {
-	addReturnListener,
 	addNewEntryListener,
 	submitNewEntryListener,
 	deleteEntryListener,

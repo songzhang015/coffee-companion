@@ -2,7 +2,6 @@
  * storage.js
  * Handles localStorage for the homepage
  */
-
 function getLocalEntries() {
 	try {
 		const entriesJSON = localStorage.getItem("localEntries");

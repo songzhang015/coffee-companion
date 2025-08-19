@@ -2,7 +2,6 @@
  * accountFormUI.js
  * Toggles between the login and registration forms
  */
-
 const loginForm = document.querySelector(".login-form");
 const registerForm = document.querySelector(".register-form");
 
