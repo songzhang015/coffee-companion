@@ -9,6 +9,16 @@ function init() {
 	});
 }
 
+window.addEventListener("load", () => {
+	const elements = document.querySelectorAll(".fade-in");
+
+	elements.forEach((el, index) => {
+		setTimeout(() => {
+			el.classList.add("visible");
+		}, index * 175);
+	});
+});
+
 document.addEventListener("DOMContentLoaded", () => {
 	init();
 });

@@ -10,6 +10,17 @@
 	--golden-btn: rgb(250, 210, 55);
 }
 
+.fade-in {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s, transform 0.8s;
+}
+
+.fade-in.visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
 @font-face {
 	font-family: "Comfortaa";
 	src: url("../assets/fonts/comfortaa-regular.woff2") format("woff2"),
