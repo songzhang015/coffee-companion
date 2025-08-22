@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory, request, session 
+from flask import Flask, jsonify, send_from_directory, request, session, render_template
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -8,37 +8,16 @@ import os
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='../frontend/dist')
+app = Flask(
+    __name__,
+    static_folder="static/dist",
+    template_folder="templates"
+)
 app.secret_key = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 CORS(app)
 
 db.init_app(app)
-
-# Serve HTML pages
-@app.route('/')
-def index():
-    return app.send_static_file('index.html')
-
-@app.route('/home')
-def home():
-    return app.send_static_file('home.html')
-
-@app.route('/account')
-def account():
-    return app.send_static_file('account.html')
-
-@app.route('/js/<path:filename>')
-def serve_js(filename):
-    return send_from_directory(f'{app.static_folder}/js', filename)
-
-@app.route('/css/<path:filename>')
-def serve_css(filename):
-    return send_from_directory(f'{app.static_folder}/css', filename)
-
-@app.route('/assets/<path:filename>')
-def serve_assets(filename):
-    return send_from_directory(f'{app.static_folder}/assets', filename)
 
 # APIs
 @app.route('/api/users', methods=['GET'])

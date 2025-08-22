@@ -18,8 +18,23 @@ module.exports = {
 	devtool: "eval-source-map",
 	devServer: {
 		static: "./dist",
+		historyApiFallback: {
+			rewrites: [
+				{ from: /^\/$/, to: "/index.html" },
+				{ from: /^\/home$/, to: "/home.html" },
+				{ from: /^\/account$/, to: "/account.html" },
+			],
+		},
 		watchFiles: ["./src/**/*.html", "./src/css/**/*.css", "./src/js/**/*.js"],
 		open: true,
+		port: 8080,
+		proxy: [
+			{
+				context: ["/api"],
+				target: "http://localhost:5000",
+				changeOrigin: true,
+			},
+		],
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

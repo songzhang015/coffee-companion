@@ -1,57 +1,57 @@
 /* CSS File for Coffee Companion App - Global */
 :root {
-    --bg-color: #241401;
-    --bg-white: #F2F3F4;
-    --bg-tan: #f7f3e9;
-    --text-white: white;
-    --text-beige: #ffc67c;
-    --main-btn: #df7b00;
-    --golden-btn: rgb(250, 210, 55);
+	--bg-color: #241401;
+	--bg-white: #f2f3f4;
+	--bg-tan: #f7f3e9;
+	--text-white: white;
+	--text-beige: #ffc67c;
+	--main-btn: #df7b00;
+	--golden-btn: rgb(250, 210, 55);
 }
 
 @font-face {
-    font-family: "Comfortaa";
-    src: url("../assets/fonts/comfortaa-regular.woff2") format("woff2"),
-         url("../assets/fonts/comfortaa-regular.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Comfortaa";
+	src: url("../assets/fonts/comfortaa-regular.woff2") format("woff2"),
+		url("../assets/fonts/comfortaa-regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: "Style Script";
-    src: url("../assets/fonts/stylescript-regular.woff2") format("woff2"),
-         url("../assets/fonts/stylescript-regular.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Style Script";
+	src: url("../assets/fonts/stylescript-regular.woff2") format("woff2"),
+		url("../assets/fonts/stylescript-regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: "Cabin Sketch";
-    src: url("../assets/fonts/cabinsketch-regular.woff2") format("woff2"),
-         url("../assets/fonts/cabinsketch-regular.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Cabin Sketch";
+	src: url("../assets/fonts/cabinsketch-regular.woff2") format("woff2"),
+		url("../assets/fonts/cabinsketch-regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: "Merriweather";
-    src: url("../assets/fonts/merriweather.woff2") format("woff2"),
-         url("../assets/fonts/merriweather.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Merriweather";
+	src: url("../assets/fonts/merriweather.woff2") format("woff2"),
+		url("../assets/fonts/merriweather.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: "Source Sans 3";
-    src: url("../assets/fonts/sourcesans3.ttf") format('truetype');
-    font-weight: 200 900;
-    font-style: normal;
+	font-family: "Source Sans 3";
+	src: url("../assets/fonts/sourcesans3.ttf") format("truetype");
+	font-weight: 200 900;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: "Roboto";
-    src: url("../assets/fonts/roboto.woff2") format("woff2"),
-         url("../assets/fonts/roboto.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Roboto";
+	src: url("../assets/fonts/roboto.woff2") format("woff2"),
+		url("../assets/fonts/roboto.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
