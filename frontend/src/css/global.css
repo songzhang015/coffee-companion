@@ -12,13 +12,25 @@
 
 .fade-in {
 	opacity: 0;
-	transform: translateY(20px);
-	transition: opacity 0.8s, transform 0.8s;
+	transform: translateY(40px);
+	transition: opacity 1.25s, transform 1.25s;
 }
 
 .fade-in.visible {
 	opacity: 1;
 	transform: translateY(0);
+}
+
+@media (max-width: 1200px) {
+	.fade-in {
+		transform: translateY(35px);
+	}
+}
+
+@media (max-width: 768px) {
+	.fade-in {
+		transform: translateY(30px);
+	}
 }
 
 @font-face {
@@ -72,6 +84,21 @@
 	font-family: "Roboto";
 	src: url("../assets/fonts/roboto.woff2") format("woff2"),
 		url("../assets/fonts/roboto.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Other */
+@font-face {
+	font-family: "1";
+	src: url("../assets/fonts/black-coffee.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "2";
+	src: url("../assets/fonts/caramel-macchiato.otf") format("opentype");
 	font-weight: normal;
 	font-style: normal;
 }

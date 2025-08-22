@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
 	elements.forEach((el, index) => {
 		setTimeout(() => {
 			el.classList.add("visible");
-		}, index * 175);
+		}, index * 165);
 	});
 });
 

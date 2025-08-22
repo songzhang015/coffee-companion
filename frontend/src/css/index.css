@@ -8,8 +8,9 @@ body {
 	background: var(--bg-filter);
 	display: flex;
 	justify-content: center;
-	height: 100vh;
 	align-items: center;
+	min-height: 100vh;
+	overflow-anchor: none;
 }
 
 .bg-image {
@@ -27,30 +28,29 @@ body {
 	flex-direction: column;
 	align-items: center;
 	width: 90%;
-	margin-top: 10vh;
-	margin-bottom: 10vh;
+	margin-top: 3rem;
 }
 
 h1 {
-	font-size: 7.5rem;
-	color: var(--text-white);
-	font-family: "Style Script", sans-serif;
-	margin-bottom: 1.75rem;
+	font-size: 8.5rem;
+	color: white;
+	font-family: "1";
 	font-weight: normal;
+	margin-bottom: 0.5rem;
 }
 
 .divider {
-	width: 7.5rem;
+	width: 5rem;
 	height: 2px;
 	background: white;
 	border-radius: 1px;
-	margin-bottom: 1.75rem;
+	margin-bottom: 2.25rem;
 }
 
 h2 {
 	font-size: 1.5rem;
 	color: var(--text-white);
-	font-family: "Comfortaa", sans-serif;
+	font-family: "Comfortaa";
 	display: flex;
 	margin-bottom: 4rem;
 	font-weight: normal;
@@ -67,7 +67,7 @@ h2 {
 	color: rgba(255, 255, 255, 0.8);
 	margin-bottom: 10rem;
 	cursor: pointer;
-	transition: all 0.25s;
+	transition: all 0.3s;
 }
 
 .start-btn:hover {
@@ -102,7 +102,7 @@ h2 {
 .icon-container {
 	width: 6.5rem;
 	height: 6.5rem;
-	border: 3px solid rgba(164, 113, 72, 0.65);
+	border: 3px solid rgba(188, 138, 95, 0.65);
 	background-color: #482801;
 	border-radius: 50%;
 	display: flex;
@@ -112,12 +112,16 @@ h2 {
 	transition: all 0.45s;
 }
 
+.icon-container:active {
+	transform: scale(0.9);
+}
+
 .feature:hover {
 	transform: translateY(-5px);
 }
 
 .feature:hover .icon-container {
-	border-color: rgba(164, 113, 72, 1);
+	border-color: rgba(188, 138, 95, 1);
 	box-shadow: 0 0 15px 5px rgba(212, 162, 118, 0.15);
 	filter: brightness(1.05);
 }
@@ -127,10 +131,11 @@ h2 {
 	transform: translateY(-20px);
 	transition: opacity 0.45s, transform 0.45s;
 	font-size: 1.15rem;
-	color: rgba(255, 255, 255, 0.7);
+	color: rgba(255, 255, 255, 0.8);
 	width: 20rem;
 	height: 0;
 	line-height: 1.5rem;
+	font-family: "Source Sans 3";
 }
 
 .feature:hover p {
@@ -148,11 +153,15 @@ h2 {
 	/* Desktops */
 	h1 {
 		font-size: 6.5rem;
-		margin-bottom: 5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.divider {
+		margin-bottom: 1.75rem;
 	}
 
 	h2 {
-		font-size: 1.75rem;
+		font-size: 1.5rem;
 		margin-bottom: 3.5rem;
 	}
 
@@ -182,22 +191,27 @@ h2 {
 	}
 }
 
-@media (max-width: 768px) {
-	/* Small screens, tablets */
+@media (max-width: 1540px) {
+	/* Smaller Desktops */
 	h1 {
 		font-size: 4.5rem;
-		margin-bottom: 3.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.divider {
+		width: 4.5rem;
+		margin-bottom: 1.25rem;
 	}
 
 	h2 {
-		font-size: 1.25rem;
+		font-size: 1.15rem;
 		margin-bottom: 2.5rem;
 	}
 
 	.start-btn {
 		padding: 0.4rem 1.25rem;
 		font-size: 1rem;
-		margin-bottom: 6rem;
+		margin-bottom: 5rem;
 	}
 
 	.features {
@@ -209,6 +223,11 @@ h2 {
 		gap: 1.25rem;
 	}
 
+	.feature p {
+		font-size: 0.85rem;
+		width: 15rem;
+	}
+
 	.icon-container {
 		width: 4.25rem;
 		height: 4.25rem;
@@ -217,5 +236,107 @@ h2 {
 	.icon {
 		width: 2.15rem;
 		height: 2.15rem;
+	}
+}
+
+@media (max-width: 1200px) {
+	/* Even smaller desktops, tablets */
+	h1 {
+		font-size: 6rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.divider {
+		width: 4.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	h2 {
+		font-size: 1.25rem;
+		margin-bottom: 2rem;
+	}
+
+	.start-btn {
+		padding: 0.5rem 1.5rem;
+		font-size: 1rem;
+		margin-bottom: 3rem;
+	}
+
+	.features {
+		font-size: 1rem;
+		gap: 1.25rem;
+		margin-bottom: 5rem;
+	}
+
+	.feature {
+		gap: 1.25rem;
+		width: 25rem;
+	}
+
+	.feature p {
+		font-size: 0.75rem;
+		width: 15rem;
+		line-height: 1.15rem;
+	}
+
+	.icon-container {
+		width: 4rem;
+		height: 4rem;
+	}
+
+	.icon {
+		width: 1.95rem;
+		height: 1.955rem;
+	}
+}
+
+@media (max-width: 768px) {
+	/* Small screens, tablets */
+	h1 {
+		font-size: 5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.divider {
+		width: 4.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	h2 {
+		font-size: 1.25rem;
+		margin-bottom: 2rem;
+	}
+
+	.start-btn {
+		padding: 0.5rem 1.5rem;
+		font-size: 1rem;
+		margin-bottom: 3rem;
+	}
+
+	.features {
+		font-size: 1rem;
+		gap: 5rem;
+		margin-bottom: 5rem;
+	}
+
+	.feature {
+		gap: 1.25rem;
+		width: 25rem;
+	}
+
+	.feature p {
+		font-size: 0.75rem;
+		width: 15rem;
+		line-height: 1.15rem;
+	}
+
+	.icon-container {
+		width: 4rem;
+		height: 4rem;
+	}
+
+	.icon {
+		width: 1.95rem;
+		height: 1.955rem;
 	}
 }
