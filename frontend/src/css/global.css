@@ -1,6 +1,7 @@
 /* CSS File for Coffee Companion App - Global */
 :root {
 	--bg-color: #241401;
+	--bg-filter: linear-gradient(90deg, #180e01, #000000);
 	--bg-white: #f2f3f4;
 	--bg-tan: #f7f3e9;
 	--text-white: white;
@@ -13,6 +14,14 @@
 	font-family: "Comfortaa";
 	src: url("../assets/fonts/comfortaa-regular.woff2") format("woff2"),
 		url("../assets/fonts/comfortaa-regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Inter";
+	src: url("../assets/fonts/inter-regular.woff2") format("woff2"),
+		url("../assets/fonts/inter-regular.woff") format("woff");
 	font-weight: normal;
 	font-style: normal;
 }

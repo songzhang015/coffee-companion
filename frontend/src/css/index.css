@@ -5,7 +5,7 @@
 }
 
 body {
-	background-color: var(--bg-color);
+	background: var(--bg-filter);
 	display: flex;
 	justify-content: center;
 	height: 100vh;
@@ -35,11 +35,18 @@ body {
 	font-size: 7.5rem;
 	color: var(--text-white);
 	font-family: "Style Script", sans-serif;
-	margin-bottom: 6rem;
+	margin-bottom: 1.75rem;
+}
+
+.divider {
+	width: 7.5rem;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, white, transparent);
+	margin-bottom: 1.75rem;
 }
 
 .tagline {
-	font-size: 2.5rem;
+	font-size: 1.5rem;
 	color: var(--text-white);
 	font-family: "Comfortaa", sans-serif;
 	display: flex;
@@ -47,22 +54,23 @@ body {
 }
 
 .start-btn {
-	padding: 0.5rem 1.35rem;
+	padding: 0.5rem 2.5rem;
 	font-size: 1.5rem;
-	background-color: var(--main-btn);
+	background-color: transparent;
 	font-family: "Source Sans 3", sans-serif;
-	border-radius: 20px;
-	font-weight: 600;
-	color: #ffffff;
+	border: 2px solid rgba(188, 138, 95, 0.65);
+	border-radius: 6px;
+	font-weight: 500;
+	color: rgba(255, 255, 255, 0.8);
 	margin-bottom: 10rem;
 	cursor: pointer;
-	transition: background-color 0.2s ease;
-	transition: transform 0.2s, box-shadow 0.2s;
+	transition: box-shadow 0.25s, border-color 0.25s, color 0.25s;
 }
 
 .start-btn:hover {
-	transform: scale(1.05);
-	box-shadow: 0px 5px 15px rgba(255, 166, 0, 0.15);
+	box-shadow: 0px 5px 15px rgba(255, 210, 128, 0.2);
+	border-color: rgba(188, 138, 95, 1);
+	color: rgba(255, 255, 255, 1);
 }
 
 .features {
@@ -82,23 +90,48 @@ body {
 	justify-content: center;
 	align-items: center;
 	gap: 2rem;
+	transition: transform 0.35s;
+	cursor: pointer;
+	text-align: center;
 }
 
 .icon-container {
 	width: 6.5rem;
 	height: 6.5rem;
-	background-color: rgb(148, 60, 0);
+	border: 3px solid rgba(164, 113, 72, 0.65);
+	background-color: #482801;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: transform 0.25s ease;
 	user-select: none;
-	border: 6px solid rgb(69, 30, 0);
+	transition: all 0.45s;
 }
 
-.icon-container:hover {
-	transform: scale(1.1);
+.feature:hover {
+	transform: translateY(-5px);
+}
+
+.feature:hover .icon-container {
+	border-color: rgba(164, 113, 72, 1);
+	box-shadow: 0 0 15px 5px rgba(212, 162, 118, 0.2);
+	filter: brightness(1.05);
+}
+
+.feature p {
+	opacity: 0;
+	transform: translateY(-20px);
+	transition: opacity 0.45s, transform 0.45s;
+	font-size: 1.15rem;
+	color: rgba(255, 255, 255, 0.7);
+	width: 20rem;
+	height: 0;
+	line-height: 1.5rem;
+}
+
+.feature:hover p {
+	opacity: 1;
+	transform: translateY(-5px);
 }
 
 .icon {
@@ -115,7 +148,7 @@ body {
 	}
 
 	.tagline {
-		font-size: 2rem;
+		font-size: 1.75rem;
 		margin-bottom: 3.5rem;
 	}
 
@@ -153,7 +186,7 @@ body {
 	}
 
 	.tagline {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 		margin-bottom: 2.5rem;
 	}
 
