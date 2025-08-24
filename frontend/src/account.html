@@ -1,66 +1,94 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <title>Coffee Companion</title>
-</head>
-<body>
-    <div class="main-container">
-        <div class="container">
-            <div class="header">Get Started</div>
-            <div class="form-wrapper">
-                <!-- Login -->
-                <form action="test/path" method="post" class="login-form">
-                    <div class="form-group">
-                        <label for="email-login">Email</label>
-                        <input type="email" id="email-login" required>
-                    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Coffee Companion</title>
+    </head>
+    <body>
+        <div class="main-container">
+            <div class="container">
+                <div class="header">Get Started</div>
+                <div class="form-wrapper">
+                    <!-- Login -->
+                    <form action="test/path" method="post" class="login-form">
+                        <div class="form-group">
+                            <label for="email-login">Email</label>
+                            <input type="email" id="email-login" required />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password-login">Password</label>
-                        <input type="password" id="password-login" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="password-login">Password</label>
+                            <input
+                                type="password"
+                                id="password-login"
+                                required
+                            />
+                        </div>
 
-                    <button type="submit" class="submit">Login</button>
+                        <button type="submit" class="submit">Login</button>
 
-                    <div class="or">-- or --</div>
+                        <div class="or">-- or --</div>
 
-                    <button type="button" class="guest">Continue As Guest</button>
-                </form>
+                        <button type="button" class="guest">
+                            Continue As Guest
+                        </button>
+                    </form>
 
-                <!-- Register -->
-                <form action="test/path" method="post" class="register-form" style="display: none">
-                    <div class="form-group">
-                        <label for="email-register">Email</label>
-                        <input type="email" id="email-register" required>
-                    </div>
+                    <!-- Register -->
+                    <form
+                        action="test/path"
+                        method="post"
+                        class="register-form"
+                        style="display: none"
+                    >
+                        <div class="form-group">
+                            <label for="email-register">Email</label>
+                            <input type="email" id="email-register" required />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password-register">Password</label>
-                        <input type="password" id="password-register" minlength="6" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="password-register">Password</label>
+                            <input
+                                type="password"
+                                id="password-register"
+                                minlength="6"
+                                required
+                            />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password-register-confirm">Confirm Password</label>
-                        <input type="password" id="password-register-confirm" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="password-register-confirm"
+                                >Confirm Password</label
+                            >
+                            <input
+                                type="password"
+                                id="password-register-confirm"
+                                required
+                            />
+                        </div>
 
-                    <button type="submit" class="submit">Sign Up</button>
-                    
-                    <div class="or">-- or --</div>
+                        <button type="submit" class="submit">Sign Up</button>
 
-                    <button type="button" class="guest">Continue As Guest</button>
-                </form>
+                        <div class="or">-- or --</div>
+
+                        <button type="button" class="guest">
+                            Continue As Guest
+                        </button>
+                    </form>
+                </div>
+
+                <div class="footer">
+                    <p class="toggle-to-signup">
+                        Don't have an account?
+                        <a href="" class="switch-register-btn">Sign Up</a>
+                    </p>
+                    <p class="toggle-to-login" style="display: none">
+                        Have an account?
+                        <a href="" class="switch-login-btn">Login</a>
+                    </p>
+                </div>
             </div>
-
-            <div class="footer">
-                <p class="toggle-to-signup">Don't have an account? <a href="" class="switch-register-btn">Sign Up</a></p>
-                <p class="toggle-to-login" style="display: none">Have an account? <a href="" class="switch-login-btn">Login</a></p>
-            </div>
-
+            <img src="assets/images/coffee-bean-2.jpg" class="bg-image" />
         </div>
-        <img src="assets/images/coffee-bean-2.jpg" class="bg-image"/>
-    </div>
-
-</body>
+    </body>
 </html>
