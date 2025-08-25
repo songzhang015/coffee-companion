@@ -6,21 +6,71 @@ import { showRegister, showLogin } from "../dom/accountFormUI";
 import { guestState } from "../states/guestState";
 import { login, register } from "../apis/accountAuthApi.js";
 
+let animating = false;
+
 function attachFormSwitchListeners() {
 	const loginBtn = document.querySelector(".switch-login-btn");
 	const registerBtn = document.querySelector(".switch-register-btn");
 
+	const buttonsWrapper = document.querySelector(".buttons-wrapper");
+
+	const confirmPasswordInput = document.querySelector(
+		".register-form .form-group:nth-child(3)"
+	);
 	if (registerBtn) {
 		registerBtn.addEventListener("click", (e) => {
 			e.preventDefault();
-			showRegister();
+			if (animating == false) {
+				animating = true;
+
+				buttonsWrapper.classList.remove("inactive");
+				registerBtn.classList.add("active");
+				loginBtn.classList.remove("active");
+				confirmPasswordInput.style.display = "none";
+				showRegister();
+
+				setTimeout(() => {
+					buttonsWrapper.classList.add("active");
+				}, 100);
+				setTimeout(() => {
+					buttonsWrapper.classList.remove("active");
+					confirmPasswordInput.style.display = "flex";
+				}, 600);
+				setTimeout(() => {
+					confirmPasswordInput.classList.add("active");
+				}, 625);
+
+				setTimeout(() => {
+					animating = false;
+				}, 825);
+			}
 		});
 	}
 
 	if (loginBtn) {
 		loginBtn.addEventListener("click", (e) => {
 			e.preventDefault();
-			showLogin();
+			if (animating == false) {
+				animating = true;
+
+				buttonsWrapper.classList.remove("active");
+				confirmPasswordInput.classList.remove("active");
+
+				registerBtn.classList.remove("active");
+				loginBtn.classList.add("active");
+
+				setTimeout(() => {
+					buttonsWrapper.classList.add("inactive");
+				}, 500);
+
+				setTimeout(() => {
+					showLogin();
+				}, 1000);
+
+				setTimeout(() => {
+					animating = false;
+				}, 1200);
+			}
 		});
 	}
 }
