@@ -20,7 +20,7 @@ function attachFormSwitchListeners() {
 	if (registerBtn) {
 		registerBtn.addEventListener("click", (e) => {
 			e.preventDefault();
-			if (animating == false) {
+			if (animating == false && !registerBtn.classList.contains("active")) {
 				animating = true;
 
 				buttonsWrapper.classList.remove("inactive");
@@ -31,18 +31,18 @@ function attachFormSwitchListeners() {
 
 				setTimeout(() => {
 					buttonsWrapper.classList.add("active");
-				}, 100);
+				}, 50);
 				setTimeout(() => {
 					buttonsWrapper.classList.remove("active");
 					confirmPasswordInput.style.display = "flex";
-				}, 600);
+				}, 550);
 				setTimeout(() => {
 					confirmPasswordInput.classList.add("active");
-				}, 625);
+				}, 600);
 
 				setTimeout(() => {
 					animating = false;
-				}, 825);
+				}, 775);
 			}
 		});
 	}
@@ -50,7 +50,7 @@ function attachFormSwitchListeners() {
 	if (loginBtn) {
 		loginBtn.addEventListener("click", (e) => {
 			e.preventDefault();
-			if (animating == false) {
+			if (animating == false && !loginBtn.classList.contains("active")) {
 				animating = true;
 
 				buttonsWrapper.classList.remove("active");
