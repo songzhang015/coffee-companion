@@ -13,6 +13,11 @@ function init() {
 	attachSubmissionListeners();
 }
 
+window.addEventListener("load", () => {
+	const element = document.querySelector(".fade-in");
+	element.classList.add("visible");
+});
+
 document.addEventListener("DOMContentLoaded", () => {
 	init();
 });
