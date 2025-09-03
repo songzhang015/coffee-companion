@@ -29,6 +29,7 @@ function submitNewEntryListener(form) {
 			getValue("waterAmount"),
 			getValue("grindSize"),
 			getValue("brewTime"),
+			getValue("brewMethod"),
 			getValue("notes"),
 			getValue("aroma"),
 			getValue("texture"),

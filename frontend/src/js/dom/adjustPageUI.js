@@ -154,6 +154,7 @@ function selectEntry(entry) {
 		"waterAmount",
 		"grindSize",
 		"brewTime",
+		"brewMethod",
 	];
 
 	const rightSect = ["notes", "aroma", "texture", "flavor", "acidity"];

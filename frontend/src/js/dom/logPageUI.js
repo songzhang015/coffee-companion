@@ -121,8 +121,7 @@ function initNewEntryPage() {
 		notesRow,
 		optionalFields.notes[0],
 		optionalFields.notes[1],
-		"notes",
-		true
+		"notes"
 	);
 
 	row = document.createElement("div");
@@ -160,12 +159,9 @@ function initNewEntryPage() {
 }
 
 // Helper function for initNewEntryPage to add a field in new entry
-function addNewField(row, title, placeholder, cls, fullWidth = false) {
+function addNewField(row, title, placeholder, cls) {
 	const entryContainer = document.createElement("div");
 	entryContainer.classList.add("new-entry-container");
-	if (fullWidth) {
-		entryContainer.classList.add("full-width");
-	}
 
 	const entryTitle = document.createElement("h2");
 	entryTitle.classList.add("entry-title");

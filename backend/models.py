@@ -32,6 +32,7 @@ class Entry(db.Model):
     waterAmount: Mapped[Optional[str]] = mapped_column(db.String(100))
     grindSize: Mapped[Optional[str]] = mapped_column(db.String(100))
     brewTime: Mapped[Optional[str]] = mapped_column(db.String(100))
+    brewMethod: Mapped[Optional[str]] = mapped_column(db.String(100))
     notes: Mapped[Optional[str]] = mapped_column(db.String(1000))
     
     user: Mapped["User"] = relationship(back_populates="entries")

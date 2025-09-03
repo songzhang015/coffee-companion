@@ -11,6 +11,7 @@ const optionalFields = {
 	waterAmount: ["Water Amount", "e.g. 200g (optional)"],
 	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
 	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
+	brewMethod: ["Brew Method", "e.g. Aeropress (optional)"],
 	notes: ["Notes", "e.g. Clean, lingering sweetness (optional)"],
 };
 
@@ -27,6 +28,7 @@ const fieldNames = {
 	waterAmount: "Water Amount",
 	grindSize: "Grind Size",
 	brewTime: "Brew Time",
+	brewMethod: "Brew Method",
 	notes: "Notes",
 	aroma: "Aroma",
 	texture: "Texture",
