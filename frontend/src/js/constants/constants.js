@@ -6,12 +6,13 @@ Used to create the optional fields, their text title, and placeholder text
 */
 const optionalFields = {
 	roastLevel: ["Roast Level", "e.g. Dark Roast (optional)"],
+	roastDate: ["Roast Date", "e.g. 01/01/2025 (optional)"],
 	coffeeAmount: ["Coffee Amount", "e.g. 13g (optional)"],
-	waterTemp: ["Water Temperature", "e.g. 212°F (optional)"],
 	waterAmount: ["Water Amount", "e.g. 200g (optional)"],
-	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
-	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
 	brewMethod: ["Brew Method", "e.g. Aeropress (optional)"],
+	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
+	waterTemp: ["Water Temperature", "e.g. 212°F (optional)"],
+	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
 	notes: ["Notes", "e.g. Clean, lingering sweetness (optional)"],
 };
 
@@ -23,12 +24,13 @@ const fieldNames = {
 	title: "Entry Title",
 	date: "Date",
 	roastLevel: "Roast Level",
+	roastDate: "Roast Date",
 	coffeeAmount: "Coffee Amount",
-	waterTemp: "Water Temperature",
 	waterAmount: "Water Amount",
-	grindSize: "Grind Size",
-	brewTime: "Brew Time",
 	brewMethod: "Brew Method",
+	brewTime: "Brew Time",
+	waterTemp: "Water Temperature",
+	grindSize: "Grind Size",
 	notes: "Notes",
 	aroma: "Aroma",
 	texture: "Texture",

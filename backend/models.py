@@ -27,12 +27,14 @@ class Entry(db.Model):
     acidity: Mapped[int] = mapped_column(nullable=False)
 
     roastLevel: Mapped[Optional[str]] = mapped_column(db.String(100))
+    roastDate: Mapped[Optional[str]] = mapped_column(db.String(10))
     coffeeAmount: Mapped[Optional[str]] = mapped_column(db.String(100))
-    waterTemp: Mapped[Optional[str]] = mapped_column(db.String(100))
     waterAmount: Mapped[Optional[str]] = mapped_column(db.String(100))
-    grindSize: Mapped[Optional[str]] = mapped_column(db.String(100))
-    brewTime: Mapped[Optional[str]] = mapped_column(db.String(100))
     brewMethod: Mapped[Optional[str]] = mapped_column(db.String(100))
+    brewTime: Mapped[Optional[str]] = mapped_column(db.String(100))
+    waterTemp: Mapped[Optional[str]] = mapped_column(db.String(100))
+    grindSize: Mapped[Optional[str]] = mapped_column(db.String(100))
+
     notes: Mapped[Optional[str]] = mapped_column(db.String(1000))
     
     user: Mapped["User"] = relationship(back_populates="entries")

@@ -8,6 +8,9 @@ import {
 	deleteEntryListener,
 	viewEntryListener,
 	cancelNewEntryListener,
+	addQuadrantListener,
+	addOverlayListener,
+	addScaleSelectionListeners,
 } from "../events/logPageEvents";
 import { addReturnListener } from "../events/homePageEvents.js";
 import { fetchEntries } from "../home";
@@ -124,17 +127,7 @@ function initNewEntryPage() {
 		"notes"
 	);
 
-	row = document.createElement("div");
-	row.classList.add("entry-row");
-	entriesContainer.appendChild(row);
-	addSliderField(row, "Aroma", "aroma");
-	addSliderField(row, "Texture", "texture");
-
-	row = document.createElement("div");
-	row.classList.add("entry-row");
-	entriesContainer.appendChild(row);
-	addSliderField(row, "Flavor", "flavor");
-	addSliderField(row, "Acidity", "acidity");
+	createEvaulationFields(newForm);
 
 	const newEntryButton = document.createElement("button");
 	newEntryButton.type = "submit";
@@ -182,7 +175,7 @@ function addNewField(row, title, placeholder, cls) {
 	entryContainer.append(entryTitle, entryInput);
 	row.appendChild(entryContainer);
 
-	if (cls === "date") {
+	if (cls === "date" || cls === "roastDate") {
 		flatpickr(entryInput, {
 			dateFormat: "m/d/Y",
 			allowInput: true,
@@ -191,33 +184,145 @@ function addNewField(row, title, placeholder, cls) {
 	}
 }
 
-// Helper function for initNewEntryPage to add a slider in new entry
-function addSliderField(row, title, cls) {
-	const entryContainer = document.createElement("div");
-	entryContainer.classList.add("new-entry-container");
+// Creates the circular UI for Aroma, Texture, Flavor, and Acidity
+function createEvaulationFields(form) {
+	const circle = document.createElement("div");
+	circle.classList.add("circle");
 
-	const entryTitle = document.createElement("h2");
-	entryTitle.classList.add("entry-title");
-	entryTitle.textContent = title;
+	const verticalLine = document.createElement("div");
+	verticalLine.classList.add("line", "vertical");
 
-	const sliderInput = document.createElement("input");
-	sliderInput.classList.add("entry-slider", cls);
-	sliderInput.type = "range";
-	sliderInput.min = "1";
-	sliderInput.max = "5";
-	sliderInput.step = "1";
-	sliderInput.value = "3";
+	const horizontalLine = document.createElement("div");
+	horizontalLine.classList.add("line", "horizontal");
 
-	const valueDisplay = document.createElement("span");
-	valueDisplay.classList.add("slider-value");
-	valueDisplay.textContent = sliderInput.value;
+	circle.append(verticalLine, horizontalLine);
 
-	sliderInput.addEventListener("input", () => {
-		valueDisplay.textContent = sliderInput.value;
-	});
+	const aromaQuadrant = document.createElement("div");
+	aromaQuadrant.classList.add("quadrant", "top-left");
+	const aromaLabel = document.createElement("p");
+	aromaLabel.classList.add("label");
+	aromaLabel.textContent = "Aroma";
+	const aromaScore = document.createElement("p");
+	aromaScore.classList.add("score", "aroma");
+	aromaScore.textContent = "3";
+	aromaQuadrant.append(aromaLabel, aromaScore);
 
-	entryContainer.append(entryTitle, sliderInput, valueDisplay);
-	row.appendChild(entryContainer);
+	const textureQuadrant = document.createElement("div");
+	textureQuadrant.classList.add("quadrant", "top-right");
+	const textureLabel = document.createElement("p");
+	textureLabel.classList.add("label");
+	textureLabel.textContent = "Texture";
+	const textureScore = document.createElement("p");
+	textureScore.classList.add("score", "texture");
+	textureScore.textContent = "3";
+	textureQuadrant.append(textureLabel, textureScore);
+
+	const flavorQuadrant = document.createElement("div");
+	flavorQuadrant.classList.add("quadrant", "bottom-left");
+	const flavorLabel = document.createElement("p");
+	flavorLabel.classList.add("label");
+	flavorLabel.textContent = "Flavor";
+	const flavorScore = document.createElement("p");
+	flavorScore.classList.add("score", "flavor");
+	flavorScore.textContent = "3";
+	flavorQuadrant.append(flavorLabel, flavorScore);
+
+	const acidityQuadrant = document.createElement("div");
+	acidityQuadrant.classList.add("quadrant", "bottom-right");
+	const acidityLabel = document.createElement("p");
+	acidityLabel.classList.add("label");
+	acidityLabel.textContent = "Acidity";
+	const acidityScore = document.createElement("p");
+	acidityScore.classList.add("score", "acidity");
+	acidityScore.textContent = "3";
+	acidityQuadrant.append(acidityLabel, acidityScore);
+
+	circle.append(
+		aromaQuadrant,
+		textureQuadrant,
+		flavorQuadrant,
+		acidityQuadrant
+	);
+
+	form.append(circle);
+
+	addQuadrantListener(form, aromaQuadrant, "aroma");
+	addQuadrantListener(form, textureQuadrant, "texture");
+	addQuadrantListener(form, flavorQuadrant, "flavor");
+	addQuadrantListener(form, acidityQuadrant, "acidity");
+}
+
+function createCriteriaModal(form, quadrantElement, criteria) {
+	const modalOverlay = document.createElement("div");
+	modalOverlay.classList.add("modal-overlay");
+
+	const modalContainer = document.createElement("div");
+	modalContainer.classList.add("modal-container");
+
+	addOverlayListener(modalContainer, modalOverlay);
+
+	const header = document.createElement("h1");
+	const subheader = document.createElement("h2");
+	switch (criteria) {
+		case "aroma":
+			header.textContent = "Aroma";
+			subheader.textContent =
+				"The smell, such as floral, nutty, or burnt aromas.";
+			break;
+		case "texture":
+			header.textContent = "Texture";
+			subheader.textContent =
+				"The mouthfeel or body, such as a rich and creamy texture or thin like tea.";
+			break;
+		case "flavor":
+			header.textContent = "Flavor";
+			subheader.textContent =
+				"The taste profile, such as sweetness and distinct flavor notes like chocolate.";
+			break;
+		case "acidity":
+			header.textContent = "Acidity";
+			subheader.textContent =
+				"The brightness, such as the enjoyable or unpleasant bitterness/sourness.";
+			break;
+	}
+
+	const scale = document.createElement("div");
+	scale.classList.add("criteria-scale");
+
+	const scaleOne = document.createElement("p");
+	scaleOne.classList.add("scale-element");
+	scaleOne.textContent = "1";
+	const scaleTwo = document.createElement("p");
+	scaleTwo.classList.add("scale-element");
+	scaleTwo.textContent = "2";
+	const scaleThree = document.createElement("p");
+	scaleThree.classList.add("scale-element");
+	scaleThree.textContent = "3";
+	const scaleFour = document.createElement("p");
+	scaleFour.classList.add("scale-element");
+	scaleFour.textContent = "4";
+	const scaleFive = document.createElement("p");
+	scaleFive.classList.add("scale-element");
+	scaleFive.textContent = "5";
+
+	scale.append(scaleOne, scaleTwo, scaleThree, scaleFour, scaleFive);
+
+	for (const scaleElement of scale.children) {
+		const currentScore = document.querySelector(`.${criteria}`).textContent;
+		if (scaleElement.textContent === currentScore) {
+			scaleElement.classList.add("active");
+		} else {
+			scaleElement.classList.remove("active");
+		}
+		addScaleSelectionListeners(criteria, scale, scaleElement);
+	}
+
+	const scaleNote = document.createElement("p");
+	scaleNote.classList.add("scale-note");
+	scaleNote.textContent = `Note: Rate the ${criteria} based on enjoyability as opposed to the amount of ${criteria}.`;
+
+	modalContainer.append(header, subheader, scale, scaleNote);
+	form.append(modalOverlay, modalContainer);
 }
 
 // Adding entries to the main log page in recent entries
@@ -319,4 +424,4 @@ function viewEntryAddField(entry, field) {
 	return container;
 }
 
-export { initLogPage, initNewEntryPage, viewEntry };
+export { initLogPage, initNewEntryPage, viewEntry, createCriteriaModal };

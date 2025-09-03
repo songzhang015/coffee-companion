@@ -2,7 +2,12 @@
  * logPageEvents.js
  * Contains log page events for the 'Log' section of the homepage
  */
-import { initLogPage, initNewEntryPage, viewEntry } from "../dom/logPageUI";
+import {
+	initLogPage,
+	initNewEntryPage,
+	viewEntry,
+	createCriteriaModal,
+} from "../dom/logPageUI";
 import { createNewEntry, deleteEntry } from "../apis/logPageApi";
 
 // New Entry button in log page
@@ -18,18 +23,19 @@ function submitNewEntryListener(form) {
 		e.preventDefault();
 		const getValue = (className) => {
 			const element = document.querySelector(`.${className}`);
-			return element ? element.value : "";
+			return element.value !== undefined ? element.value : element.textContent;
 		};
 		await createNewEntry(
 			getValue("title"),
 			getValue("date"),
 			getValue("roastLevel"),
+			getValue("roastDate"),
 			getValue("coffeeAmount"),
-			getValue("waterTemp"),
 			getValue("waterAmount"),
-			getValue("grindSize"),
-			getValue("brewTime"),
 			getValue("brewMethod"),
+			getValue("brewTime"),
+			getValue("waterTemp"),
+			getValue("grindSize"),
 			getValue("notes"),
 			getValue("aroma"),
 			getValue("texture"),
@@ -62,10 +68,48 @@ function viewEntryListener(entry, btn) {
 	});
 }
 
+// Allows criteria quadrants to be clicked
+function addQuadrantListener(form, quadrantElement, name) {
+	quadrantElement.addEventListener("click", () =>
+		createCriteriaModal(form, quadrantElement, name)
+	);
+}
+
+// When overlay is clicked, get rid of modal + overlay
+function addOverlayListener(modal, overlay) {
+	overlay.addEventListener("click", () => {
+		modal.classList.add("closing");
+		overlay.classList.add("closing");
+
+		setTimeout(() => {
+			modal.remove();
+			overlay.remove();
+		}, 300);
+	});
+}
+
+// Allows the scale selectors (1-5) to be clicked
+function addScaleSelectionListeners(criteria, scale, scaleElement) {
+	scaleElement.addEventListener("click", () => {
+		let valueElement = document.querySelector(`.${criteria}`);
+		valueElement.textContent = scaleElement.textContent;
+		for (let child of scale.children) {
+			if (child === scaleElement) {
+				child.classList.add("active");
+			} else {
+				child.classList.remove("active");
+			}
+		}
+	});
+}
+
 export {
 	addNewEntryListener,
 	submitNewEntryListener,
 	deleteEntryListener,
 	viewEntryListener,
 	cancelNewEntryListener,
+	addQuadrantListener,
+	addOverlayListener,
+	addScaleSelectionListeners,
 };

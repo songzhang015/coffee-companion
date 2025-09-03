@@ -149,12 +149,13 @@ function selectEntry(entry) {
 
 	const leftSect = [
 		"roastLevel",
+		"roastDate",
 		"coffeeAmount",
-		"waterTemp",
 		"waterAmount",
-		"grindSize",
-		"brewTime",
 		"brewMethod",
+		"brewTime",
+		"waterTemp",
+		"grindSize",
 	];
 
 	const rightSect = ["notes", "aroma", "texture", "flavor", "acidity"];
