@@ -1,7 +1,7 @@
 /* CSS File for Coffee Companion App - Home Page */
 
 body {
-	background-color: rgb(var(--main-eight));
+	background-color: rgb(var(--gray-nine));
 	margin: 0;
 	padding: 0;
 	display: flex;
@@ -25,25 +25,26 @@ body {
 	align-items: center;
 	font-family: "Comfortaa", sans-serif;
 	gap: 2rem;
-	color: var(--text-beige);
+	color: rgb(var(--main-four));
 }
 
 .icon-container {
-	width: clamp(6rem, calc(1rem + 10vw), 10rem);
-	height: clamp(6rem, calc(1rem + 10vw), 10rem);
-	background-color: rgb(148, 60, 0);
+	width: 10rem;
+	height: 10rem;
 	border-radius: 50%;
+	background-color: rgba(var(--gray-eight), 0.25);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: transform 0.25s ease;
+	transition: transform 0.45s, background-color 0.45s;
 	user-select: none;
-	border: 6px solid rgb(69, 30, 0);
+	border: 3px solid rgb(var(--main-five));
 	cursor: pointer;
 }
 
 .icon-container:hover {
 	transform: scale(1.1);
+	background-color: rgba(var(--gray-eight), 1);
 }
 
 .icon {
@@ -67,10 +68,10 @@ body {
 
 .entry-form {
 	width: 60rem;
-	min-height: 48rem;
-	background-color: rgb(var(--gray-one));
+	min-height: 85vh;
 	border-radius: 12px;
 	border: 1px solid;
+	background-color: rgb(var(--gray-eight));
 }
 
 .entries-header {
@@ -79,11 +80,11 @@ body {
 	justify-content: space-between;
 	margin: 1.5rem 4rem 0 4rem;
 	font-family: "Merriweather", sans-serif;
-	color: rgb(var(--gray-eight));
+	color: rgb(var(--gray-one));
 }
 
 .divider {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+	border-bottom: 1px solid rgba(var(--gray-one), 0.3);
 	margin: 0 4rem 0 4rem;
 }
 
@@ -124,19 +125,18 @@ body {
 
 .entry-container {
 	margin: 0 4rem 0 4rem;
-	background-color: blanchedalmond;
-	border: 1px solid;
+	background-color: rgb(var(--main-four));
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 1rem;
-	transition: background-color 0.15s, transform 0.15s, box-shadow 0.15s;
+	transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
 	position: relative;
+	cursor: pointer;
 }
 
 .entry-container:hover {
-	background-color: rgb(232, 208, 162);
-	cursor: pointer;
+	filter: brightness(0.88);
 	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
 	transform: translateY(-2px);
 }
@@ -145,7 +145,7 @@ body {
 	position: absolute;
 	right: -45px;
 	background-color: transparent;
-	color: rgb(var(--accent-one));
+	color: rgb(var(--main-five));
 	border: none;
 	font-size: 2.15rem;
 	transition: color 0.2s, opacity 0.2s;
@@ -162,7 +162,7 @@ body {
 
 .entry-title {
 	font-size: 1rem;
-	color: rgb(var(--gray-seven));
+	color: rgb(var(--gray-two));
 }
 
 textarea {
@@ -171,9 +171,11 @@ textarea {
 
 input.entry-input,
 textarea.entry-input {
-	border: 2px solid rgb(var(--gray-three));
-	background-color: white;
+	border: 2px solid rgb(var(--gray-seven));
+	background-color: rgb(var(--gray-seven));
 	transition: background-color 0.25s, border 0.25s;
+	color: rgb(var(--gray-one));
+	font-family: "Source Sans 3", sans-serif;
 }
 
 input.entry-input::placeholder,
@@ -188,12 +190,14 @@ textarea.entry-input::placeholder {
 }
 
 .entry-input:hover {
-	background-color: rgb(var(--gray-two));
-	border: 2px solid rgb(var(--gray-four));
+	border: 2px solid rgb(var(--gray-six));
+	background-color: rgb(var(--gray-eight));
 }
 
 .entry-input:focus {
-	background-color: rgb(var(--main-one));
+	border: 2px solid rgb(var(--gray-five));
+	background-color: rgb(var(--gray-nine));
+	outline: none;
 }
 
 .add-entries-button {
@@ -205,19 +209,20 @@ textarea.entry-input::placeholder {
 	padding: 0.5rem 1rem;
 	font-size: 1.15rem;
 	border-radius: 12px;
-	transition: filter 0.2s, transform 0.2s, box-shadow 0.2s;
-	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-	background-color: var(--golden-btn);
+	transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
+	background: none;
 	will-change: transform;
 	font-weight: 600;
 	font-family: "Source Sans 3", sans-serif;
+	border: 2px solid rgba(var(--main-five), 0.8);
+	color: rgb(var(--gray-one));
+	cursor: pointer;
 }
 
 .add-entries-button:hover {
-	filter: brightness(92%);
-	cursor: pointer;
-	box-shadow: none;
-	transform: scale(0.96);
+	border: 2px solid rgba(var(--main-five), 1);
+	box-shadow: 0px 5px 15px rgba(255, 210, 128, 0.1);
+	transform: scale(1.05);
 }
 
 .entry-row {
@@ -228,9 +233,17 @@ textarea.entry-input::placeholder {
 
 .view-entry-container {
 	padding: 0 1rem;
-	border: 1px solid black;
+	border: 2px solid rgb(var(--gray-six));
 	border-radius: 8px;
 	flex: 1;
+}
+
+.view-entry-container > h2 {
+	color: rgb(var(--gray-one));
+}
+
+.view-entry-container > p {
+	color: rgb(var(--gray-two));
 }
 
 .entry-row > .view-entry-container:first-child {
@@ -275,7 +288,7 @@ textarea.entry-input::placeholder {
 
 .cancel-entries-button {
 	background-color: transparent;
-	color: rgb(var(--accent-one));
+	color: rgb(var(--main-five));
 	border: none;
 	transition: color 0.2s;
 	font-size: 2.15rem;
@@ -298,7 +311,7 @@ textarea.entry-input::placeholder {
 
 .line {
 	position: absolute;
-	background-color: rgb(var(--main-seven));
+	background-color: rgb(var(--gray-six));
 	z-index: 2;
 	opacity: 50%;
 }
@@ -329,7 +342,7 @@ textarea.entry-input::placeholder {
 	height: 50.2%;
 	cursor: pointer;
 	gap: 0.25rem;
-	background-color: rgb(var(--main-five));
+	background-color: rgb(var(--gray-seven));
 	border: none;
 	transition: filter 0.2s, transform 0.2s;
 	color: rgb(var(--gray-one));
@@ -361,7 +374,7 @@ textarea.entry-input::placeholder {
 }
 
 .quadrant:hover {
-	filter: brightness(1.06);
+	filter: brightness(1.05);
 	transform: scale(1.05);
 }
 
@@ -372,7 +385,7 @@ textarea.entry-input::placeholder {
 .score {
 	font-size: 1.2rem;
 	font-weight: bold;
-	color: rgb(var(--accent-one));
+	color: rgb(var(--main-five));
 }
 
 .label,
@@ -414,7 +427,6 @@ textarea.entry-input::placeholder {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 5;
-
 	opacity: 0;
 	animation: fadeIn 0.3s forwards;
 }
@@ -423,8 +435,8 @@ textarea.entry-input::placeholder {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: rgb(var(--gray-one));
-	filter: brightness(0.96);
+	color: rgb(var(--gray-one));
+	background-color: rgb(var(--gray-eight));
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -467,6 +479,7 @@ textarea.entry-input::placeholder {
 	font-size: 1.15rem;
 	font-weight: normal;
 	text-align: center;
+	color: rgb(var(--gray-two));
 }
 
 .modal-container h1,
@@ -487,27 +500,55 @@ textarea.entry-input::placeholder {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 2px solid black;
+	border: 2px solid rgb(var(--gray-seven));
 	width: 3rem;
 	height: 3rem;
 	border-radius: 50%;
 	cursor: pointer;
-	background-color: rgb(var(--main-one));
+	background-color: rgb(var(--gray-five));
 	transition: background-color 0.25s;
 	font-weight: bold;
+	color: rgb(var(--gray-eight));
 }
 
 .scale-element:hover {
-	background-color: rgb(var(--main-two));
+	background-color: rgb(var(--gray-four));
 }
 
 .scale-element.active {
-	background-color: rgb(var(--main-three));
+	background-color: rgb(var(--gray-seven));
+	color: rgb(var(--main-five));
 }
 
 .scale-note {
 	font-size: 0.85rem;
 	text-align: center;
+	color: rgb(var(--gray-three));
+}
+
+.scale-save-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	padding: 0.5rem 1rem;
+	font-size: 1.15rem;
+	border-radius: 12px;
+	transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
+	background: none;
+	will-change: transform;
+	font-weight: 600;
+	font-family: "Source Sans 3", sans-serif;
+	border: 2px solid rgba(var(--main-five), 0.8);
+	color: rgb(var(--gray-one));
+	cursor: pointer;
+	margin-top: 1rem;
+}
+
+.scale-save-btn:hover {
+	border: 2px solid rgba(var(--main-five), 1);
+	box-shadow: 0px 5px 15px rgba(255, 210, 128, 0.1);
+	transform: scale(1.05);
 }
 
 /* Adjust section of homepage */

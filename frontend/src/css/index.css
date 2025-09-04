@@ -61,7 +61,8 @@ h2 {
 	font-size: 1.5rem;
 	background-color: transparent;
 	font-family: "Source Sans 3", sans-serif;
-	border: 2px solid rgba(var(--main-three), 0.65);
+	border: 2px solid rgba(var(--main-five), 0.7);
+	background-color: rgba(var(--gray-nine), 0.25);
 	border-radius: 6px;
 	font-weight: 500;
 	color: rgba(var(--gray-one), 0.8);
@@ -72,14 +73,15 @@ h2 {
 
 .start-btn:hover {
 	box-shadow: 0px 5px 15px rgba(255, 210, 128, 0.2);
-	border-color: rgba(var(--main-three), 1);
+	border-color: rgba(var(--main-five), 1);
 	color: rgba(var(--gray-one), 1);
 	transform: translateY(-3px);
+	background-color: rgba(var(--gray-nine), 1);
 }
 
 .features {
 	font-size: 1.65rem;
-	color: rgb(var(--accent-one));
+	color: rgb(var(--main-four));
 	display: flex;
 	font-family: "Comfortaa", sans-serif;
 	justify-content: space-evenly;
@@ -102,8 +104,8 @@ h2 {
 .icon-container {
 	width: 6.5rem;
 	height: 6.5rem;
-	border: 3px solid rgba(var(--main-three), 0.65);
-	background-color: rgb(var(--main-six));
+	border: 3px solid rgba(var(--main-five), 0.7);
+	background-color: rgba(var(--gray-nine), 0.25);
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
@@ -121,7 +123,8 @@ h2 {
 }
 
 .feature:hover .icon-container {
-	border-color: rgb(var(--main-three));
+	border-color: rgb(var(--main-five));
+	background-color: rgba(var(--gray-nine), 1);
 	box-shadow: 0 0 15px 5px rgba(212, 162, 118, 0.15);
 	filter: brightness(1.05);
 }

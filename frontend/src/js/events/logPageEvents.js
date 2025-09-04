@@ -103,6 +103,19 @@ function addScaleSelectionListeners(criteria, scale, scaleElement) {
 	});
 }
 
+function addScaleSaveBtnListener(btn, modal, overlay) {
+	btn.addEventListener("click", (e) => {
+		e.preventDefault();
+		modal.classList.add("closing");
+		overlay.classList.add("closing");
+
+		setTimeout(() => {
+			modal.remove();
+			overlay.remove();
+		}, 300);
+	});
+}
+
 export {
 	addNewEntryListener,
 	submitNewEntryListener,
@@ -112,4 +125,5 @@ export {
 	addQuadrantListener,
 	addOverlayListener,
 	addScaleSelectionListeners,
+	addScaleSaveBtnListener,
 };

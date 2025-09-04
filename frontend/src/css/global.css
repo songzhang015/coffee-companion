@@ -9,28 +9,26 @@
 	--golden-btn: rgb(250, 210, 55);
 
 	/* Main Palette */
-	--main-one: 246, 242, 238;
-	--main-two: 212, 188, 169;
-	--main-three: 186, 148, 117;
-	--main-four: 133, 97, 67;
-	--main-five: 99, 72, 50;
-	--main-six: 77, 56, 39;
-	--main-seven: 56, 41, 28;
-	--main-eight: 35, 26, 18;
-	--main-nine: 14, 10, 7;
+	--main-one: 255, 249, 238;
+	--main-two: 254, 236, 204;
+	--main-three: 254, 217, 153;
+	--main-four: 253, 192, 85;
+	--main-five: 252, 166, 18;
+	--main-six: 191, 122, 2;
+	--main-seven: 115, 73, 1;
+	--main-eight: 57, 37, 1;
+	--main-nine: 19, 12, 0;
 
 	/* Gray Palette */
-	--gray-one: 248, 250, 251;
-	--gray-two: 243, 245, 246;
-	--gray-three: 203, 209, 214;
-	--gray-four: 160, 172, 184;
-	--gray-five: 92, 83, 83;
-	--gray-six: 33, 37, 41;
-	--gray-seven: 24, 27, 30;
-	--gray-eight: 10, 11, 12;
-
-	/* Accent Palette */
-	--accent-one: 255, 198, 124;
+	--gray-one: 245, 245, 245;
+	--gray-two: 230, 230, 230;
+	--gray-three: 210, 210, 210;
+	--gray-four: 190, 190, 190;
+	--gray-five: 130, 130, 130;
+	--gray-six: 75, 75, 75;
+	--gray-seven: 55, 55, 55;
+	--gray-eight: 35, 35, 35;
+	--gray-nine: 20, 20, 20;
 }
 
 .fade-in {

@@ -11,6 +11,7 @@ import {
 	addQuadrantListener,
 	addOverlayListener,
 	addScaleSelectionListeners,
+	addScaleSaveBtnListener,
 } from "../events/logPageEvents";
 import { addReturnListener } from "../events/homePageEvents.js";
 import { fetchEntries } from "../home";
@@ -321,7 +322,12 @@ function createCriteriaModal(form, quadrantElement, criteria) {
 	scaleNote.classList.add("scale-note");
 	scaleNote.textContent = `Note: Rate the ${criteria} based on enjoyability as opposed to the amount of ${criteria}.`;
 
-	modalContainer.append(header, subheader, scale, scaleNote);
+	const scaleSaveBtn = document.createElement("button");
+	scaleSaveBtn.textContent = "Save";
+	scaleSaveBtn.classList.add("scale-save-btn");
+	addScaleSaveBtnListener(scaleSaveBtn, modalContainer, modalOverlay);
+
+	modalContainer.append(header, subheader, scale, scaleNote, scaleSaveBtn);
 	form.append(modalOverlay, modalContainer);
 }
 
