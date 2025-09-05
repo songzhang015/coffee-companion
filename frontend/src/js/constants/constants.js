@@ -7,8 +7,8 @@ Used to create the optional fields, their text title, and placeholder text
 const optionalFields = {
 	roastLevel: ["Roast Level", "e.g. Dark Roast (optional)"],
 	roastDate: ["Roast Date", "e.g. 01/01/2025 (optional)"],
-	coffeeAmount: ["Coffee Amount", "e.g. 13g (optional)"],
-	waterAmount: ["Water Amount", "e.g. 200g (optional)"],
+	coffeeAmount: ["Coffee Amount (g)", "e.g. 13g (optional)"],
+	waterAmount: ["Water Amount (g)", "e.g. 200g (optional)"],
 	brewMethod: ["Brew Method", "e.g. Aeropress (optional)"],
 	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
 	waterTemp: ["Water Temperature", "e.g. 212°F (optional)"],
@@ -37,6 +37,22 @@ const fieldNames = {
 	flavor: "Flavor",
 	acidity: "Acidity",
 };
+
+// Roast levels for dropdown selector when creating a new entry in "Log".
+const roastLevels = ["Light", "Medium-Light", "Medium", "Medium-Dark", "Dark"];
+
+// Brewing Methods for dropdown selector when creating a new entry in "Log".
+const brewMethods = [
+	"Aeropress",
+	"Drip",
+	"Espresso",
+	"French Press",
+	"Moka Pot",
+	"Nespresso",
+	"Pour Over",
+	"Turkish",
+	"Other",
+];
 
 /*
 For use in "Adjust" portion of the homepage
@@ -141,4 +157,4 @@ minutes or lower.
 overextracted depending on your preferences and the coffee beans.`,
 };
 
-export { optionalFields, fieldNames, issueSolutions };
+export { optionalFields, fieldNames, roastLevels, brewMethods, issueSolutions };

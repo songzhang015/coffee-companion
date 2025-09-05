@@ -169,24 +169,19 @@ textarea {
 	resize: none;
 }
 
-input.entry-input,
-textarea.entry-input {
+.entry-input {
 	border: 2px solid rgb(var(--gray-seven));
 	background-color: rgb(var(--gray-seven));
 	transition: background-color 0.25s, border 0.25s;
 	color: rgb(var(--gray-one));
 	font-family: "Source Sans 3", sans-serif;
-}
-
-input.entry-input::placeholder,
-textarea.entry-input::placeholder {
-	font-family: "Source Sans 3", sans-serif;
-}
-
-.entry-input {
 	font-size: 1rem;
 	border-radius: 8px;
 	padding: 0.5rem 0.75rem;
+}
+
+.entry-input::placeholder {
+	color: gray;
 }
 
 .entry-input:hover {
@@ -198,6 +193,14 @@ textarea.entry-input::placeholder {
 	border: 2px solid rgb(var(--gray-five));
 	background-color: rgb(var(--gray-nine));
 	outline: none;
+}
+
+select.empty {
+	color: gray;
+}
+
+select option {
+	color: rgb(var(--gray-one));
 }
 
 .add-entries-button {

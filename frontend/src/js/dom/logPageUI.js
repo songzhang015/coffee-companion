@@ -15,9 +15,15 @@ import {
 } from "../events/logPageEvents";
 import { addReturnListener } from "../events/homePageEvents.js";
 import { fetchEntries } from "../home";
-import { optionalFields, fieldNames } from "../constants/constants.js";
+import {
+	optionalFields,
+	fieldNames,
+	roastLevels,
+	brewMethods,
+} from "../constants/constants.js";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/themes/dark.css";
 
 // Initializes the log page when user clicks on the 'Log' section in the homepage
 function initLogPage() {
@@ -92,8 +98,8 @@ function initNewEntryPage() {
 	let row = document.createElement("div");
 	row.classList.add("entry-row");
 	entriesContainer.appendChild(row);
-	addNewField(row, "Entry Title:", "e.g. Columbian", "title");
-	addNewField(row, "Date:", "e.g. 01/20/2025", "date");
+	addNewField(row, "Entry Title", "e.g. Columbian", "title");
+	addNewField(row, "Date", "e.g. 01/20/2025", "date");
 
 	let colCount = 0;
 	let currentRow = null;
@@ -165,6 +171,56 @@ function addNewField(row, title, placeholder, cls) {
 	if (cls === "notes") {
 		entryInput = document.createElement("textarea");
 		entryInput.rows = 5;
+	} else if (cls === "roastLevel") {
+		entryInput = document.createElement("select");
+
+		const placeholderOption = document.createElement("option");
+		placeholderOption.value = "";
+		placeholderOption.textContent = "Select a roast...";
+		placeholderOption.selected = true;
+		placeholderOption.hidden = true;
+		entryInput.appendChild(placeholderOption);
+
+		roastLevels.forEach((level) => {
+			const option = document.createElement("option");
+			option.value = level;
+			option.textContent = level;
+			entryInput.appendChild(option);
+		});
+
+		entryInput.addEventListener("change", function () {
+			if (this.value === "") {
+				this.classList.add("empty");
+			} else {
+				this.classList.remove("empty");
+			}
+		});
+		entryInput.classList.add("empty");
+	} else if (cls === "brewMethod") {
+		entryInput = document.createElement("select");
+
+		const placeholderOption = document.createElement("option");
+		placeholderOption.value = "";
+		placeholderOption.textContent = "Select a method...";
+		placeholderOption.selected = true;
+		placeholderOption.hidden = true;
+		entryInput.appendChild(placeholderOption);
+
+		brewMethods.forEach((method) => {
+			const option = document.createElement("option");
+			option.value = method;
+			option.textContent = method;
+			entryInput.appendChild(option);
+		});
+
+		entryInput.addEventListener("change", function () {
+			if (this.value === "") {
+				this.classList.add("empty");
+			} else {
+				this.classList.remove("empty");
+			}
+		});
+		entryInput.classList.add("empty");
 	} else {
 		entryInput = document.createElement("input");
 		entryInput.maxLength = 80;
