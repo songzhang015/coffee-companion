@@ -29,6 +29,10 @@
 	--gray-seven: 55, 55, 55;
 	--gray-eight: 35, 35, 35;
 	--gray-nine: 20, 20, 20;
+
+	/* Secondary Palette */
+
+	--green-one: 76, 252, 18;
 }
 
 .fade-in {

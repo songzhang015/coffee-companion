@@ -20,6 +20,7 @@ import {
 	fieldNames,
 	roastLevels,
 	brewMethods,
+	grindSizes,
 } from "../constants/constants.js";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
@@ -98,8 +99,8 @@ function initNewEntryPage() {
 	let row = document.createElement("div");
 	row.classList.add("entry-row");
 	entriesContainer.appendChild(row);
-	addNewField(row, "Entry Title", "e.g. Columbian", "title");
-	addNewField(row, "Date", "e.g. 01/20/2025", "date");
+	addNewField(row, "Entry Title *", "Enter a title...", "title");
+	addNewField(row, "Date *", "Select a date...", "date");
 
 	let colCount = 0;
 	let currentRow = null;
@@ -168,62 +169,120 @@ function addNewField(row, title, placeholder, cls) {
 	entryTitle.textContent = title;
 
 	let entryInput;
-	if (cls === "notes") {
-		entryInput = document.createElement("textarea");
-		entryInput.rows = 5;
-	} else if (cls === "roastLevel") {
-		entryInput = document.createElement("select");
+	let placeholderOption = document.createElement("option");
+	switch (cls) {
+		case "notes":
+			entryInput = document.createElement("textarea");
+			entryInput.rows = 5;
+			entryInput.maxLength = 500;
+			break;
+		case "roastLevel":
+			entryInput = document.createElement("select");
+			placeholderOption.value = "";
+			placeholderOption.textContent = "Select a roast...";
+			placeholderOption.selected = true;
+			placeholderOption.hidden = true;
+			entryInput.appendChild(placeholderOption);
 
-		const placeholderOption = document.createElement("option");
-		placeholderOption.value = "";
-		placeholderOption.textContent = "Select a roast...";
-		placeholderOption.selected = true;
-		placeholderOption.hidden = true;
-		entryInput.appendChild(placeholderOption);
+			roastLevels.forEach((level) => {
+				const option = document.createElement("option");
+				option.value = level;
+				option.textContent = level;
+				entryInput.appendChild(option);
+			});
 
-		roastLevels.forEach((level) => {
-			const option = document.createElement("option");
-			option.value = level;
-			option.textContent = level;
-			entryInput.appendChild(option);
-		});
-
-		entryInput.addEventListener("change", function () {
-			if (this.value === "") {
-				this.classList.add("empty");
+			entryInput.addEventListener("change", function () {
+				if (this.value === "") {
+					this.classList.add("empty");
+				} else {
+					this.classList.remove("empty");
+				}
+			});
+			entryInput.classList.add("empty");
+			break;
+		case "coffeeAmount":
+		case "waterAmount":
+		case "waterTemp":
+			entryInput = document.createElement("input");
+			entryInput.max = "999999";
+			entryInput.type = "number";
+			entryInput.step = "0.01";
+			entryInput.inputMode = "decimal";
+			entryInput.min = "0.01";
+			if (cls === "waterTemp") {
+				entryInput.min = "-459.67";
 			} else {
-				this.classList.remove("empty");
+				entryInput.min = "0.01";
 			}
-		});
-		entryInput.classList.add("empty");
-	} else if (cls === "brewMethod") {
-		entryInput = document.createElement("select");
+			break;
+		case "brewMethod":
+			entryInput = document.createElement("select");
+			placeholderOption.value = "";
+			placeholderOption.textContent = "Select a method...";
+			placeholderOption.selected = true;
+			placeholderOption.hidden = true;
+			entryInput.appendChild(placeholderOption);
 
-		const placeholderOption = document.createElement("option");
-		placeholderOption.value = "";
-		placeholderOption.textContent = "Select a method...";
-		placeholderOption.selected = true;
-		placeholderOption.hidden = true;
-		entryInput.appendChild(placeholderOption);
+			brewMethods.forEach((method) => {
+				const option = document.createElement("option");
+				option.value = method;
+				option.textContent = method;
+				entryInput.appendChild(option);
+			});
 
-		brewMethods.forEach((method) => {
-			const option = document.createElement("option");
-			option.value = method;
-			option.textContent = method;
-			entryInput.appendChild(option);
-		});
+			entryInput.addEventListener("change", function () {
+				if (this.value === "") {
+					this.classList.add("empty");
+				} else {
+					this.classList.remove("empty");
+				}
+			});
+			entryInput.classList.add("empty");
+			break;
+		case "brewTime":
+			entryInput = document.createElement("input");
+			entryInput.type = "text";
+			entryInput.placeholder = "mm:ss";
+			entryInput.maxLength = 5;
 
-		entryInput.addEventListener("change", function () {
-			if (this.value === "") {
-				this.classList.add("empty");
-			} else {
-				this.classList.remove("empty");
-			}
-		});
-		entryInput.classList.add("empty");
-	} else {
-		entryInput = document.createElement("input");
-		entryInput.maxLength = 80;
+			entryInput.addEventListener("input", function (e) {
+				let val = this.value.replace(/\D/g, "");
+				if (val.length > 5) val = val.slice(0, 4);
+
+				if (val.length >= 3) {
+					val = val.slice(0, val.length - 2) + ":" + val.slice(-2);
+				}
+				this.value = val;
+			});
+			break;
+		case "grindSize":
+			entryInput = document.createElement("select");
+			placeholderOption.value = "";
+			placeholderOption.textContent = "Select a size...";
+			placeholderOption.selected = true;
+			placeholderOption.hidden = true;
+			entryInput.appendChild(placeholderOption);
+
+			grindSizes.forEach((size) => {
+				const option = document.createElement("option");
+				option.value = size;
+				option.textContent = size;
+				entryInput.appendChild(option);
+			});
+
+			entryInput.addEventListener("change", function () {
+				if (this.value === "") {
+					this.classList.add("empty");
+				} else {
+					this.classList.remove("empty");
+				}
+			});
+			entryInput.classList.add("empty");
+			break;
+		default:
+			entryInput = document.createElement("input");
+			entryInput.type = "text";
+			entryInput.maxLength = 50;
 	}
 
 	entryInput.classList.add("entry-input", cls);

@@ -5,15 +5,15 @@ For use in the "Log" portion of the homepage
 Used to create the optional fields, their text title, and placeholder text
 */
 const optionalFields = {
-	roastLevel: ["Roast Level", "e.g. Dark Roast (optional)"],
-	roastDate: ["Roast Date", "e.g. 01/01/2025 (optional)"],
-	coffeeAmount: ["Coffee Amount (g)", "e.g. 13g (optional)"],
-	waterAmount: ["Water Amount (g)", "e.g. 200g (optional)"],
-	brewMethod: ["Brew Method", "e.g. Aeropress (optional)"],
-	brewTime: ["Brew Time", "e.g. 3 minutes (optional)"],
-	waterTemp: ["Water Temperature", "e.g. 212°F (optional)"],
-	grindSize: ["Grind Size", "e.g. Medium Fine (optional)"],
-	notes: ["Notes", "e.g. Clean, lingering sweetness (optional)"],
+	roastLevel: ["Roast Level", "Select a roast..."],
+	roastDate: ["Roast Date", "Select a date..."],
+	coffeeAmount: ["Coffee Amount (g)", "Enter an amount..."],
+	waterAmount: ["Water Amount (g)", "Enter an amount..."],
+	brewMethod: ["Brew Method", "Select a method..."],
+	brewTime: ["Brew Time (minutes : seconds)", "Enter a time..."],
+	waterTemp: ["Water Temperature (°F)", "Enter a temp..."],
+	grindSize: ["Grind Size", "Select a size..."],
+	notes: ["Notes", "Enter a note..."],
 };
 
 /* 
@@ -41,7 +41,7 @@ const fieldNames = {
 // Roast levels for dropdown selector when creating a new entry in "Log".
 const roastLevels = ["Light", "Medium-Light", "Medium", "Medium-Dark", "Dark"];
 
-// Brewing Methods for dropdown selector when creating a new entry in "Log".
+// Brewing methods for dropdown selector when creating a new entry in "Log".
 const brewMethods = [
 	"Aeropress",
 	"Drip",
@@ -52,6 +52,17 @@ const brewMethods = [
 	"Pour Over",
 	"Turkish",
 	"Other",
+];
+
+// Grind sizes for dropdown selector when creating a new entry in "Log".
+const grindSizes = [
+	"Extra Fine",
+	"Fine",
+	"Medium-Fine",
+	"Medium",
+	"Medium-Coarse",
+	"Coarse",
+	"Extra Course",
 ];
 
 /*
@@ -157,4 +168,11 @@ minutes or lower.
 overextracted depending on your preferences and the coffee beans.`,
 };
 
-export { optionalFields, fieldNames, roastLevels, brewMethods, issueSolutions };
+export {
+	optionalFields,
+	fieldNames,
+	roastLevels,
+	brewMethods,
+	grindSizes,
+	issueSolutions,
+};
