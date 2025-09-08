@@ -76,7 +76,7 @@ function attachFormSwitchListeners() {
 }
 
 function attachGuestListeners() {
-	const continueAsGuestBtn = document.querySelector(".guest");
+	const continueAsGuestBtn = document.querySelector(".header");
 
 	continueAsGuestBtn.addEventListener("click", (e) => {
 		e.preventDefault();

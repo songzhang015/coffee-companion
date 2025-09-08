@@ -1,8 +1,4 @@
 /* CSS File for Coffee Companion App - Account Page */
-:root {
-	--bg-color: black;
-}
-
 * {
 	margin: 0;
 	padding: 0;
@@ -10,40 +6,36 @@
 }
 
 body {
-	background-color: var(--bg-color);
-	color: white;
-}
-
-.main-container {
+	background-color: rgb(var(--gray-nine));
+	color: rgb(var(--gray-one));
 	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
 }
 
 .container {
-	width: 40%;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	font-family: sans-serif;
-	margin-top: 15rem;
-}
-
-img {
-	width: 60%;
-	height: 100vh;
-	object-fit: cover;
+	background-color: rgb(var(--gray-eight));
+	padding: 3rem 10rem;
+	border-radius: 14px;
+	height: 42rem;
 }
 
 .header {
-	font-size: 6rem;
+	font-size: 5rem;
 	margin-bottom: 2rem;
 	text-align: center;
 	font-family: "1";
+	cursor: pointer;
 }
 
 .btn-container {
 	display: flex;
-	border: 2px solid #979797;
+	border: 2px solid rgb(var(--main-five));
 	border-radius: 6px;
 	margin-bottom: 2.5rem;
 	overflow: hidden;
@@ -52,8 +44,8 @@ img {
 .switch-login-btn,
 .switch-register-btn {
 	border: none;
-	background-color: black;
-	color: white;
+	background-color: rgb(var(--gray-nine));
+	color: rgb(var(--gray-one));
 	padding: 0.5rem 2.5rem;
 	flex-wrap: nowrap;
 	font-size: 1rem;
@@ -65,22 +57,21 @@ img {
 }
 
 .switch-login-btn {
-	border-right: 1px solid #979797;
+	border-right: 1px solid rgb(var(--main-five));
 }
 
 .switch-register-btn {
-	border-left: 1px solid #979797;
+	border-left: 1px solid rgb(var(--main-five));
 }
 
 .switch-login-btn:hover,
 .switch-register-btn:hover {
-	filter: brightness(1.3);
+	background-color: rgb(var(--gray-eight));
 }
 
 .switch-login-btn.active,
 .switch-register-btn.active {
-	background: #1d1d1d;
-	color: white;
+	background-color: rgb(var(--gray-seven));
 }
 
 form {
@@ -103,12 +94,12 @@ label {
 
 input {
 	font-size: 1rem;
-	background: #1d1d1d;
+	background-color: rgb(var(--gray-seven));
 	border: none;
 	padding: 0.75rem;
-	caret-color: white;
-	color: white;
-	font-family: sans-serif;
+	caret-color: rgb(var(--gray-one));
+	color: rgb(var(--gray-one));
+	font-family: "Source Sans 3", sans-serif;
 	width: 24rem;
 	border-radius: 6px;
 	transition: filter 0.25s;
@@ -119,7 +110,8 @@ input:hover {
 }
 
 input:focus {
-	filter: brightness(1.1);
+	filter: brightness(1.2);
+	outline: none;
 }
 
 .form-wrapper button {
@@ -127,20 +119,27 @@ input:focus {
 	justify-content: center;
 	align-items: center;
 	font-family: "Source Sans 3", sans-serif;
-	font-weight: 600;
-	padding: 0.5rem 1rem;
+	font-weight: 500;
+	padding: 0.5rem 2.5rem;
 	font-size: 1rem;
-	border-radius: 24px;
-	background: #ffb302;
-	border: none;
-	color: black;
-	transition: transform 0.25s;
+	border-radius: 6px;
+	border: 2px solid rgb(var(--main-five));
+	color: rgba(var(--gray-one), 0.8);
+	background-color: rgba(var(--gray-nine), 0.25);
+	transition: all 0.3s;
 	cursor: pointer;
-	width: 16rem;
+	width: 10rem;
 }
 
 .form-wrapper button:hover {
-	transform: scale(1.04);
+	border-color: rgba(var(--main-five), 1);
+	color: rgba(var(--gray-one), 1);
+	transform: translateY(-3px);
+	background-color: rgba(var(--gray-nine), 1);
+}
+
+.submit {
+	margin-top: 1.5rem;
 }
 
 /* Prevents autofill affecting transparent input background */
@@ -149,17 +148,6 @@ input:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0px 1000px transparent inset;
 	-webkit-text-fill-color: white;
 	transition: background-color 9999s;
-}
-
-.guest {
-	margin-bottom: 1rem;
-}
-
-.buttons-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 1.5rem;
 }
 
 .buttons-wrapper.inactive {
@@ -183,12 +171,140 @@ input:-webkit-autofill {
 
 @media (max-width: 1920px) {
 	.container {
-		margin-top: 8.5rem;
+		height: 42rem;
+	}
+
+	.header {
+		font-size: 4.5rem;
+	}
+
+	.switch-login-btn,
+	.switch-register-btn {
+		padding: 0.4rem 2rem;
+		font-size: 0.9rem;
+		width: 8rem;
+	}
+
+	label {
+		font-size: 0.85rem;
+	}
+
+	input {
+		padding: 0.7rem;
+		font-size: 0.9rem;
+		width: 22rem;
+	}
+
+	.form-wrapper button {
+		padding: 0.4rem 2rem;
+		font-size: 0.9rem;
+		width: 9rem;
+	}
+
+	.buttons-wrapper.inactive {
+		transform: translateY(-5.6rem);
+	}
+
+	.buttons-wrapper.active {
+		transform: translateY(5.6rem);
 	}
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1600px) {
 	.container {
-		margin-top: 2.5rem;
+		height: 38rem;
+	}
+
+	.header {
+		font-size: 3.5rem;
+	}
+
+	.switch-login-btn,
+	.switch-register-btn {
+		padding: 0.3rem 1.5rem;
+		font-size: 0.8rem;
+		width: 6rem;
+	}
+
+	label {
+		font-size: 0.75rem;
+	}
+
+	input {
+		padding: 0.65rem;
+		font-size: 0.8rem;
+		width: 16rem;
+	}
+
+	.form-wrapper button {
+		padding: 0.3rem 1.5rem;
+		font-size: 0.8rem;
+		width: 9rem;
+	}
+
+	.buttons-wrapper.inactive {
+		transform: translateY(-5.2rem);
+	}
+
+	.buttons-wrapper.active {
+		transform: translateY(5.2rem);
+	}
+}
+
+@media (max-width: 1400px) {
+	.container {
+		height: 30rem;
+		padding: 2.5rem 7.5rem;
+	}
+
+	.btn-container {
+		margin-bottom: 2rem;
+	}
+
+	.header {
+		font-size: 3rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.switch-login-btn,
+	.switch-register-btn {
+		padding: 0.2rem 1rem;
+		font-size: 0.7rem;
+		width: 5rem;
+	}
+
+	label {
+		font-size: 0.65rem;
+	}
+
+	input {
+		padding: 0.6rem;
+		font-size: 0.7rem;
+		width: 14rem;
+	}
+
+	.form-wrapper button {
+		padding: 0.2rem 1rem;
+		font-size: 0.7rem;
+		width: 7.5rem;
+	}
+
+	.buttons-wrapper.inactive {
+		transform: translateY(-4.4rem);
+	}
+
+	.buttons-wrapper.active {
+		transform: translateY(4.4rem);
+	}
+
+	.submit {
+		margin-top: 0.5rem;
+	}
+	form {
+		gap: 1rem;
+	}
+
+	.form-group {
+		gap: 0.45rem;
 	}
 }
