@@ -5,10 +5,11 @@
 
 // Sends email and password to backend API for logging in, returns result to be parsed
 async function login(email, password) {
-	const response = await fetch("/api/auth/login", {
+	const response = await fetch("http://localhost:5000/api/auth/login", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ email, password }),
+		credentials: "include",
 	});
 
 	const result = await response.json();
@@ -23,10 +24,11 @@ async function login(email, password) {
 
 // Sends email and password to backend API for registering user, returns result to be parsed
 async function register(email, password) {
-	const response = await fetch("/api/users", {
+	const response = await fetch("http://localhost:5000/api/users", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ email, password }),
+		credentials: "include",
 	});
 
 	const result = await response.json();

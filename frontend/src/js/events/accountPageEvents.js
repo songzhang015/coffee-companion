@@ -5,6 +5,7 @@
 import { showRegister, showLogin } from "../dom/accountFormUI";
 import { guestState } from "../states/guestState";
 import { login, register } from "../apis/accountAuthApi.js";
+import { mergeGuestAndUser } from "../apis/homeApi.js";
 
 let animating = false;
 
@@ -20,6 +21,11 @@ function attachFormSwitchListeners() {
 	if (registerBtn) {
 		registerBtn.addEventListener("click", (e) => {
 			e.preventDefault();
+
+			document.querySelectorAll(".register-form input").forEach((input) => {
+				input.value = "";
+			});
+
 			if (animating == false && !registerBtn.classList.contains("active")) {
 				animating = true;
 
@@ -107,6 +113,7 @@ function attachSubmissionListeners() {
 
 			if (result.success) {
 				guestState.isGuest = false;
+				await mergeGuestAndUser();
 				window.location.href = "/home";
 			}
 		} catch (error) {
@@ -147,6 +154,7 @@ function attachSubmissionListeners() {
 
 			if (result.success) {
 				guestState.isGuest = false;
+				await mergeGuestAndUser();
 				window.location.href = "/home";
 			}
 		} catch (error) {

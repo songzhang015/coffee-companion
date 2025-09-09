@@ -368,6 +368,70 @@ function createEvaulationFields(form) {
 	addQuadrantListener(form, acidityQuadrant, "acidity");
 }
 
+// Creates the circular UI without clickable buttons
+function createViewEvaulationFields(form, aroma, texture, flavor, acidity) {
+	const circle = document.createElement("div");
+	circle.classList.add("circle");
+	circle.classList.add("view-entry");
+
+	const verticalLine = document.createElement("div");
+	verticalLine.classList.add("line", "vertical");
+
+	const horizontalLine = document.createElement("div");
+	horizontalLine.classList.add("line", "horizontal");
+
+	circle.append(verticalLine, horizontalLine);
+
+	const aromaQuadrant = document.createElement("div");
+	aromaQuadrant.classList.add("quadrant", "top-left");
+	const aromaLabel = document.createElement("p");
+	aromaLabel.classList.add("label");
+	aromaLabel.textContent = "Aroma";
+	const aromaScore = document.createElement("p");
+	aromaScore.classList.add("score", "aroma");
+	aromaScore.textContent = aroma;
+	aromaQuadrant.append(aromaLabel, aromaScore);
+
+	const textureQuadrant = document.createElement("div");
+	textureQuadrant.classList.add("quadrant", "top-right");
+	const textureLabel = document.createElement("p");
+	textureLabel.classList.add("label");
+	textureLabel.textContent = "Texture";
+	const textureScore = document.createElement("p");
+	textureScore.classList.add("score", "texture");
+	textureScore.textContent = texture;
+	textureQuadrant.append(textureLabel, textureScore);
+
+	const flavorQuadrant = document.createElement("div");
+	flavorQuadrant.classList.add("quadrant", "bottom-left");
+	const flavorLabel = document.createElement("p");
+	flavorLabel.classList.add("label");
+	flavorLabel.textContent = "Flavor";
+	const flavorScore = document.createElement("p");
+	flavorScore.classList.add("score", "flavor");
+	flavorScore.textContent = flavor;
+	flavorQuadrant.append(flavorLabel, flavorScore);
+
+	const acidityQuadrant = document.createElement("div");
+	acidityQuadrant.classList.add("quadrant", "bottom-right");
+	const acidityLabel = document.createElement("p");
+	acidityLabel.classList.add("label");
+	acidityLabel.textContent = "Acidity";
+	const acidityScore = document.createElement("p");
+	acidityScore.classList.add("score", "acidity");
+	acidityScore.textContent = acidity;
+	acidityQuadrant.append(acidityLabel, acidityScore);
+
+	circle.append(
+		aromaQuadrant,
+		textureQuadrant,
+		flavorQuadrant,
+		acidityQuadrant
+	);
+
+	form.append(circle);
+}
+
 function createCriteriaModal(form, quadrantElement, criteria) {
 	const modalOverlay = document.createElement("div");
 	modalOverlay.classList.add("modal-overlay");
@@ -530,19 +594,138 @@ function viewEntry(entry) {
 	cancelNewEntryListener(cancelNewEntryButton);
 }
 
+function delay(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function viewEntryTwo(entry) {
+	const entryForm = document.querySelector(".entry-form");
+
+	const viewEntryAnimation = document.createElement("div");
+	document.body.append(viewEntryAnimation);
+	viewEntryAnimation.classList.add("view-entry-animation");
+
+	setTimeout(async () => {
+		viewEntryAnimation.remove();
+		entryForm.innerHTML = "";
+		entryForm.classList.add("viewing-entry");
+
+		const entriesHeader = document.createElement("div");
+		entriesHeader.classList.add("entries-header");
+		entriesHeader.classList.add("view-section");
+		entryForm.append(entriesHeader);
+
+		const title = document.createElement("h1");
+		title.classList.add("entries-title");
+		title.textContent = entry.title;
+
+		const date = document.createElement("h2");
+		date.classList.add("view-entry-date");
+		date.textContent = entry.date;
+
+		entriesHeader.append(title, date);
+		setTimeout(() => {
+			entriesHeader.classList.add("animate");
+		}, 50);
+
+		const exclusionList = [
+			"title",
+			"user",
+			"date",
+			"aroma",
+			"texture",
+			"flavor",
+			"acidity",
+			"notes",
+		];
+
+		await delay(750);
+		const fieldsToShow = [];
+		for (const field in fieldNames) {
+			if (!exclusionList.includes(field)) {
+				const fieldValue = entry[field];
+				if (fieldValue !== "") {
+					fieldsToShow.push(field);
+				}
+			}
+		}
+
+		for (let i = 0; i < fieldsToShow.length; i += 2) {
+			const currentRow = document.createElement("div");
+			currentRow.classList.add("entry-row");
+
+			// Add up to 2 fields into the row
+			const field1 = viewEntryAddField(entry, fieldsToShow[i]);
+			currentRow.appendChild(field1);
+
+			if (fieldsToShow[i + 1]) {
+				const field2 = viewEntryAddField(entry, fieldsToShow[i + 1]);
+				currentRow.appendChild(field2);
+			}
+
+			entryForm.appendChild(currentRow);
+			currentRow.classList.add("animate");
+			await delay(750);
+		}
+
+		if (entry.notes && entry.notes !== "") {
+			const notesRow = document.createElement("div");
+			notesRow.classList.add("entry-row");
+
+			const notesField = viewEntryAddField(entry, "notes");
+			notesRow.appendChild(notesField);
+
+			entryForm.appendChild(notesRow);
+			notesRow.classList.add("animate");
+			await delay(750);
+		}
+
+		createViewEvaulationFields(
+			entryForm,
+			entry.aroma,
+			entry.texture,
+			entry.flavor,
+			entry.acidity
+		);
+		await delay(750);
+
+		const cancelNewEntryButton = document.createElement("button");
+		cancelNewEntryButton.classList.add("back-entries-button");
+		cancelNewEntryButton.textContent = "Back to Entries";
+		entryForm.append(cancelNewEntryButton);
+		setTimeout(() => {
+			cancelNewEntryButton.classList.add("animate");
+		}, 50);
+		cancelNewEntryListener(cancelNewEntryButton);
+	}, 1300);
+}
+
 // Helper function for viewEntry
 function viewEntryAddField(entry, field) {
 	const container = document.createElement("div");
 	container.classList.add("view-entry-container");
 
-	const title = document.createElement("h2");
-	title.textContent = fieldNames[field];
+	const title = document.createElement("strong");
+	title.textContent = `${fieldNames[field]}: `;
 
-	const body = document.createElement("p");
-	body.textContent = entry[field];
+	let valueText = entry[field];
+	if (field === "coffeeAmount" || field === "waterAmount") {
+		valueText += "g";
+	} else if (field === "waterTemp") {
+		valueText += "°F";
+	}
 
-	container.append(title, body);
+	const value = document.createTextNode(valueText);
+
+	container.append(title, value);
+
 	return container;
 }
 
-export { initLogPage, initNewEntryPage, viewEntry, createCriteriaModal };
+export {
+	initLogPage,
+	initNewEntryPage,
+	viewEntry,
+	viewEntryTwo,
+	createCriteriaModal,
+};

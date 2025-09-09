@@ -6,6 +6,7 @@ import {
 	initLogPage,
 	initNewEntryPage,
 	viewEntry,
+	viewEntryTwo,
 	createCriteriaModal,
 } from "../dom/logPageUI";
 import { createNewEntry, deleteEntry } from "../apis/logPageApi";
@@ -64,7 +65,7 @@ function deleteEntryListener(entry, btn) {
 // View the actual entry when clicked
 function viewEntryListener(entry, btn) {
 	btn.addEventListener("click", () => {
-		viewEntry(entry);
+		viewEntryTwo(entry);
 	});
 }
 

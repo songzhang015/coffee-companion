@@ -142,12 +142,17 @@ input:focus {
 	margin-top: 1.5rem;
 }
 
-/* Prevents autofill affecting transparent input background */
+/* Prevents autofill affecting input background */
 input:-webkit-autofill {
-	background-color: transparent;
-	-webkit-box-shadow: 0 0 0px 1000px transparent inset;
-	-webkit-text-fill-color: white;
-	transition: background-color 9999s;
+	-webkit-box-shadow: 0 0 0px 1000px rgb(var(--gray-seven)) inset;
+	-webkit-text-fill-color: rgb(var(--gray-one));
+	transition: background-color 9999s, color 9999s;
+}
+
+input:-moz-autofill {
+	box-shadow: 0 0 0px 1000px rgb(var(--gray-seven)) inset;
+	-moz-text-fill-color: rgb(var(--gray-one));
+	transition: background-color 9999s, color 9999s;
 }
 
 .buttons-wrapper.inactive {

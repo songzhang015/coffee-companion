@@ -5,7 +5,7 @@ import "../css/index.css";
 function init() {
 	const startButton = document.querySelector(".start-btn");
 	startButton.addEventListener("click", () => {
-		window.location.href = "/account";
+		window.location.href = "/home";
 	});
 }
 

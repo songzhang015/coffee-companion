@@ -15,7 +15,7 @@ app = Flask(
 )
 app.secret_key = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-CORS(app)
+CORS(app, supports_credentials=True, origins=["http://localhost:8080"])
 
 db.init_app(app)
 
@@ -115,6 +115,7 @@ def get_user_entries():
         ]
         return jsonify({'success': True, 'entries': entries}), 200
     except Exception as e:
+        print("ERROR fetching entries:", e)  # <-- add this line
         return jsonify({'success': False, 'message': "Internal server error"}), 500
 
 @app.route('/api/entries', methods=['POST'])

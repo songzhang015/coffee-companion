@@ -52,12 +52,13 @@ async function createNewEntry(
 		}
 	} else {
 		try {
-			const response = await fetch("/api/entries", {
+			const response = await fetch("http://localhost:5000/api/entries", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(newEntry),
+				credentials: "include",
 			});
 			if (!response.ok) {
 				throw new Error(`HTTP error: ${response.status}`);
@@ -87,6 +88,7 @@ async function deleteEntry(entryToDelete) {
 		try {
 			const response = await fetch(`/api/entries/${entryToDelete.id}`, {
 				method: "DELETE",
+				credentials: "include",
 			});
 
 			if (!response.ok) {
