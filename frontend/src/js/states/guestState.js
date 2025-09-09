@@ -4,9 +4,18 @@
  */
 export const guestState = {
 	get isGuest() {
-		return localStorage.getItem("isGuest") === "true";
+		const value = localStorage.getItem("isGuest");
+		return value === null ? true : value === "true";
 	},
 	set isGuest(value) {
 		localStorage.setItem("isGuest", value ? "true" : "false");
+	},
+
+	get seenPopup() {
+		const value = localStorage.getItem("seenPopup");
+		return value === "true";
+	},
+	set seenPopup(value) {
+		localStorage.setItem("seenPopup", value ? "true" : "false");
 	},
 };

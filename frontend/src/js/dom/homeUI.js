@@ -6,6 +6,7 @@ import {
 	attachSectionEventListeners,
 	attachSignupBtnListeners,
 	attachLogoutBtnListeners,
+	attachContinueBtnListeners,
 } from "../events/homePageEvents";
 import { guestState } from "../states/guestState";
 import logIcon from "../../assets/icons/log.svg";
@@ -36,6 +37,10 @@ function initMain() {
 	document.body.appendChild(mainContainer);
 	attachSectionEventListeners();
 	mainContainer.style.display = "";
+	if (guestState.isGuest && !guestState.seenPopup) {
+		createPopup();
+		guestState.seenPopup = true;
+	}
 }
 
 // Creates the 'Log' and 'Adjust' icons and text
@@ -79,6 +84,38 @@ function createLogoutBtn() {
 	logoutBtn.textContent = "Log out";
 	attachLogoutBtnListeners(logoutBtn);
 	return logoutBtn;
+}
+
+// Initialize the one-time popup
+function createPopup() {
+	const screenOverlay = document.createElement("div");
+	screenOverlay.classList.add("screen-overlay");
+	document.body.append(screenOverlay);
+
+	const container = document.createElement("div");
+	container.classList.add("popup-container");
+	document.body.append(container);
+
+	const title = document.createElement("h1");
+	title.textContent = "Welcome to Coffee Companion!";
+
+	const textOne = document.createElement("p");
+	textOne.innerHTML =
+		"To get started, select <strong>Log</strong> to track your coffee brews, and then hit <strong>Adjust</strong> to tweak the process.";
+
+	textOne.querySelectorAll("strong").forEach((el) => {
+		el.style.color = "rgb(var(--main-four))";
+	});
+
+	const textTwo = document.createElement("p");
+	textTwo.innerHTML =
+		"Your data is saved <strong>locally</strong> on your browser. To keep your data safe, consider creating an <strong>account</strong>! Your local entries will be transferred over.";
+
+	const continueBtn = document.createElement("button");
+	continueBtn.textContent = "Continue";
+	attachContinueBtnListeners(continueBtn);
+
+	container.append(title, textOne, textTwo, continueBtn);
 }
 
 export { initMain };

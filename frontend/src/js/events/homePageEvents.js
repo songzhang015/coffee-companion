@@ -42,9 +42,24 @@ function attachSignupBtnListeners(btn) {
 function attachLogoutBtnListeners(btn) {
 	btn.addEventListener("click", (e) => {
 		e.preventDefault();
+		const popupStatus = localStorage.getItem("seenPopup");
 		localStorage.clear();
+		if (popupStatus !== null) {
+			localStorage.setItem("seenPopup", popupStatus);
+		}
 		guestState.isGuest = true;
 		window.location.href = "/";
+	});
+}
+
+// Attaches event listeners for continue button in popup of homepage
+function attachContinueBtnListeners(btn) {
+	btn.addEventListener("click", (e) => {
+		e.preventDefault();
+		const overlay = document.querySelector(".screen-overlay");
+		const container = document.querySelector(".popup-container");
+		if (overlay) overlay.remove();
+		if (container) container.remove();
 	});
 }
 
@@ -53,4 +68,5 @@ export {
 	addReturnListener,
 	attachSignupBtnListeners,
 	attachLogoutBtnListeners,
+	attachContinueBtnListeners,
 };

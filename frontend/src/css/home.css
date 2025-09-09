@@ -83,6 +83,73 @@ body {
 	transform: scale(1.05);
 }
 
+.screen-overlay {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(var(--gray-nine), 0.75);
+}
+
+.popup-container {
+	position: fixed;
+	width: 24rem;
+	background: transparent;
+	z-index: 10;
+	border: 2px solid rgb(var(--gray-one));
+	border-radius: 12px;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 2rem;
+}
+
+.popup-container h1 {
+	color: rgb(var(--gray-one));
+	margin: 0;
+	text-align: center;
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+.popup-container p {
+	color: rgb(var(--gray-one));
+	font-size: 1.1rem;
+}
+
+.popup-container button {
+	border: none;
+	background: none;
+	font-weight: bold;
+	color: rgb(var(--gray-one));
+	font-size: 1.25rem;
+	cursor: pointer;
+	transition: color 0.5s;
+	margin-top: 1rem;
+
+	display: inline-block;
+	position: relative;
+	align-self: center;
+}
+
+.popup-container button:hover {
+	color: rgb(var(--main-four));
+}
+
+.popup-container button::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: 0;
+	left: 0;
+	background-color: rgb(var(--main-four));
+	transition: transform 0.35s ease-out;
+}
+
+.popup-container button:hover::after {
+	transform: scaleX(1);
+}
+
 /* Log section of homepage */
 .main-container-log {
 	display: flex;
