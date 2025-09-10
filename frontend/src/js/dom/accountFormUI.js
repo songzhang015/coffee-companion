@@ -17,13 +17,25 @@ function showLogin() {
 	registerForm.style.display = "none";
 }
 
+let errorTimeout;
+
 function showError(error) {
 	const errorBox = document.querySelector(".error-box");
-	errorBox.classList.remove("show");
+	clearTimeout(errorTimeout);
+
+	errorBox.classList.remove("show", "hide");
 	void errorBox.offsetWidth;
 
 	errorBox.textContent = errorTypes[error];
 	errorBox.classList.add("show");
+
+	errorTimeout = setTimeout(() => {
+		errorBox.classList.add("hide");
+
+		errorTimeout = setTimeout(() => {
+			errorBox.classList.remove("show", "hide");
+		}, 1000);
+	}, 7500);
 }
 
 export { showRegister, showLogin, showError };

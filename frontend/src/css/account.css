@@ -120,7 +120,7 @@ input:focus {
 	justify-content: center;
 	align-items: center;
 	font-family: "Source Sans 3", sans-serif;
-	font-weight: 500;
+	font-weight: bold;
 	padding: 0.5rem 2.5rem;
 	font-size: 1rem;
 	border-radius: 6px;
@@ -197,6 +197,10 @@ input:-moz-autofill {
 	animation: fadeSlideIn 1s forwards;
 }
 
+.error-box.hide {
+	animation: fadeSlideOut 1s forwards;
+}
+
 @keyframes fadeSlideIn {
 	0% {
 		opacity: 0;
@@ -205,6 +209,17 @@ input:-moz-autofill {
 	100% {
 		opacity: 1;
 		transform: translateY(0);
+	}
+}
+
+@keyframes fadeSlideOut {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(1.5rem);
 	}
 }
 
