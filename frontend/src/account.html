@@ -9,7 +9,7 @@
 			<div class="header">Coffee Companion</div>
 			<div class="btn-container">
 				<button class="switch-login-btn active">Login</button>
-				<button class="switch-register-btn">Sign Up</button>
+				<button class="switch-register-btn">Sign up</button>
 			</div>
 
 			<div class="form-wrapper">
@@ -17,45 +17,45 @@
 				<form method="post" class="login-form">
 					<div class="form-group">
 						<label for="email-login">Email</label>
-						<input type="email" id="email-login" required />
+						<input type="text" id="email-login" />
 					</div>
 
 					<div class="form-group">
 						<label for="password-login">Password</label>
-						<input type="password" id="password-login" required />
+						<input type="password" id="password-login" />
 					</div>
 
 					<button type="submit" class="submit">Login</button>
 				</form>
 
 				<!-- Register -->
-				<form method="post" class="register-form" style="display: none" autocomplete="off">
+				<form
+					method="post"
+					class="register-form"
+					style="display: none"
+					autocomplete="off"
+				>
 					<div class="form-group">
 						<label for="email-register">Email</label>
-						<input type="email" id="email-register" required autocomplete="off"/>
+						<input type="text" id="email-register" autocomplete="off" />
 					</div>
 
 					<div class="form-group">
 						<label for="password-register">Password</label>
-						<input
-							type="password"
-							id="password-register"
-							minlength="6"
-							required
-						/>
+						<input type="password" id="password-register" />
 					</div>
 
 					<div class="form-group">
 						<label for="password-register-confirm">Confirm Password</label>
-						<input type="password" id="password-register-confirm" required />
+						<input type="password" id="password-register-confirm" />
 					</div>
 
 					<div class="buttons-wrapper">
-						<button type="submit" class="submit">Sign Up</button>
+						<button type="submit" class="submit">Sign up</button>
 					</div>
 				</form>
 			</div>
 		</div>
-		</div>
+		<div class="error-box">Error: Message</div>
 	</body>
 </html>

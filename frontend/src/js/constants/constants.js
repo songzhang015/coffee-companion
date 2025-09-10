@@ -1,5 +1,19 @@
 /* Constants Placeholder */
 
+// Errors for use in account page
+const errorTypes = {
+	incorrectLogin: "Incorrect email or password, please try again.",
+
+	emailInUse: "Email is already in use, please log in instead.",
+	unmatchedPassword: "Passwords do not match.",
+	shortPassword: "Password must be at least 6 characters.",
+
+	requiredFields: "Please complete all required fields.",
+	invalidEmail: "Please enter a valid email address.",
+
+	generalError: "An error occurred, please try again later.",
+};
+
 /* 
 For use in the "Log" portion of the homepage
 Used to create the optional fields, their text title, and placeholder text
@@ -169,6 +183,7 @@ overextracted depending on your preferences and the coffee beans.`,
 };
 
 export {
+	errorTypes,
 	optionalFields,
 	fieldNames,
 	roastLevels,

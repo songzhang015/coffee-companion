@@ -2,7 +2,7 @@
  * accountPageEvents.js
  * Contains account page events for form switching, guest login, and submissions
  */
-import { showRegister, showLogin } from "../dom/accountFormUI";
+import { showRegister, showLogin, showError } from "../dom/accountFormUI";
 import { guestState } from "../states/guestState";
 import { login, register } from "../apis/accountAuthApi.js";
 import { mergeGuestAndUser } from "../apis/homeApi.js";
@@ -86,7 +86,6 @@ function attachGuestListeners() {
 
 	continueAsGuestBtn.addEventListener("click", (e) => {
 		e.preventDefault();
-		guestState.isGuest = true;
 		window.location.href = "/home";
 	});
 }
@@ -96,20 +95,27 @@ function attachSubmissionListeners() {
 	const registerForm = document.querySelector(".register-form");
 	const passwordInput = document.getElementById("password-login");
 
-	passwordInput.addEventListener("input", () => {
-		passwordInput.setCustomValidity("");
-	});
-
+	// Login Form
 	loginForm.addEventListener("submit", async (e) => {
 		e.preventDefault();
+		const email = document.getElementById("email-login").value;
+		const password = passwordInput.value;
+
+		if (email === "" || password === "") {
+			showError("requiredFields");
+			return;
+		}
+		if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+			showError("invalidEmail");
+			return;
+		}
+		if (password.length < 6) {
+			showError("incorrectLogin");
+			return;
+		}
 
 		try {
-			const email = document.getElementById("email-login").value;
-			const password = passwordInput.value;
-
 			const result = await login(email, password);
-
-			passwordInput.setCustomValidity("");
 
 			if (result.success) {
 				guestState.isGuest = false;
@@ -117,39 +123,46 @@ function attachSubmissionListeners() {
 				window.location.href = "/home";
 			}
 		} catch (error) {
-			if (error.status === 401) {
-				passwordInput.setCustomValidity("Incorrect password");
-				passwordInput.reportValidity();
+			if (error.status === 400) {
+				showError("requiredFields");
+				return;
+			} else if (error.status === 401) {
+				showError("incorrectLogin");
+				return;
 			} else {
-				console.error("Request failed:", error);
+				showError("generalError");
+				return;
 			}
 		}
 	});
 
-	const confirmPassword = document.getElementById("password-register-confirm");
-	confirmPassword.addEventListener("input", () => {
-		if (
-			confirmPassword.value ===
-			document.getElementById("password-register").value
-		) {
-			confirmPassword.setCustomValidity("");
-		} else {
-			confirmPassword.setCustomValidity("Passwords do not match.");
-		}
-	});
-
+	// Register Form
 	registerForm.addEventListener("submit", async (e) => {
 		e.preventDefault();
+		const email = document.getElementById("email-register").value;
+		const password = document.getElementById("password-register").value;
+		const confirmPassword = document.getElementById(
+			"password-register-confirm"
+		).value;
 
-		if (!registerForm.checkValidity()) {
-			registerForm.reportValidity();
+		if (email === "" || password === "" || confirmPassword === "") {
+			showError("requiredFields");
+			return;
+		}
+		if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+			showError("invalidEmail");
+			return;
+		}
+		if (password.length < 6) {
+			showError("shortPassword");
+			return;
+		}
+		if (password !== confirmPassword) {
+			showError("unmatchedPassword");
 			return;
 		}
 
 		try {
-			const email = document.getElementById("email-register").value;
-			const password = document.getElementById("password-register").value;
-
 			const result = await register(email, password);
 
 			if (result.success) {
@@ -158,7 +171,13 @@ function attachSubmissionListeners() {
 				window.location.href = "/home";
 			}
 		} catch (error) {
-			console.error("Request failed:", error);
+			if (error.status === 409) {
+				showError("emailInUse");
+				return;
+			} else {
+				showError("generalError");
+				return;
+			}
 		}
 	});
 }

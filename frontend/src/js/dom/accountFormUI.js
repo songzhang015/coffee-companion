@@ -2,6 +2,8 @@
  * accountFormUI.js
  * Toggles between the login and registration forms
  */
+import { errorTypes } from "../constants/constants";
+
 const loginForm = document.querySelector(".login-form");
 const registerForm = document.querySelector(".register-form");
 
@@ -15,4 +17,13 @@ function showLogin() {
 	registerForm.style.display = "none";
 }
 
-export { showRegister, showLogin };
+function showError(error) {
+	const errorBox = document.querySelector(".error-box");
+	errorBox.classList.remove("show");
+	void errorBox.offsetWidth;
+
+	errorBox.textContent = errorTypes[error];
+	errorBox.classList.add("show");
+}
+
+export { showRegister, showLogin, showError };

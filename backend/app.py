@@ -115,7 +115,6 @@ def get_user_entries():
         ]
         return jsonify({'success': True, 'entries': entries}), 200
     except Exception as e:
-        print("ERROR fetching entries:", e)  # <-- add this line
         return jsonify({'success': False, 'message': "Internal server error"}), 500
 
 @app.route('/api/entries', methods=['POST'])

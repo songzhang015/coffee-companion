@@ -23,6 +23,7 @@ body {
 	padding: 3rem 10rem;
 	border-radius: 14px;
 	height: 42rem;
+	margin-bottom: 3.5rem;
 }
 
 .header {
@@ -172,6 +173,39 @@ input:-moz-autofill {
 
 .register-form .form-group:nth-child(3).active {
 	opacity: 1;
+}
+
+.error-box {
+	position: fixed;
+	bottom: 2rem;
+	width: 24rem;
+	height: 4rem;
+	background-color: rgb(var(--light-red));
+	color: rgb(var(--red-one));
+	border: 2px solid rgba(var(--red-one), 0.5);
+	border-radius: 6px;
+	font-weight: bold;
+	font-family: "Source Sans 3", sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	padding: 1rem;
+}
+
+.error-box.show {
+	animation: fadeSlideIn 1s forwards;
+}
+
+@keyframes fadeSlideIn {
+	0% {
+		opacity: 0;
+		transform: translateY(1.5rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 @media (max-width: 1920px) {

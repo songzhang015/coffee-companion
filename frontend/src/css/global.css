@@ -32,6 +32,8 @@
 
 	/* Secondary Palette */
 	--green-one: 76, 252, 18;
+	--red-one: 252, 18, 18;
+	--light-red: 252, 189, 189;
 }
 
 .fade-in {
