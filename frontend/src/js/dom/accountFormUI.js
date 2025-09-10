@@ -35,7 +35,7 @@ function showError(error) {
 		errorTimeout = setTimeout(() => {
 			errorBox.classList.remove("show", "hide");
 		}, 1000);
-	}, 7500);
+	}, 10000);
 }
 
 export { showRegister, showLogin, showError };
